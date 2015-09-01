@@ -1,0 +1,27 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: HD_ReadDemo_HN - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP998.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"Release/PDS_ReadDemo_HN.pdb" /machine:I386 /out:"Release/PDS_ReadDemo_HN.exe" 
+".\Release\HD_ReadDemo_HN.obj"
+".\Release\HD_ReadDemo_HNDlg.obj"
+".\Release\StdAfx.obj"
+".\Release\HD_ReadDemo_HN.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP998.tmp"
+<h3>Output Window</h3>
+Linking...
+
+
+
+<h3>Results</h3>
+PDS_ReadDemo_HN.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

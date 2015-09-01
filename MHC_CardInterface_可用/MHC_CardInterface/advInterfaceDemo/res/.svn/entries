@@ -1,0 +1,41 @@
+8
+
+dir
+5
+http://192.168.0.9/TecSupport/software/DEV_2012/MH_RHCard/Dll_for_UH/advInterfaceDemo/res
+http://192.168.0.9/TecSupport/software
+
+
+
+2012-08-14T07:16:18.097625Z
+3
+tianye
+
+
+svn:special svn:externals svn:needs-lock
+
+InterfaceDemo.rc2
+file
+
+
+
+
+2012-02-24T01:56:36.000000Z
+12945fc862dde8df81e2888eb3f301da
+2012-08-14T07:16:18.097625Z
+3
+tianye
+
+InterfaceDemo.ico
+file
+
+
+
+
+2012-02-24T01:56:36.000000Z
+e3e1ed66c0a0a58bbd5da9f6343b8bf2
+2012-08-14T07:16:18.097625Z
+3
+tianye
+has-props
+

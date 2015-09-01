@@ -1,0 +1,12 @@
+LIBRARY CapRHCardReader
+
+VERSION        1.0
+
+EXETYPE WINDOWS
+
+EXPORTS
+	ICC_Reader_Open
+	ICC_Reader_Close
+	ICC_Reader_Reset
+	ICC_Reader_PowerOff
+	ICC_Reader_Application

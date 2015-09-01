@@ -1,0 +1,10 @@
+
+LIBRARY        HD_WHInterface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	IC_GetData

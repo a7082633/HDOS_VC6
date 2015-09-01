@@ -1,0 +1,19 @@
+
+	// ContactCPU.idl : IDL source for ContactCPU.exe
+//
+// This file will be processed by the MIDL tool to
+// produce the type library (ContactCPU.tlb) and marshalling code.
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(4C883ED6-1DD0-4636-B72F-440FA14DB752),
+	version(1.0),
+	helpstring("ContactCPU 1.0 Type Library")
+]
+library ContactCPULib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};
+
+	

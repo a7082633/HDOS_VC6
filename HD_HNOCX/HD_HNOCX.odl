@@ -1,0 +1,72 @@
+// HD_HNOCX.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (HD_HNOCX.tlb) that will become a resource in
+// HD_HNOCX.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(36A81DB1-E1A0-47E7-82D1-1327C84C2BD7), version(1.0),
+  helpfile("HD_HNOCX.hlp"),
+  helpstring("HD_HNOCX ActiveX Control module"),
+  control ]
+library HD_HNOCXLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CHD_HNOCXCtrl
+
+	[ uuid(D9BCFE44-ABD4-485C-98E7-C24DC15DE825),
+	  helpstring("Dispatch interface for HD_HNOCX Control"), hidden ]
+	dispinterface _DHD_HNOCX
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CHD_HNOCXCtrl)
+			[id(1)] BSTR zp;
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CHD_HNOCXCtrl)
+			[id(2)] BSTR ReadCard(BSTR para, BSTR account, BSTR password, BSTR doctype, BSTR userid, BSTR pin);
+			[id(3)] long WriteCard(BSTR para, BSTR dataIn, BSTR account, BSTR password, BSTR doctype, BSTR userid, BSTR pin);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CHD_HNOCXCtrl
+
+	[ uuid(BE2560C8-A2B6-42D4-90D0-E91A5FD40315),
+	  helpstring("Event interface for HD_HNOCX Control") ]
+	dispinterface _DHD_HNOCXEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CHD_HNOCXCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CHD_HNOCXCtrl
+
+	[ uuid(C16C150F-5A24-4615-837A-1898BE464349),
+	  helpstring("HD_HNOCX Control"), control ]
+	coclass HD_HNOCX
+	{
+		[default] dispinterface _DHD_HNOCX;
+		[default, source] dispinterface _DHD_HNOCXEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

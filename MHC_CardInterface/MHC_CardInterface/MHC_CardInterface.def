@@ -1,0 +1,78 @@
+LIBRARY WSB_RWINTERFACE
+
+VERSION        1.0
+
+EXETYPE WINDOWS
+
+EXPORTS  
+
+	iDOpenPort
+		iDClosePort
+		PowerOn
+		iVerifyPIN
+
+		iR_DDF1EF05Info
+		iR_DDF1EF06Info
+		iR_DDF1EF07Info
+		iR_DDF1EF08Info
+
+		iR_DF01EF05Info
+		iR_DF01EF06Info
+		iR_DF01EF07Info
+		iR_DF01EF08Info
+
+		iR_DF02EF05Info
+		iR_DF02EF06Info
+		iR_DF02EF07Info
+		iR_DF02EF08Info
+		
+		iR_DF03EF05Info
+		iR_DF03EF06Info
+
+		iW_DDF1EF05Info
+		iW_DDF1EF06Info
+		iW_DDF1EF07Info
+		iW_DDF1EF08Info
+
+		iW_DF01EF05Info
+		iW_DF01EF06Info
+		iW_DF01EF07Info
+		iW_DF01EF08Info
+
+		iW_DF02EF05Info
+		iW_DF02EF06Info
+		iW_DF02EF07Info
+		iW_DF02EF08Info
+
+		iW_DF03EF05Info
+		iErase_DF03EF05Info
+		iW_DF03EF06Info
+		iErase_DF03EF06Info
+		
+		iR_DF03EEInfo
+		iW_DF03EEInfo
+		
+		iR_DF03EDInfo
+		iW_DF03EDInfo
+
+		wsc_GetCardInfo
+		wsc_PutCardInfo
+		OpenDevice
+		CloseDevice
+
+		SM3Digest
+		SM2SignHash
+		
+		iW_DF03EE_ALLInfo
+		iR_DF03EE_ALLInfo
+		iW_DF03ED_ALLInfo
+		iR_DF03ED_ALLInfo
+
+		SendAPDU
+
+		iChange_Pin
+		iReader_SAM_Public
+		iReader_SAM_Terminal
+		iReader_SAM_PublicApp
+		iReader_SAM_OrgCertificate
+		iReader_SAM_Certificate

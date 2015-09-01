@@ -1,0 +1,5 @@
+  <script for=crwActiveX event=RunLoad()>
+<!-- {
+	window.document.write("·µ»ØÖµÎª:<br>"+crwActiveX.Data)
+-->
+</script>

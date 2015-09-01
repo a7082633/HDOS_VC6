@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		{C825E608-6F81-4357-AFE7-2DD6EFC1FCA2} = s 'ContactCPU'
+		'ContactCPU.EXE'
+		{
+			val AppID = s {C825E608-6F81-4357-AFE7-2DD6EFC1FCA2}
+		}
+	}
+}

@@ -1,0 +1,9 @@
+
+LIBRARY        SiCard
+VERSION        1.0
+EXETYPE WINDOWS
+EXPORTS        
+	IOpenPort
+	IClosePort
+	IReadCard
+	IWriteCard

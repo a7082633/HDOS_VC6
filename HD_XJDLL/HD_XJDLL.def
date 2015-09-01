@@ -1,0 +1,10 @@
+
+LIBRARY        HD_XJDLL
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	HD_GetCardNo

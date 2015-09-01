@@ -1,0 +1,40 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: OCX_Caller - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/OCX_Caller.res" /d "_DEBUG" /d "_AFXDLL" "D:\HDOS-TEST\OCX_Caller\OCX_Caller.rc"" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP11DC.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/OCX_Caller.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"D:\HDOS-TEST\OCX_Caller\OCX_Caller.cpp"
+"D:\HDOS-TEST\OCX_Caller\OCX_CallerDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP11DC.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP11DD.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/OCX_Caller.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"D:\HDOS-TEST\OCX_Caller\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP11DD.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/OCX_Caller.pdb" /debug /machine:I386 /out:"Debug/OCX_Caller.exe" /pdbtype:sept  ".\Debug\OCX_Caller.obj" ".\Debug\OCX_CallerDlg.obj" ".\Debug\StdAfx.obj" ".\Debug\OCX_Caller.res" "
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+OCX_Caller.cpp
+OCX_CallerDlg.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+OCX_Caller.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

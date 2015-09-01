@@ -1,0 +1,9 @@
+; HD_RWHealInterface.def : Declares the module parameters for the DLL.
+
+LIBRARY      "PDS_RWHealInterface"
+DESCRIPTION  'PDS_RWHealInterface Windows Dynamic Link Library'
+
+EXPORTS
+	IChange_Pin
+	IR_ReadCard
+	IR_WriteCard

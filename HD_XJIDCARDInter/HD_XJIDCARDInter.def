@@ -1,0 +1,10 @@
+
+LIBRARY        HD_XJIDCARDInter
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	Reader_ReadIDMsg

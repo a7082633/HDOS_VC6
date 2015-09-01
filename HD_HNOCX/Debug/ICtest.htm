@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>TEST</title>
+<OBJECT   classid="clsid:C16C150F-5A24-4615-837A-1898BE464349" width=0 height=0 align="center" codebase="HD_HNOCX.ocx"  id="HD_HNOCX" HSPACE=0 VSPACE=0>
+</OBJECT>
+<script language="javascript">
+
+function mytest()
+{	
+//alert("haha");
+	var str1;
+	str1=HD_HNOCX.OpenDev("test","111111");
+	alert(str1);
+	str1=CloseDev();
+
+
+
+
+//	var obj1 = document.getElementById('CardNo');
+//	obj1.value = str1;
+//	alert(str1);
+}
+function CloseDev()
+{	
+	var str1;
+	str1=HD_HNOCX.CloseDev();
+}
+function SAMPower()
+{	
+	var str1;
+	str1=HD_HNOCX.SamPowerOn('test','111111','1','1|2|3','222222');
+	//str1=HD_HNOCX.SamPowerOn("test","111111","1","1|2|3","222222");
+	var obj1 = document.getElementById('CardNo');
+	obj1.value = str1;
+}
+</script>
+</head> 
+
+<body>
+<input  type="text"  style="width:300px" id="CardNo">
+<p></p>
+<input type="button" onClick="javascript:mytest()" value="打开设备">
+<input type="button" onClick="javascript:CloseDev()" value="关闭设备">
+<input type="button" onClick="javascript:SAMPower()" value="SAM上电">
+<!--<form name="form1">
+<p>串口号<input type="text" name="T1" size="20" value="1">
+<p>卡座号(1:下卡座 2:上卡座)<input type="text" name="T2" size="20" value="1">
+<p><input type="text"  name="cardinfo" size="60">
+<input type="button" onClick="javascript:GetCardinfo()" value="读卡信息" >
+</form> -->
+</body>
+</html>

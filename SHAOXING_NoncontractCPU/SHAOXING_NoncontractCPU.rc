@@ -1,0 +1,325 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SHAOXING_NoncontractCPU.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\SHAOXING_NoncontractCPU.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 SHAOXING_NoncontractCPU"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "SHAOXING_NoncontractCPU 1.0 版",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2015",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_SHAOXING_NONCONTRACTCPU_DIALOG DIALOGEX 0, 0, 392, 371
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "SHAOXING_NoncontractCPU"
+FONT 9, "宋体"
+BEGIN
+    EDITTEXT        IDC_EDIT_APDU,39,79,88,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "执行",IDC_BTN_EXC_APDU,44,105,47,15
+    PUSHBUTTON      "确定",IDOK,170,349,50,14
+    PUSHBUTTON      "打开端口",IDC_BTN_OPEN_PORT,18,15,47,15
+    EDITTEXT        IDC_EDIT_DATA,133,13,252,167,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY | ES_WANTRETURN | 
+                    WS_VSCROLL
+    PUSHBUTTON      "关闭端口",IDC_BTN_CLOSE_PORT,72,15,47,15
+    PUSHBUTTON      "寻卡",IDC_BTN_FIND_CARD,18,39,47,15
+    PUSHBUTTON      "卡片复位",IDC_BTN_CARD_RESET,72,39,47,15
+    LTEXT           "APDU:",IDC_STATIC,17,81,20,9
+    PUSHBUTTON      "键盘端口打开",IDC_BTN_OPENKEYBOARD,17,131,51,15
+    PUSHBUTTON      "键盘端口关闭",IDC_BTN_CLOSEBOARD,73,131,51,15
+    GROUPBOX        "Key Test",IDC_STATIC,17,193,357,153
+    PUSHBUTTON      "下载主密钥",IDC_BTN_DL_MAINKEY,60,208,52,15
+    COMBOBOX        IDC_COMBO_NRMAINKEY,84,227,47,63,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "主密钥:",IDC_STATIC,49,229,31,11
+    COMBOBOX        IDC_COMBO_NRWORKKEY,190,227,47,63,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "工作密钥:",IDC_STATIC,149,229,36,11
+    COMBOBOX        IDC_COMBO_KEYLEN,294,227,47,63,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "密钥长度:",IDC_STATIC,252,229,36,11
+    EDITTEXT        IDC_EDIT_KEY_DATA,88,246,253,13,ES_AUTOHSCROLL
+    LTEXT           "密钥数据:",IDC_STATIC,49,248,36,11
+    PUSHBUTTON      "下载工作密钥",IDC_BTN_DL_WORKKEY,130,207,52,15
+    PUSHBUTTON      "激活密钥",IDC_BTN_ACTIVEKEY,204,207,52,15
+    PUSHBUTTON      "设置密钥长度",IDC_BTN_SET_KEYLEN,279,207,52,15
+    PUSHBUTTON      "获取明文密码",IDC_BTN_GETPIN,206,267,52,15
+    PUSHBUTTON      "获取密文密码",IDC_BTN_GETNPIN,289,267,52,15
+    LTEXT           "卡号:",IDC_STATIC,49,271,30,11
+    EDITTEXT        IDC_EDIT_CARDNO,87,269,113,13,ES_AUTOHSCROLL
+    LTEXT           "待加密:",IDC_STATIC,49,293,36,11
+    EDITTEXT        IDC_EDIT_WAITN,87,291,113,13,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO_NTYPE,244,291,47,63,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "操作类型:",IDC_STATIC,206,293,36,9
+    PUSHBUTTON      "加密",IDC_BTN_NKEY,295,289,46,15
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "SHAOXING_NoncontractCPU Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "SHAOXING_NoncontractCPU\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2015\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "SHAOXING_NoncontractCPU.EXE\0"
+            VALUE "ProductName", "SHAOXING_NoncontractCPU 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SHAOXING_NONCONTRACTCPU_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 385
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 363
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SHAOXING_NONCONTRACTCPU_DIALOG DLGINIT
+BEGIN
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3030, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3130, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3230, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3330, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3430, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3530, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3630, "\000" 
+    IDC_COMBO_NRMAINKEY, 0x403, 3, 0
+0x3730, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3030, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3130, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3230, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3330, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3430, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3530, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3630, "\000" 
+    IDC_COMBO_NRWORKKEY, 0x403, 3, 0
+0x3730, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3130, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3230, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3330, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3430, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3530, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3630, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3730, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3830, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3930, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3031, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3131, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3231, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3331, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3431, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3531, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3631, "\000" 
+    IDC_COMBO_KEYLEN, 0x403, 3, 0
+0x3731, "\000" 
+    IDC_COMBO_NTYPE, 0x403, 7, 0
+0x2d30, 0xd3bc, 0xdcc3, "\000" 
+    IDC_COMBO_NTYPE, 0x403, 11, 0
+0x2d31, 0x5020, 0x534f, 0x4d20, 0x4341, "\000" 
+    IDC_COMBO_NTYPE, 0x403, 16, 0
+0x2032, 0x4e41, 0x4953, 0x3958, 0x312e, 0x2039, 0x414d, 0x0043, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 SHAOXING_NoncontractCPU(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\SHAOXING_NoncontractCPU.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

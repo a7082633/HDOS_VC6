@@ -1,0 +1,278 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\M1.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\M1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 M1"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "M1 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2015",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_M1_DIALOG DIALOGEX 0, 0, 320, 315
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "M1"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "FUCKOFF",IDOK,132,294,50,14
+    PUSHBUTTON      "寻卡",IDC_BTN_RQE,21,15,49,19
+    GROUPBOX        "密钥认证区",IDC_STATIC,15,41,116,91
+    CONTROL         "KeyA",IDC_RADIO_KEYA,"Button",BS_AUTORADIOBUTTON,35,75,
+                    33,12
+    CONTROL         "KeyB",IDC_RADIO_KEYB,"Button",BS_AUTORADIOBUTTON,82,75,
+                    33,12
+    LTEXT           "扇区号:",IDC_STATIC,26,57,31,12
+    EDITTEXT        IDC_EDIT_SN,57,54,62,15,ES_AUTOHSCROLL | WS_DISABLED
+    LTEXT           "密の钥:",IDC_STATIC,25,93,31,12
+    EDITTEXT        IDC_EDIT_PASS,57,89,62,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "密钥认证1",IDC_BTN_RA,160,221,49,19,WS_DISABLED
+    PUSHBUTTON      "密钥认证2",IDC_BTN_RA2,43,113,64,14,WS_DISABLED
+    GROUPBOX        "读数据区",IDC_STATIC,15,138,116,49
+    LTEXT           "块号:",IDC_STATIC,72,22,20,12
+    EDITTEXT        IDC_EDIT_BLOCKN,92,19,37,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "读之(HEX)",IDC_BTN_RA3,24,169,47,14
+    EDITTEXT        IDC_EDIT_DATA,139,15,179,204,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | 
+                    ES_WANTRETURN | WS_VSCROLL
+    GROUPBOX        "写数据区",IDC_STATIC,15,195,116,56
+    PUSHBUTTON      "写之(HEX)",IDC_BTN_WRITEHEX,22,231,47,14
+    EDITTEXT        IDC_EDIT_WRITEDATA,37,209,89,15,ES_AUTOHSCROLL
+    LTEXT           "数据:",IDC_STATIC,18,212,20,12
+    EDITTEXT        IDC_EDIT_VALUE,41,274,33,15,ES_AUTOHSCROLL
+    LTEXT           "数值:",IDC_STATIC,18,276,24,11
+    GROUPBOX        "其他操作",IDC_STATIC,15,260,296,34
+    PUSHBUTTON      "初始化",IDC_BTN_INITIAL,85,273,32,16
+    PUSHBUTTON      "增值",IDC_BTN_INCREMENT,194,272,32,16
+    PUSHBUTTON      "减值",IDC_BTN_DESCMENT,255,272,32,16
+    PUSHBUTTON      "读值",IDC_BTN_READVAL,140,273,32,16
+    PUSHBUTTON      "清空",IDC_BTN_CLEAR,223,221,49,19
+    PUSHBUTTON      "读之(STR)",IDC_BTN_RASTR,74,169,47,14
+    PUSHBUTTON      "写之(STR)",IDC_BTN_WRITESTR,71,231,47,14
+    PUSHBUTTON      "读所有(HEX)",IDC_BTN_RAALL,48,152,47,14
+    PUSHBUTTON      "下载密钥",IDC_BTN_LOADKEY,160,243,113,15
+    PUSHBUTTON      "打开端口",IDC_BTN_OPENPORT,21,0,48,13
+    PUSHBUTTON      "关闭端口",IDC_BTN_CLOSEPORT,81,0,48,13
+END
+
+IDD_DIALOG_LOADKEY DIALOG DISCARDABLE  0, 0, 221, 152
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "下载密钥"
+FONT 9, "微软雅黑"
+BEGIN
+    CONTROL         "S50",IDC_RADIO_S50,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,136,18,23,8
+    CONTROL         "S70",IDC_RADIO_S70,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,168,18,23,8
+    CONTROL         "KeyA",IDC_RADIO_KEYA,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,137,61,28,8
+    CONTROL         "KeyB",IDC_RADIO_KEYB,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,169,61,28,8
+    PUSHBUTTON      "下载",IDC_BTN_DOWNLOAD,126,106,75,36
+    CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | WS_BORDER | 
+                    WS_TABSTOP,7,7,111,136
+    GROUPBOX        "型号",IDC_STATIC,124,7,81,23
+    GROUPBOX        "密钥类型",IDC_STATIC,123,50,81,23
+END
+
+IDD_DIALOG_PASS DIALOG DISCARDABLE  0, 0, 83, 14
+STYLE WS_POPUP | WS_BORDER
+FONT 9, "宋体"
+BEGIN
+    EDITTEXT        IDC_EDIT_PASS,1,0,81,14,ES_AUTOHSCROLL
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "M1 Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "M1\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2015\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "M1.EXE\0"
+            VALUE "ProductName", "M1 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_M1_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 318
+        BOTTOMMARGIN, 308
+    END
+
+    IDD_DIALOG_LOADKEY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 145
+    END
+
+    IDD_DIALOG_PASS, DIALOG
+    BEGIN
+        RIGHTMARGIN, 81
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 M1(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\M1.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

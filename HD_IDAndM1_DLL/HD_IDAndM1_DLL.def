@@ -1,0 +1,16 @@
+
+LIBRARY        HD_IDAndM1
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+		Reader_Open
+		Reader_Close
+		Find_M1Card
+		Authentication_Pass
+		Reader_Read
+		Reader_Write
+		Reader_ReadIdCard

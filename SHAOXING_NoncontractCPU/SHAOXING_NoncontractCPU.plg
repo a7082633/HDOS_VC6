@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: SHAOXING_NoncontractCPU - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/SHAOXING_NoncontractCPU.res" /d "_DEBUG" /d "_AFXDLL" "D:\HDOS-TEST\SHAOXING_NoncontractCPU\SHAOXING_NoncontractCPU.rc"" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP7FAE.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/SHAOXING_NoncontractCPU.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\HDOS-TEST\SHAOXING_NoncontractCPU\SHAOXING_NoncontractCPU.cpp"
+"D:\HDOS-TEST\SHAOXING_NoncontractCPU\SHAOXING_NoncontractCPUDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP7FAE.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP7FAF.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/SHAOXING_NoncontractCPU.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\HDOS-TEST\SHAOXING_NoncontractCPU\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP7FAF.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP7FB0.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/SHAOXING_NoncontractCPU.pdb" /debug /machine:I386 /out:"Debug/SHAOXING_NoncontractCPU.exe" /pdbtype:sept 
+".\Debug\SHAOXING_NoncontractCPU.obj"
+".\Debug\SHAOXING_NoncontractCPUDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\SHAOXING_NoncontractCPU.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP7FB0.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+SHAOXING_NoncontractCPU.cpp
+SHAOXING_NoncontractCPUDlg.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/SHAOXING_NoncontractCPU.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\SHAOXING_NoncontractCPU.sbr" ".\Debug\SHAOXING_NoncontractCPUDlg.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+SHAOXING_NoncontractCPU.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

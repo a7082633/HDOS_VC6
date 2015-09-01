@@ -1,0 +1,3 @@
+在WINDOWS 98下运行win98setup.bat文件即可.
+在WINDOWS 2000以上系统下运行win2000setup.bat文件即可.
+运行前请关闭控件相关的医院收费或应用程序
