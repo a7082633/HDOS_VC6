@@ -9,6 +9,29 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+
+//获取dll的HMODULE
+HMODULE GetCurrentModule()
+{
+#if _MSC_VER < 1300    // earlier than .NET compiler (VC 6.0)
+	
+	// Here's a trick that will get you the handle of the module
+	// you're running in without any a-priori knowledge:
+	// http://www.dotnet247.com/247reference/msgs/13/65259.aspx
+	
+	MEMORY_BASIC_INFORMATION mbi;
+	static int dummy;
+	VirtualQuery( &dummy, &mbi, sizeof(mbi) );
+	
+	return reinterpret_cast<HMODULE>(mbi.AllocationBase);
+	
+#else    // VC 7.0
+	
+	// from ATL 7.0 sources
+	
+	return reinterpret_cast<HMODULE>(&__ImageBase);
+#endif
+}
 BOOL FindProcess()
 {
 	int i=0;
@@ -304,17 +327,38 @@ MHC_CARDINTERFACE_API int __stdcall IChange_Pin(int hDev,char *oldPin,char *newP
 {
 	return iChange_Pin(hDev,oldPin,newPin);
 }
+int GetConfigFullPath(TCHAR *configFullPath)
+{
+	unsigned long r=GetModuleFileName(GetCurrentModule(),configFullPath,MAX_PATH);
+	if(r==0)
+	{
+		return 120;
+	}
+	char *pc=strrchr(configFullPath,'\\');
+	*pc=0;
+	strcat(configFullPath,"\\config.ini");
+	return 0;
+}
 MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 												char *account,char *password,
 												int doctype,char *userid,
 												char *pin)
 {
+//	::MessageBox(NULL,exeFullPath,NULL,MB_OK);
+//	CString g_szOcxPath=::AfxGetApp()->m_pszHelpFilePath;
+//	::MessageBox(NULL,g_szOcxPath,NULL,MB_OK);
+//	CString g_szOcxName =::AfxGetApp()->m_pszExeName;
+//	::MessageBox(NULL,g_szOcxName,NULL,MB_OK);
 	//读之前判断进程是否存在
 	if(!FindProcess())
 	{
 		::MessageBox(NULL,"请运行卫计委卡管程序","提示",MB_OK);
 		return PROCCESS_EXIST;
 	}
+	//先获取配置文件路径
+	TCHAR configFullPath[MAX_PATH]; // MAX_PATH
+	int rt=GetConfigFullPath(configFullPath);
+	if(rt!=0) return rt;
 	//读之前需要验证
 	long hReader=ICC_Reader_Open("USB1");
 	char cmd[100]={0};
@@ -325,7 +369,6 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 	}
 	//取卡的芯片号
 		//请求卡片
-	int rt=0;
 	rt=PICC_Reader_Request(hReader);
 	if(rt!=0)
 	{
@@ -422,7 +465,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 	//发送http请求
 	char addr[300]={0};
 	/*C:\Program Files (x86)\PDS_HNKG\*/
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),"C:\\Program Files (x86)\\PDS_HNKG\\config.ini");
+	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),configFullPath);
 	//DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),"D:\\config.ini");
 	CInternetSession m_session("Webservice32");
 	CString HttpResponse;
@@ -434,7 +477,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s",
 			addr,account,password,csno,macno,samno,doctype,para,userid);
 	
-		::MessageBox(NULL,requestUrl,NULL,MB_OK);
+		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
 
 		CHttpFile *pFile;
 		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
@@ -452,7 +495,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 	{
 		TCHAR pszError[200];
 		e->GetErrorMessage(pszError, 200);
-		::MessageBox(NULL,pszError,NULL,MB_OK);
+		//::MessageBox(NULL,pszError,NULL,MB_OK);
 		e->Delete();
 		return HTTP_EXCEPTION;
 	}
@@ -850,6 +893,10 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 		::MessageBox(NULL,"请运行卫计委卡管程序","提示",MB_OK);
 		return PROCCESS_EXIST;
 	}
+	//先获取配置文件路径
+	TCHAR configFullPath[MAX_PATH]; // MAX_PATH
+	int rt=GetConfigFullPath(configFullPath);
+	if(rt!=0) return rt;
 	//写之前需要验证
 	long hReader=ICC_Reader_Open("USB1");
 	char cmd[100]={0};
@@ -860,7 +907,6 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 	}
 	//取卡的芯片号
 		//请求卡片
-	int rt=0;
 	rt=PICC_Reader_Request(hReader);
 	if(rt!=0)
 	{
@@ -947,7 +993,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 	ICC_Reader_Close(hReader);
 	//发送http请求
 	char addr[300]={0};
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),"C:\\Program Files (x86)\\PDS_HNKG\\config.ini");
+	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),configFullPath);
 	//DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),"D:\\config.ini");	
 
 	CInternetSession m_session("Webservice32");

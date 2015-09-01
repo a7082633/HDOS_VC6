@@ -45,6 +45,7 @@
 #define CANT_FINDWEB	117      // 找不到主页
 #define HTTP_EXCEPTION	118      // http异常
 #define PROCCESS_EXIST  119      //未打开卡管中心
+#define OPEN_CONFIG_FAIL  120      //查找配置文件失败
 #define HTTP_EXCEPTION1 1001	//缺少账号或为空
 #define HTTP_EXCEPTION2 1002	//缺少密码或为空
 #define HTTP_EXCEPTION3 1003	//身份验证失败

@@ -1,2 +1,2 @@
 cd /d %~dp0
-regsvr32 HD_HNOCX.ocx
+regsvr32 PDS_HNOCX.ocx
