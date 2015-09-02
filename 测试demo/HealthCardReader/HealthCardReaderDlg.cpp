@@ -141,6 +141,7 @@ BEGIN_MESSAGE_MAP(CHealthCardReaderDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_READ_ALLOUTPATIENTINFO, OnBtnReadAlloutpatientinfo)
 	ON_BN_CLICKED(IDC_BTN_WRITE_OUTPATIENTINFO, OnBtnWriteOutpatientinfo)
 	ON_BN_CLICKED(IDC_BTN_WRITE_ALLOUTPATIENTINFO, OnBtnWriteAlloutpatientinfo)
+	ON_BN_CLICKED(IDC_BTN_PSAM_ORG_CER, OnBtnPsamOrgCer)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -1220,4 +1221,11 @@ void CHealthCardReaderDlg::OnBtnWriteAlloutpatientinfo()
 	this->UpdateData();
 	m_sData=temp;
 	this->UpdateData(FALSE);
+}
+
+void CHealthCardReaderDlg::OnBtnPsamOrgCer() 
+{
+	char info[400]={0};
+	int i=iReader_SAM_OrgCertificate ((int)hDev,info);
+	//iReader_SAM_Certificate (HANDLE hDev, char* info)
 }

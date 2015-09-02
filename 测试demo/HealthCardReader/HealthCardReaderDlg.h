@@ -89,6 +89,7 @@ protected:
 	afx_msg void OnBtnReadAlloutpatientinfo();
 	afx_msg void OnBtnWriteOutpatientinfo();
 	afx_msg void OnBtnWriteAlloutpatientinfo();
+	afx_msg void OnBtnPsamOrgCer();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

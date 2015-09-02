@@ -356,7 +356,7 @@ void CContactCPUDlg::OnBtnExc()
 void CContactCPUDlg::OnBtnPoweroff() 
 {
 	FXN3 PowerOff=(FXN3)::GetProcAddress(hModule,"ICC_Reader_PowerOff");//执行指令
-	int re=PowerOff(hReader,0x02);
+	int re=PowerOff(hReader,nSlot);
 	if(re)
 		this->MessageBox("下电失败");
 }
@@ -385,7 +385,7 @@ void CContactCPUDlg::OnBtnCloseport()
 void CContactCPUDlg::OnBtnCpoweron() 
 {
 	unsigned char Response[50]={0};
-	FXND PowerOnHEX=(FXND)::GetProcAddress(hModule,"ICC_Reader_PowerOn");
+	FXND PowerOnHEX=(FXND)::GetProcAddress(hModule,"ICC_Reader_pre_PowerOn");
 	int re=0;
 	re=PowerOnHEX(hReader,nSlot,Response);
 	if(re<=0)

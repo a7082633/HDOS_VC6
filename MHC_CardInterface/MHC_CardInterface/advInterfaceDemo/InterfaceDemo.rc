@@ -1,0 +1,431 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\InterfaceDemo.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\InterfaceDemo.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 InterfaceDemo"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "InterfaceDemo 1.0 版",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2012",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_INTERFACEDEMO_DIALOG DIALOGEX 0, 0, 582, 423
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "InterfaceDemo"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,325,391,50,14
+    PUSHBUTTON      "取消",IDCANCEL,383,391,50,14
+    GROUPBOX        "发卡机构基本信息(DDF1/EF05)",IDC_STATIC_FK_BASEINFO,7,
+                    120,134,40
+    LISTBOX         IDC_LIST,7,7,312,107,LBS_NOINTEGRALHEIGHT | 
+                    LBS_DISABLENOSCROLL | WS_VSCROLL | WS_HSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "读",IDC_BUTTON_FK_READ,19,135,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_FK_WRITE,83,135,50,14
+    GROUPBOX        "持卡人基本信息(DDF1/EF06)",IDC_STATIC_CKR_BASEINFO,151,
+                    118,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_CB_READ2,163,134,50,14
+    PUSHBUTTON      "连接设备(1)",IDC_BUTTON_OPEN,327,52,59,16
+    PUSHBUTTON      "关闭设备",IDC_BUTTON_CLOSE,395,52,61,16
+    GROUPBOX        "过敏基本数据(DF02/EF07)",IDC_STATIC_GM,295,205,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_GM_READ,337,220,38,14
+    GROUPBOX        "免疫基本数据(DF02/EF08)",IDC_STATIC_MYJZ,441,204,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_MY_READ,488,217,36,14
+    PUSHBUTTON      "读",IDC_BUTTON_ZZJLBS_READ,17,266,50,14
+    GROUPBOX        "住院记录有效标志(DF03/EF05)",IDC_STATIC_ZZJLBS,7,247,
+                    207,40
+    GROUPBOX        "门诊记录有效标志(DF03/EF06)",IDC_STATIC_MZJLBS,296,247,
+                    211,40
+    PUSHBUTTON      "读",IDC_BUTTON_MZJLBS_READ,303,263,50,14
+    GROUPBOX        "住院信息",IDC_STATIC_ZYXX,7,291,568,40
+    PUSHBUTTON      "读",IDC_BUTTON_ZYXX,470,300,50,14
+    GROUPBOX        "门诊信息",IDC_STATIC_MZJLXX,7,333,568,40
+    PUSHBUTTON      "读",IDC_BUTTON_MZXX_READ,469,341,50,14
+    GROUPBOX        "地址信息(DF01/EF05)",IDC_STATIC_DIZHI,7,159,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_DIZHI_READ,20,175,50,14
+    GROUPBOX        "联系人信息(DF01/EF06)",IDC_STATIC_LXR,152,159,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_LXR_READ,165,175,50,14
+    GROUPBOX        "职业婚姻信息(DF01/EF07)",IDC_STATIC_HY,295,160,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_ZYHY_READ,307,178,50,14
+    GROUPBOX        "证件记录信息(DF01/EF08)",IDC_STATIC_ZJXX,441,162,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_ZJJLXX_READ,455,177,50,14
+    GROUPBOX        "临床基本数据(DF02/EF05)",IDC_STATIC_LCJBSJ,7,206,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_LCJBSJ_READ,21,222,50,14
+    GROUPBOX        "特殊信息数据(DF02/EF06)",IDC_STATIC_TSXX,152,205,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_TSXX_READ,164,220,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_CKRJBXX_WRITE,227,134,50,14
+    PUSHBUTTON      "添加记录",IDC_BUTTON_GM_WRITE,377,220,50,14
+    PUSHBUTTON      "添加记录",IDC_BUTTON_MYJBSJ_WRITE,525,217,50,14
+    PUSHBUTTON      "写(->00)",IDC_BUTTON_ZYJL_WRITE,151,256,50,14
+    PUSHBUTTON      "擦除(->FF)",IDC_BUTTON_ZZJLYX_ERASE,151,270,50,14
+    PUSHBUTTON      "写(->00)",IDC_BUTTON_MZJLBS_WRITE,444,255,50,14
+    PUSHBUTTON      "擦除(->FF)",IDC_BUTTON_MZJLBS_ERASE,444,269,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_ZYXX_WRITE,470,313,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_MZXX_WRITE,469,356,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_DZXX_WRITE,81,175,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_LXRXX_WRITE,224,175,50,14
+    PUSHBUTTON      "写",IDC_BUTTON1_ZYHYXX_WRITE,368,178,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_ZJJLXX_WRITE,513,177,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_LCJBSJ_WRITE,83,221,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_TSXXSJ_WRITE,225,219,50,14
+    LTEXT           "写入数据",IDC_STATIC_ZY_WDATA,93,310,33,8
+    EDITTEXT        IDC_EDIT_ZY_WDATA,130,307,333,14,ES_AUTOHSCROLL
+    LTEXT           "写入数据",IDC_STATIC_MZ_WDATA,93,353,33,8
+    EDITTEXT        IDC_EDIT_MZ_WDATA,130,349,335,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "读照片",IDC_BUTTON_ZP_READ,306,134,50,14
+    PUSHBUTTON      "按序号读",IDC_BUTTON_WSB_READ,176,388,50,14,WS_DISABLED
+    PUSHBUTTON      "按序号写",IDC_BUTTON_WSB_WRITE,239,387,50,14,
+                    WS_DISABLED
+    PUSHBUTTON      "写照片",IDC_BUTTON_ZP_WRITE,367,134,50,14
+    GROUPBOX        "按数据项操作卡片的相关函数",IDC_STATIC_NUMBER,7,376,300,
+                    40
+    GROUPBOX        "持卡人信息(DDF1/EF08)",IDC_STATIC_DIZHI2,441,117,134,40
+    PUSHBUTTON      "读",IDC_BUTTON_DIZHI_READ2,454,135,50,14
+    PUSHBUTTON      "写",IDC_BUTTON_DZXX_WRITE2,511,135,50,14
+    GROUPBOX        "照片信息(DDF1/EF07)",IDC_STATIC_DIZHI3,296,118,134,40
+    LTEXT           "记录号",IDC_STATIC_ZY_POS2,26,309,25,8
+    LTEXT           "记录号",IDC_STATIC_ZY_POS3,25,353,25,8
+    COMBOBOX        IDC_COMBO_ZYID,54,307,29,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MZID,53,351,29,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_ZYBZID,117,263,29,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MZBZID,410,263,29,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "记录号",IDC_STATIC_ZY_POS4,92,265,25,8
+    LTEXT           "记录号",IDC_STATIC_ZY_POS5,384,265,25,8
+    COMBOBOX        IDC_COMBO_GMID,301,225,30,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "记录号",IDC_STATIC_ZY_POS6,299,215,25,8
+    COMBOBOX        IDC_COMBO_MYID,451,225,30,73,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "记录号",IDC_STATIC_ZY_POS7,449,215,25,8
+    EDITTEXT        IDC_EDIT_OUT,393,7,182,39,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    WS_VSCROLL
+    LTEXT           "大数据显示",IDC_STATIC_ZY_WDATA2,339,7,41,8
+    PUSHBUTTON      "获取错误信息",IDC_BUTTON_errmsg,465,52,61,16,
+                    WS_DISABLED
+    PUSHBUTTON      "门诊签名验证",IDC_BUTTON_MZ_SIGN,525,379,50,14,NOT 
+                    WS_VISIBLE | WS_DISABLED
+    PUSHBUTTON      "住院签名验证",IDC_BUTTON_ZY_SIGN,516,253,50,14,NOT 
+                    WS_VISIBLE | WS_DISABLED
+    PUSHBUTTON      "PSAM 接口测试",IDC_BUTTON_PSAM,396,91,132,16,
+                    WS_DISABLED
+    PUSHBUTTON      "健康卡上电(4)",IDC_BUTTON_RESET,327,91,59,16
+    EDITTEXT        IDC_EDITPIN,488,73,40,14,ES_AUTOHSCROLL
+    LTEXT           "PIN",IDC_STATIC,469,75,13,8
+    PUSHBUTTON      "PSAM上电(2)",IDC_BUTTON_RESETPSAM,328,72,59,16
+    PUSHBUTTON      "PSAM校验(3)",IDC_BUTTON_RESET3,396,72,59,16
+    EDITTEXT        IDC_CITYCODE,327,35,58,14,ES_AUTOHSCROLL
+    CONTROL         "城市代码",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,327,21,48,10
+    PUSHBUTTON      "读所有",IDC_READALL,519,299,50,14
+    PUSHBUTTON      "写所有",IDC_WRITEALL,519,313,50,14
+    PUSHBUTTON      "读所有",IDC_READEDLL,519,341,50,14
+    PUSHBUTTON      "写所有",IDC_WRITEEDLL,519,356,50,14
+    PUSHBUTTON      "读SAM发卡Cer",IDC_BUTTON_READ_SAM_ORGCER,23,392,57,14,
+                    NOT WS_VISIBLE
+END
+
+IDD_DIALOG_input DIALOG DISCARDABLE  0, 0, 200, 209
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,42,183,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,109,182,50,14
+    LTEXT           "Static",IDC_STATIC1,7,15,85,8
+    EDITTEXT        IDC_EDIT1,93,14,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC2,7,31,85,8
+    EDITTEXT        IDC_EDIT2,93,30,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC3,7,47,85,8
+    EDITTEXT        IDC_EDIT3,93,46,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC4,7,63,85,8
+    EDITTEXT        IDC_EDIT4,93,62,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC5,7,79,85,8
+    EDITTEXT        IDC_EDIT5,93,78,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC6,7,95,85,8
+    EDITTEXT        IDC_EDIT6,93,94,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC7,7,111,85,8
+    EDITTEXT        IDC_EDIT7,93,110,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC8,7,127,85,8
+    EDITTEXT        IDC_EDIT8,93,126,91,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC9,7,143,85,8
+    EDITTEXT        IDC_EDIT9,93,142,91,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT10,92,160,92,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_STATIC10,8,162,79,8
+END
+
+IDD_DIALOG_input2 DIALOG DISCARDABLE  0, 0, 187, 237
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,36,215,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,99,215,50,14
+    LTEXT           "ABO血型代码      b01",IDC_STATIC1,1,2,85,8
+    EDITTEXT        IDC_EDIT1,87,1,91,14,ES_AUTOHSCROLL
+    LTEXT           "RH血型代码        cn01",IDC_STATIC2,1,16,85,8
+    EDITTEXT        IDC_EDIT2,87,15,91,14,ES_AUTOHSCROLL
+    LTEXT           "哮喘标志             b01",IDC_STATIC3,1,30,85,8
+    EDITTEXT        IDC_EDIT3,87,29,91,14,ES_AUTOHSCROLL
+    LTEXT           "心脏病标志         b01",IDC_STATIC4,1,44,85,8
+    EDITTEXT        IDC_EDIT4,87,43,91,14,ES_AUTOHSCROLL
+    LTEXT           "心脑血管病标志  b01",IDC_STATIC5,1,58,85,8
+    EDITTEXT        IDC_EDIT5,87,57,91,14,ES_AUTOHSCROLL
+    LTEXT           "癫痫病标志         b01",IDC_STATIC6,1,72,85,8
+    EDITTEXT        IDC_EDIT6,87,71,91,14,ES_AUTOHSCROLL
+    LTEXT           "凝血紊乱标志     b01",IDC_STATIC7,1,86,85,8
+    EDITTEXT        IDC_EDIT7,87,85,91,14,ES_AUTOHSCROLL
+    LTEXT           "糖尿病标志         b01",IDC_STATIC8,1,100,85,8
+    EDITTEXT        IDC_EDIT8,87,99,91,14,ES_AUTOHSCROLL
+    LTEXT           "青光眼标志         b01",IDC_STATIC9,1,114,85,8
+    EDITTEXT        IDC_EDIT9,87,113,91,14,ES_AUTOHSCROLL
+    LTEXT           "透析标志             b01",IDC_STATIC10,1,128,85,8
+    EDITTEXT        IDC_EDIT10,87,127,91,14,ES_AUTOHSCROLL
+    LTEXT           "器官移植标志     b01",IDC_STATIC11,1,142,85,8
+    EDITTEXT        IDC_EDIT11,87,141,91,14,ES_AUTOHSCROLL
+    LTEXT           "器官缺失标志     b01",IDC_STATIC12,1,156,85,8
+    EDITTEXT        IDC_EDIT12,87,155,91,14,ES_AUTOHSCROLL
+    LTEXT           "可拆卸义肢标志  b01",IDC_STATIC13,1,170,85,8
+    EDITTEXT        IDC_EDIT13,87,169,91,14,ES_AUTOHSCROLL
+    LTEXT           "心脏起搏器标志  b01",IDC_STATIC14,1,184,85,8
+    EDITTEXT        IDC_EDIT14,87,183,91,14,ES_AUTOHSCROLL
+    LTEXT           "其他医学警示标志 an40",IDC_STATIC15,0,198,85,8
+    EDITTEXT        IDC_EDIT15,87,197,91,14,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_PSAM DIALOG DISCARDABLE  0, 0, 261, 193
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "PSAM接口测试"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,134,172,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,183,172,50,14
+    LISTBOX         IDC_LIST,7,7,248,52,LBS_NOINTEGRALHEIGHT | 
+                    LBS_DISABLENOSCROLL | WS_VSCROLL | WS_HSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "验证PIN码",IDC_BUTTON1,115,69,50,14
+    PUSHBUTTON      "修改PIN码",IDC_BUTTON2,115,104,50,14
+    PUSHBUTTON      "获取公共信息",IDC_BUTTON3,35,127,50,14
+    PUSHBUTTON      "获取终端信息",IDC_BUTTON4,101,127,50,14
+    PUSHBUTTON      "获取应用信息",IDC_BUTTON5,166,127,50,14
+    PUSHBUTTON      "获取发卡机构证书",IDC_BUTTON6,35,148,76,14
+    PUSHBUTTON      "获取证书信息",IDC_BUTTON7,134,148,50,14
+    EDITTEXT        IDC_EDIT_PIN,40,70,73,12,ES_AUTOHSCROLL
+    LTEXT           "PIN码",IDC_STATIC,17,72,21,8
+    EDITTEXT        IDC_EDIT_OldPIN,40,92,73,12,ES_AUTOHSCROLL
+    LTEXT           "旧PIN码",IDC_STATIC,9,94,29,8
+    EDITTEXT        IDC_EDIT_NewPIN,40,106,73,12,ES_AUTOHSCROLL
+    LTEXT           "新PIN码",IDC_STATIC,9,108,29,8
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,1
+ PRODUCTVERSION 1,1,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "InterfaceDemo Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 1, 0, 1\0"
+            VALUE "InternalName", "InterfaceDemo\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2012\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "InterfaceDemo.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "InterfaceDemo 应用程序\0"
+            VALUE "ProductVersion", "1, 1, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_INTERFACEDEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 575
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 416
+    END
+
+    IDD_DIALOG_input, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 193
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 202
+    END
+
+    IDD_DIALOG_input2, DIALOG
+    BEGIN
+        TOPMARGIN, 1
+    END
+
+    IDD_DIALOG_PSAM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 254
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 InterfaceDemo(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\InterfaceDemo.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

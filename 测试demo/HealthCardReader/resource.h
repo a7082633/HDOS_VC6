@@ -37,6 +37,8 @@
 #define IDC_EDIT_YYCSDM                 1012
 #define IDC_BTN_WRITE_PIC               1012
 #define IDC_EDIT_XPXLH                  1013
+#define IDC_BTN_PSAM_ON2                1013
+#define IDC_BTN_PSAM_ORG_CER            1013
 #define IDC_EDIT_FKJGDM                 1014
 #define IDC_BTN_READ_OWNERINFO          1014
 #define IDC_EDIT_FKJGZS                 1015
