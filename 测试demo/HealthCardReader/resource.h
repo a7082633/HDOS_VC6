@@ -37,8 +37,7 @@
 #define IDC_EDIT_YYCSDM                 1012
 #define IDC_BTN_WRITE_PIC               1012
 #define IDC_EDIT_XPXLH                  1013
-#define IDC_BTN_PSAM_ON2                1013
-#define IDC_BTN_PSAM_ORG_CER            1013
+#define IDC_BTN_PSAM_PUB                1013
 #define IDC_EDIT_FKJGDM                 1014
 #define IDC_BTN_READ_OWNERINFO          1014
 #define IDC_EDIT_FKJGZS                 1015
@@ -88,6 +87,10 @@
 #define IDC_BTN_READ_OUTPATIENT_RECORD  1035
 #define IDC_BTN_WRITE_OUTPATIENT_RECORD 1036
 #define IDC_BTN_CLEAR_OUTPATIENT_RECORD 1037
+#define IDC_BTN_PSAM_TERMINAL           1038
+#define IDC_BTN_PSAM_PUBAPP             1039
+#define IDC_BTN_PSAM_ORCER              1040
+#define IDC_BTN_PSAM_CER                1041
 #define IDC_EDIT_LXRXM1                 1044
 #define IDC_EDIT_LXRGX1                 1045
 #define IDC_EDIT_LXRDH1                 1046

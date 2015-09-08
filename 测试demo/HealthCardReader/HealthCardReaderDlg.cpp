@@ -141,7 +141,11 @@ BEGIN_MESSAGE_MAP(CHealthCardReaderDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_READ_ALLOUTPATIENTINFO, OnBtnReadAlloutpatientinfo)
 	ON_BN_CLICKED(IDC_BTN_WRITE_OUTPATIENTINFO, OnBtnWriteOutpatientinfo)
 	ON_BN_CLICKED(IDC_BTN_WRITE_ALLOUTPATIENTINFO, OnBtnWriteAlloutpatientinfo)
-	ON_BN_CLICKED(IDC_BTN_PSAM_ORG_CER, OnBtnPsamOrgCer)
+	ON_BN_CLICKED(IDC_BTN_PSAM_PUB, OnBtnPsamPub)
+	ON_BN_CLICKED(IDC_BTN_PSAM_TERMINAL, OnBtnPsamTerminal)
+	ON_BN_CLICKED(IDC_BTN_PSAM_PUBAPP, OnBtnPsamPubapp)
+	ON_BN_CLICKED(IDC_BTN_PSAM_ORCER, OnBtnPsamOrcer)
+	ON_BN_CLICKED(IDC_BTN_PSAM_CER, OnBtnPsamCer)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -1228,4 +1232,39 @@ void CHealthCardReaderDlg::OnBtnPsamOrgCer()
 	char info[400]={0};
 	int i=iReader_SAM_OrgCertificate ((int)hDev,info);
 	//iReader_SAM_Certificate (HANDLE hDev, char* info)
+}
+
+void CHealthCardReaderDlg::OnBtnPsamPub() 
+{
+	int hDev=0;
+	char info[500]={0};
+	int i=iReader_SAM_Public(hDev,info);
+}
+
+void CHealthCardReaderDlg::OnBtnPsamTerminal() 
+{
+	int hDev=0;
+	char info[500]={0};
+	int i=iReader_SAM_Terminal(hDev,info);
+}
+
+void CHealthCardReaderDlg::OnBtnPsamPubapp() 
+{
+	int hDev=0;
+	char info[500]={0};
+	int i=iReader_SAM_PublicApp(hDev,info);
+}
+
+void CHealthCardReaderDlg::OnBtnPsamOrcer() 
+{
+	int hDev=0;
+	char info[500]={0};
+	int i=iReader_SAM_OrgCertificate(hDev,info);
+}
+
+void CHealthCardReaderDlg::OnBtnPsamCer() 
+{
+	int hDev=0;
+	char info[500]={0};
+	int i=iReader_SAM_Certificate(hDev,info);
 }

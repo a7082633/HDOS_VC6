@@ -90,6 +90,11 @@ protected:
 	afx_msg void OnBtnWriteOutpatientinfo();
 	afx_msg void OnBtnWriteAlloutpatientinfo();
 	afx_msg void OnBtnPsamOrgCer();
+	afx_msg void OnBtnPsamPub();
+	afx_msg void OnBtnPsamTerminal();
+	afx_msg void OnBtnPsamPubapp();
+	afx_msg void OnBtnPsamOrcer();
+	afx_msg void OnBtnPsamCer();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

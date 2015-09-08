@@ -4,23 +4,28 @@
 
 
 //×´Ì¬Âë
-#define IFD_OK	0					 //Ö´ĞĞ³É¹¦
-#define IFD_ICC_TypeError	-1		 //¿¨Æ¬ÀàĞÍ²»¶Ô
-#define IFD_ICC_NoExist	-2			 //ÎŞ¿¨
-#define IFD_ICC_NoPower	-3			 //ÓĞ¿¨Î´ÉÏµç
+#define IFD_OK	0			     //Ö´ĞĞ³É¹¦
+#define IFD_ICC_TypeError	-1	     //¿¨Æ¬ÀàĞÍ²»¶Ô
+#define IFD_ICC_NoExist	-2		     //ÎŞ¿¨
+#define IFD_ICC_NoPower	-3		     //ÓĞ¿¨Î´ÉÏµç
 #define IFD_ICC_NoResponse	-4	     //¿¨Æ¬ÎŞÓ¦´ğ
 #define IFD_ConnectError	-11	     //¶Á¿¨Æ÷Á¬½Ó´í
-#define IFD_UnConnected	-12	         //Î´½¨Á¢Á¬½Ó(Ã»ÓĞÖ´ĞĞ´ò¿ªÉè±¸º¯Êı)
-#define IFD_BadCommand	-13	         //(¶¯Ì¬¿â)²»Ö§³Ö¸ÃÃüÁî
+#define IFD_UnConnected	-12	             //Î´½¨Á¢Á¬½Ó(Ã»ÓĞÖ´ĞĞ´ò¿ªÉè±¸º¯Êı)
+#define IFD_BadCommand	-13	             //(¶¯Ì¬¿â)²»Ö§³Ö¸ÃÃüÁî
 #define IFD_ParameterError	-14	     //(·¢¸ø¶¯Ì¬¿âµÄ)ÃüÁî²ÎÊı´í
 #define IFD_CheckSumError	-15	     //ĞÅÏ¢Ğ£ÑéºÍ³ö´í
+
+#define IFD_PIN_LEN -35   //ÃÜÂë³¤¶È²»¶Ô
+#define IFD_PIN_CANCEL -34 //°´ÏÂÈ¡Ïû¼ü
+#define IFD_KEY_LEN  -36  //ÏÂÔØÃÜÔ¿³¤¶È´íÎó
+#define IFD_KEY_NUM   -37 //ÃÜÔ¿Ì×Êı´íÎó
+#define IFD_KEY_EXIS  -38 //ÃÜÔ¿²»´æÔÚ
 
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 long WINAPI ICC_Reader_Open(char* dev_Name); 
 long WINAPI ICC_Reader_Close(long ReaderHandle);
@@ -33,6 +38,8 @@ long WINAPI ICC_Reader_GetDeviceSN(long ReaderHandle,char* dev_Ser); //»ñÈ¡Éè±¸Ğ
 long WINAPI ICC_Reader_SetDeviceSN(long ReaderHandle,char* dev_Ser); //ÉèÖÃÉè±¸ĞòÁĞºÅ
 long WINAPI ICC_Reader_GetKeyBoardVersion(long ReaderHandle,char* ver); //»ñÈ¡¼üÅÌ°æ±¾ºÅ
 long WINAPI ICC_Reader_ChangeSlot(long ReaderHandle,unsigned char slot ); //ÇĞ»»¿¨×ù
+long WINAPI ICC_Reader_SetDeviceReadMode(long ReaderHandle,unsigned char type ); //ÉèÖÃ¶Á¿¨Æ÷ÎªÖ÷¶¯/±»¶¯¶Á¿¨Ä£Ê½ type==1 Ö÷¶¯  type==0±»¶¯
+long WINAPI ICC_Reader_SetIDReadMode(long ReaderHandle,unsigned char type); //ÉèÖÃ¶Á¿¨Æ÷Îª°´¹«°²²¿±ê×¼Ä£Ê½¶ÁÈ¡Éí·İÖ¤  Ã¿´Î²Ù×÷Éí·İÖ¤Ç°µ÷ÓÃ type==0 ¿ªÆô type==1 ½áÊø
 
 long WINAPI ICC_Reader_DisCardType(long ReaderHandle); //1£ºCPU¿¨£»2:4428¿¨£»3:4442¿¨
 
@@ -126,13 +133,25 @@ long WINAPI ICC_CtlLight(long ReaderHandle);//ÇåÆÁ£¬¹ØÆÁ
 
 long WINAPI ICC_ChangeLight(long ReaderHandle,unsigned char mode);//¸Ä±äÆÁÄ»ÁÁ¶È mode=1 µ÷ÁÁ  mode=0µ÷°µ
 
-long WINAPI ICC_DownLoadKey(long ReaderHandle,unsigned char group,unsigned char *Key);//ÏÂÔØÃÜÔ¿µ½¼üÅÌÀïÃæ£¬group£º01¡¢02¡¢03¹²3×é£»Key16×Ö·ûÃÜÔ¿£¬ÀıÈç£º1122334455667788
+long WINAPI ICC_DownLoadKey(long ReaderHandle,unsigned char group,unsigned char *Key);//ÏÂÔØ¹¤×÷ÃÜÔ¿µ½¼üÅÌÀïÃæ£¬group£º01¡¢02¡¢03¹²3×é£»Key16×Ö·ûÃÜÔ¿£¬ÀıÈç£º1122334455667788
+
+long WINAPI ICC_DownLoadMainKey(long ReaderHandle,int mainkeyno,unsigned char *Key);//ÏÂÔØÖ÷ÃÜÔ¿,0~7×é£¬ÓÃÓÚ¶ÔÃÜÎÄµÄ¹¤×÷ÃÜÔ¿½âÃÜ Key==16×Ö½Ú 3DES 8×Ö½Ú DES
+
+long WINAPI ICC_DownLoadUserKey(long ReaderHandle,int MainKeyNo,int UserKeyNo,unsigned char *Key);//ÏÂÔØ¹¤×÷ÃÜÔ¿µ½¼üÅÌÀïÃæ£¬0~1×é£¬ÓÃÖ÷ÃÜÔ¿¶ÔÃÜÎÄµÄ¹¤×÷ÃÜÔ¿½âÃÜ Key==16×Ö½Ú 3DES 8×Ö½Ú DES
+
+long WINAPI ICC_SetKeyBoardLength(long ReaderHandle,int KeyLen);//ÉèÖÃ¼üÅÌ»ñÈ¡ÃÜÔ¿³¤¶È£¬ÃÜÂë³¤¶ÈÎ´´ïµ½¸Ã³¤¶ÈÊ±£¬Ó¦±¨´í
+
+long WINAPI ICC_ActiveKey(long ReaderHandle,int MainKeyNo,int UserKeyNo);//¼¤»îÖ÷ÃÜÔ¿¡¢¹¤×÷ÃÜÔ¿
 
 long WINAPI ICC_GetInputPass(long ReaderHandle, unsigned char ctime, unsigned char *rlen, unsigned char start,unsigned char stop,unsigned char *cpass);//»ñÈ¡ÃÜÂë£¬´ø³¬Ê± start==0ÓÃÄÚÖÃ¼üÅÌ£¬start==1ÓÃÍâÖÃ¼üÅÌ
 
 long WINAPI ICC_GetInputPassENC(long ReaderHandle, unsigned char ctime, unsigned char *rlen, unsigned char start,unsigned char group,unsigned char *cpass);//»ñÈ¡ÃÜÂë,ÃÜÎÄ,´ø³¬Ê± start==0ÓÃÄÚÖÃ¼üÅÌ£¬start==1ÓÃÍâÖÃ¼üÅÌ,groupÓÃµÚ¼¸×éÃÜÔ¿
 
+long WINAPI ICC_GetEnPass(long ReaderHandle, unsigned char ctime,int MainKeyNo, int UserkeyNo, unsigned char* CardNo,unsigned char *rlen,unsigned char *cpass);//»ñÈ¡ÃÜÂë,ÃÜÎÄ,MainKeyNo Ö÷ÃÜÔ¿ºÅ£¬UserkeyNo ¹¤×÷ÃÜÔ¿ºÅ  CardNo ¿¨ºÅ
+
 long WINAPI ICC_GetInputPassEx(long ReaderHandle, unsigned char ctime, int *rlen, unsigned char * cpass, int disinfo,unsigned char type);//xians yuyin
+
+long WINAPI ICC_GetDESMAC(long ReaderHandle,int Type,int MainKeyNo, int UserkeyNo, unsigned char *InData,unsigned char *rlen,unsigned char *OutData);// Type 0-¼ÓÃÜ 1-POS MAC 2- ANSIX9.19 MAC
 
 long WINAPI ICC_GetInputPassID(long ReaderHandle, unsigned char ctime, unsigned char *rlen, unsigned char start,unsigned char stop,unsigned char * cardID,unsigned char * cpass);//»ñÈ¡ÃÜÂë£¬´ø³¬Ê±,´øID
 
@@ -240,6 +259,8 @@ long WINAPI PICC_Reader_ID_Select(long ReaderHandle);//Éí·İÖ¤Ñ¡¿¨
 
 long WINAPI PICC_Reader_ID_Read(long ReaderHandle,unsigned char* Response);//Éí·İÖ¤¶Á¿¨
 
+long WINAPI PICC_Reader_ID_ReadUID(long ReaderHandle,unsigned char* UID);//Éí·İÖ¤UID¶ÁÈ¡
+
 long WINAPI PICC_Reader_ReadIDMsg(long ReaderHandle, const char* pBmpFile, char *pName, char *pSex, char *pNation, char *pBirth, char *pAddress, char *pCertNo, char *pDepartment , char *pEffectData, char *pExpire,char * pErrMsg);
 //Èç¹ûpBmpFile==NULL£¬Ôò²»Éú³ÉÕÕÆ¬£¬ÈçĞèÉú³ÉÕÕÆ¬£¬ÕâÀïÇë´«ÈëÂ·¾¶¡£ÀıÈç£ºC:/zhaopian/zp.bmp
 long WINAPI PICC_Reader_ReadIDInfo(long ReaderHandle, char* pBmpFileData, char *pName, char *pSex, char *pNation, char *pBirth, char *pAddress, char *pCertNo, char *pDepartment , char *pEffectData,  char *pExpire,char * pErrMsg);
@@ -248,6 +269,10 @@ long WINAPI PICC_Reader_ReadIDInfo(long ReaderHandle, char* pBmpFileData, char *
 long WINAPI  StrToHex(unsigned char *strIn,int inLen,unsigned char *strOut);//½«×Ö·ûÃüÁîÁ÷×ªÎª16½øÖÆÁ÷
 
 long WINAPI  HexToStr(unsigned char *strIn,int inLen,unsigned char *strOut);//½«16½øÖÆÃüÁîÁ÷×ªÎª×Ö·ûÁ÷
+
+long WINAPI Get_CardNO2_MagCard(char timeout, char* data1, int* nlen1, char* data2, int* nlen2, char* data3, int* nlen3);
+
+long WINAPI Get_Password(char* data, int type);
 
 #ifdef __cplusplus
 }
