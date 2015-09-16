@@ -98,15 +98,16 @@ BEGIN
                     WS_VISIBLE
     PUSHBUTTON      "关闭线程",IDC_BTN_CLOSETHREAD,149,170,58,17,NOT 
                     WS_VISIBLE
-    LTEXT           "状态:",IDC_STATIC_STATE,91,157,216,12,NOT WS_VISIBLE
+    LTEXT           "",IDC_STATIC_STATE,118,157,189,12
     PUSHBUTTON      "读",IDC_BTN_READINFO,23,126,58,16
-    EDITTEXT        IDC_EDIT_TIMEOUT,49,105,31,15,ES_AUTOHSCROLL
-    LTEXT           "超时值(秒)",IDC_STATIC,7,109,41,11
-    LTEXT           "注意:",IDC_STATIC,7,17,83,11
-    LTEXT           "磁条卡需要点击""读""才可刷卡。",IDC_STATIC,7,30,83,19
-    LTEXT           "其余的卡只需把卡放读卡器上就可以点击""读""按钮。",
-                    IDC_STATIC,7,53,83,29
+    EDITTEXT        IDC_EDIT_TIMEOUT,49,105,31,15,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "超时值(秒)",IDC_STATIC,7,109,41,11,NOT WS_VISIBLE
+    LTEXT           "注意:",IDC_STATIC,7,46,83,11
+    LTEXT           "只需把卡放读卡器上就可以点击""读""按钮。",IDC_STATIC,7,
+                    59,83,29
     PUSHBUTTON      "Button1",IDC_BUTTON1,26,79,49,15,NOT WS_VISIBLE
+    LTEXT           "状态:",IDC_STATIC_STATE2,92,157,22,12,NOT WS_VISIBLE
 END
 
 

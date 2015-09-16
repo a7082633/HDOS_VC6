@@ -15,6 +15,7 @@
 #define IDC_BTN_CLOSETHREAD             1005
 #define IDC_STATIC_STATE                1006
 #define IDC_BTN_READINFO                1007
+#define IDC_STATIC_STATE2               1008
 #define IDC_EDIT_TIMEOUT                1009
 #define IDC_BUTTON1                     1010
 

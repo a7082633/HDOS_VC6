@@ -20,6 +20,7 @@ class Reader
 {
 
 public:
+	static int ShowMessage();
 	static int PSAM_Send( char * _ADPU_CMD, char *_ADPU_Responce , 
 						 char * _SW);
 

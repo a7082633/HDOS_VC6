@@ -3742,7 +3742,8 @@ MHC_CARDINTERFACE_API int __stdcall  iReader_SAM_OrgCertificate(int hDev,
 	if (strcmp(sw , "9000") != 0)
 		return IRV_PSAM_ERR;
 
-	u.HexstrToBin((unsigned char*)info , (unsigned char*)resp , strlen(resp));
+	//u.HexstrToBin((unsigned char*)info , (unsigned char*)resp , strlen(resp));
+	strcpy(info , resp);
 	return IRV_OK;	
 }
 
@@ -3775,7 +3776,7 @@ MHC_CARDINTERFACE_API int __stdcall  iReader_SAM_Certificate(int hDev,
 	if (strcmp(sw , "9000") != 0)
 		return IRV_PSAM_ERR;
 	
-	u.HexstrToBin((unsigned char*)info , (unsigned char*)resp , strlen(resp));
-
+	//u.HexstrToBin((unsigned char*)info , (unsigned char*)resp , strlen(resp));
+	strcpy(info , resp);
 	return IRV_OK;	
 }

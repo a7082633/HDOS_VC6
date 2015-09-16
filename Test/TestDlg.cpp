@@ -84,6 +84,7 @@ BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -173,6 +174,7 @@ HCURSOR CTestDlg::OnQueryDragIcon()
 
 void CTestDlg::OnButton1() 
 {
+//	TiXmlFOpen("HAHA.TXT","rb");
 //	handle=Reader_Open();
 //	unsigned char uid[20]={0};
 //	//unsigned long uid=0;
@@ -207,12 +209,24 @@ void CTestDlg::OnButton1()
 
 void CTestDlg::OnButton2() 
 {
-	char Dest[5000]={0};
-	char *Source=NULL;
-	int i=IOpenPort(Dest);
 
-	i=IReadCard(Source,Dest);
-
-	i=IClosePort(Dest);
 //	Reader_Close(handle);
+}
+
+void CTestDlg::OnButton3() 
+{
+	int i=HD_InitComm(1001);
+	i=HD_Authenticate();
+	char name[200]={0};
+	char sex[200]={0};
+	char nation[200]={0};
+	char born[200]={0};
+	char address[400]={0};
+	char cardNo[400]={0};
+	char issuedat[200]={0};
+	char effectedDate[200]={0};
+	char expiredDate[200]={0};
+	char picData[87725]={0};
+	char temp2[300]={0};
+	i=HD_Read_BaseInfo("C:\\zp.jpg",picData,name,sex,nation,born,address,cardNo,issuedat,effectedDate,expiredDate);
 }

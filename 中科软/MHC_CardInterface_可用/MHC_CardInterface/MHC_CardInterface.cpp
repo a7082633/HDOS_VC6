@@ -32,7 +32,8 @@ MHC_CARDINTERFACE_API int __stdcall iDOpenPort(void)
 	char apdu[100];
 	char resp[256];
 	char sw[5] ;
-	
+	//::MessageBox(NULL,"进入打开端口1",NULL,MB_OK);
+	//int  i = rd.ShowMessage();
 	int ret = rd.Open();
 	rd.Beep(20);
 

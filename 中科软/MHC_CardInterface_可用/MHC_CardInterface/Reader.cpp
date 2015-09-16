@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include "Utils.h"
 //#include "Application.h"
-#include "CapRHCardReader.h"
-#pragma comment(lib,"CapRHCardReader.lib")
 /************************************************************************/
 /* 读卡器类型宏定义                                                     */
 /************************************************************************/
@@ -29,7 +27,6 @@ int _SLOT = 0;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-
 Reader::Reader()
 {
 
@@ -70,8 +67,9 @@ int Reader::Open()
 		Reader::rdHandle = icdev;
 	return RD_OK;
 #endif	*/
-	
+	//::MessageBox(NULL,"进入打开端口2",NULL,MB_OK);
 	long hReader = ICC_Reader_Open();
+	//::MessageBox(NULL,"进入打开端口3",NULL,MB_OK);
 	if (hReader <= 0 )
 		return RD_CONNECT_ERROR;
 	else
@@ -346,4 +344,11 @@ int Reader::PSAM_Send( char * _APDU_CMD, char *_APDU_Responce ,  char * _SW)
 
 	return RD_OK;
 
+}
+
+
+int Reader::ShowMessage()
+{
+	::MessageBox(NULL,"进入打开端口2",NULL,MB_OK);
+	return 0;
 }

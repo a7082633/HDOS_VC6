@@ -488,10 +488,13 @@ void CHD_WUHANDlg::OnBtnReadinfo()
 	char pErr[50]={0};
 	CString time;
 	this->GetDlgItemText(IDC_EDIT_TIMEOUT,time);
-	int i=IC_GetData(dataOut,pErr,atoi(time));
+	int i=IC_GetData(dataOut,pErr);
 	if(i==0)
 	{
 		this->SetDlgItemText(IDC_EDIT_DATA,dataOut);
+	}else
+	{
+		this->SetDlgItemText(IDC_STATIC_STATE,pErr);
 	}
 
 }

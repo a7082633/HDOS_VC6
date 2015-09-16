@@ -1,0 +1,71 @@
+// OCX_Call_Test.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (OCX_Call_Test.tlb) that will become a resource in
+// OCX_Call_Test.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(BEC5D87A-B8C2-4B1C-BECA-238588EE5EE1), version(1.0),
+  helpfile("OCX_Call_Test.hlp"),
+  helpstring("OCX_Call_Test ActiveX Control module"),
+  control ]
+library OCX_CALL_TESTLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for COCX_Call_TestCtrl
+
+	[ uuid(3A80BA51-3DC9-454D-A365-DB6C09B7FAA6),
+	  helpstring("Dispatch interface for OCX_Call_Test Control"), hidden ]
+	dispinterface _DOCX_Call_Test
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(COCX_Call_TestCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(COCX_Call_TestCtrl)
+			[id(1)] BSTR ReadSam();
+			[id(2)] BSTR ReadID();
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for COCX_Call_TestCtrl
+
+	[ uuid(B1166DEC-3DBC-4F4E-BC61-7C3F2044F1E0),
+	  helpstring("Event interface for OCX_Call_Test Control") ]
+	dispinterface _DOCX_Call_TestEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(COCX_Call_TestCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for COCX_Call_TestCtrl
+
+	[ uuid(FB81F047-BE05-404C-80E4-0E843BDE56FA),
+	  helpstring("OCX_Call_Test Control"), control ]
+	coclass OCX_Call_Test
+	{
+		[default] dispinterface _DOCX_Call_Test;
+		[default, source] dispinterface _DOCX_Call_TestEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

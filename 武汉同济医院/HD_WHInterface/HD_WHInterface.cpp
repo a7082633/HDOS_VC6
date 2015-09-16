@@ -34,10 +34,10 @@ unsigned long ChangeNum(char* str,int length)   //十六进制字符串转十进制数值
     }      
     return result;      
 } 
-int __stdcall IC_GetData(char *dataOut,char *pErr,int TimeOut)
+int __stdcall IC_GetData(char *dataOut,char *pErr)
 {
 	int i=0;
-	int count=TimeOut*10/3;
+	//int count=TimeOut*10/3;
 	long ReaderHandle=ICC_Reader_Open("USB1");
 	//i=ICC_DispSound(ReaderHandle,2,1);
 	CString temp;
@@ -225,10 +225,10 @@ int __stdcall IC_GetData(char *dataOut,char *pErr,int TimeOut)
 			i=PICC_Reader_Request(ReaderHandle);
 			if(i)
 			{
-				temp.Format("请求卡片失败,错误代码:%d",i);
+				temp.Format("请求卡片失败(可能无卡),错误代码:%d",i);
 				strcpy(pErr,temp.GetBuffer(0));
-				//ICC_Reader_Close(ReaderHandle);
-				//return i;
+				ICC_Reader_Close(ReaderHandle);
+				return i;
 			}
 			i=PICC_Reader_anticoll(ReaderHandle,uid);
 			if(i)
@@ -347,6 +347,5 @@ int __stdcall IC_GetData(char *dataOut,char *pErr,int TimeOut)
 		}//end else
 	}//end else
 	//ICC_Reader_Close(ReaderHandle);
-	//return 115;
-		
+	//return 115;	
 }

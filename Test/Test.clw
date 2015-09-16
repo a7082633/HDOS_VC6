@@ -49,9 +49,10 @@ Control4=IDOK,button,1342373889
 [DLG:IDD_TEST_DIALOG]
 Type=1
 Class=CTestDlg
-ControlCount=4
+ControlCount=5
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_BUTTON1,button,1342242816
 Control4=IDC_BUTTON2,button,1342242816
+Control5=IDC_BUTTON3,button,1342242816
 

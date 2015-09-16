@@ -21,5 +21,6 @@
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
+#include "CapRHCardReader.h"
+#pragma comment(lib,"CapRHCardReader.lib")
 #endif // !defined(AFX_STDAFX_H__578AC662_D86D_4C65_8193_9FD3D64520E5__INCLUDED_)

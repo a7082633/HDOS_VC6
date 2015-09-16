@@ -6,29 +6,16 @@
 --------------------Configuration: Test - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating command line "rc.exe /l 0x804 /fo"Debug/Test.res" /d "_DEBUG" /d "_AFXDLL" "D:\HDOS-TEST\Test\Test.rc"" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP4E9.tmp" with contents
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPCC4E.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Test.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\HDOS-TEST\Test\Test.cpp"
-"D:\HDOS-TEST\Test\TestDlg.cpp"
+"D:\github_HDOS\HDOS_VC6\Test\TestDlg.cpp"
 ]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP4E9.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP4EA.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Test.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\HDOS-TEST\Test\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP4EA.tmp" 
-Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Test.pdb" /debug /machine:I386 /out:"Debug/Test.exe" /pdbtype:sept  ".\Debug\StdAfx.obj" ".\Debug\Test.obj" ".\Debug\TestDlg.obj" ".\Debug\Test.res" "
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPCC4E.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/Test.pdb" /debug /machine:I386 /out:"Debug/Test.exe" /pdbtype:sept  .\Debug\StdAfx.obj .\Debug\Test.obj .\Debug\TestDlg.obj .\Debug\Test.res "
 <h3>Output Window</h3>
-Compiling resources...
 Compiling...
-StdAfx.cpp
-Compiling...
-Test.cpp
 TestDlg.cpp
-Generating Code...
 Linking...
 
 

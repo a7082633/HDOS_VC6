@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-int __stdcall IC_GetData(char *dataOut,char *pErr,int TimeOut);
+int __stdcall IC_GetData(char *dataOut,char *pErr);
 
 #ifdef __cplusplus
 }
