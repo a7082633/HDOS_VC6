@@ -249,7 +249,7 @@ DWORD WINAPI CID_CARDDlg::ReaderThread(LPVOID lpParameter)
 			char picData[77725]={0};
 			char temp2[300]={0};
 			char g_pBmpFile[255] = {0};
-			strcpy(g_pBmpFile, "C:\\zp.bmp");
+			strcpy(g_pBmpFile, "D:\\zp.bmp");
 			CString sTemp="";
 			int re = HD_Authenticate();
 			if(re==0)
@@ -276,7 +276,8 @@ DWORD WINAPI CID_CARDDlg::ReaderThread(LPVOID lpParameter)
 					::AfxMessageBox("确认是否安装了Excel");
 				}
 				objBooks = objApp.GetWorkbooks();
-				objBook = objBooks.Open(path, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional);
+				objBook = objBooks.Open(path, VOptional, VOptional, VOptional, VOptional, VOptional, 
+					VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional, VOptional);
 				objSheets = objBook.GetWorksheets();
 				objSheet = objSheets.GetItem(COleVariant((short)1));
 				objRange.AttachDispatch(objSheet.GetCells(), true);

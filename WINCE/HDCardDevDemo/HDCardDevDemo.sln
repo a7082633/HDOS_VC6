@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HDCardDevDemo", "HDCardDevDemo\HDCardDevDemo.vcproj", "{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|My Device Emulator (ARMV4I) = Debug|My Device Emulator (ARMV4I)
+		Release|My Device Emulator (ARMV4I) = Release|My Device Emulator (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Debug|My Device Emulator (ARMV4I).ActiveCfg = Debug|My Device Emulator (ARMV4I)
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Debug|My Device Emulator (ARMV4I).Build.0 = Debug|My Device Emulator (ARMV4I)
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Debug|My Device Emulator (ARMV4I).Deploy.0 = Debug|My Device Emulator (ARMV4I)
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Release|My Device Emulator (ARMV4I).ActiveCfg = Release|My Device Emulator (ARMV4I)
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Release|My Device Emulator (ARMV4I).Build.0 = Release|My Device Emulator (ARMV4I)
+		{C497C59A-95FA-4AF4-83EC-D4AF9DA34BC1}.Release|My Device Emulator (ARMV4I).Deploy.0 = Release|My Device Emulator (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

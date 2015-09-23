@@ -1,0 +1,22 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: ExcelTest - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/ExcelTest.pdb" /debug /machine:I386 /out:"Debug/ExcelTest.exe" /pdbtype:sept  .\Debug\excel.obj .\Debug\ExcelTest.obj .\Debug\ExcelTestDlg.obj .\Debug\StdAfx.obj .\Debug\ExcelTest.res "
+<h3>Output Window</h3>
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/ExcelTest.bsc"  .\Debug\StdAfx.sbr .\Debug\excel.sbr .\Debug\ExcelTest.sbr .\Debug\ExcelTestDlg.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+ExcelTest.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

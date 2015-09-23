@@ -275,8 +275,16 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 	char dataOut[10000]={0};
 	int i=ReadCard(para.GetBuffer(0),dataOut,account.GetBuffer(0),password.GetBuffer(0),atoi(doctype),userid.GetBuffer(0),
 					sampin.GetBuffer(0));
-
 	CString temp;
+	if(i)
+	{
+		temp.Format("读数据失败，错误代码:%d",i);
+		this->SetDlgItemText(IDC_STATIC_STATE,temp);
+	}
+	else
+	{
+		this->SetDlgItemText(IDC_EDIT_DATA,dataOut);
+	}
 	if(0==strcmp(para,"102"))
 	{
 		unsigned char strOut[4000]={0};
@@ -296,7 +304,7 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 		if (hGlobal== NULL)   
 		{  
 			temp="分配内存出错!";
-			this->SetDlgItemText(IDC_EDIT_DATA,temp);
+			this->SetDlgItemText(IDC_STATIC_STATE,temp);
 			return ;  
 		} 
 		// 锁定刚才分配的内存空间  
@@ -306,7 +314,7 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 		{    
             GlobalFree(hGlobal);  // 记得释放内存 
 			temp="锁定内存出错!";
-			this->SetDlgItemText(IDC_EDIT_DATA,temp);
+			this->SetDlgItemText(IDC_STATIC_STATE,temp);
             return;  
 		}
 		// 将照片数据放到流中  
@@ -323,7 +331,7 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 		{   
 			GlobalFree(hGlobal);  // 记得释放内存  
 			temp="流加载图片出错!";
-			this->SetDlgItemText(IDC_EDIT_DATA,temp);
+			this->SetDlgItemText(IDC_STATIC_STATE,temp);
 			return;  
 		}
 	    //获取图像宽和高,注意这里的宽和高不是图像的分辨率  
@@ -344,20 +352,11 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 			pPic->Release();  
 			GlobalFree(hGlobal);  // 记得释放内存  
 			temp="显示图片出错!";
-			this->SetDlgItemText(IDC_EDIT_DATA,temp);
+			this->SetDlgItemText(IDC_STATIC_STATE,temp);
 			return;  
 		}  
 		pPic->Release();   
 		GlobalFree(hGlobal);  // 记得释放内存  
-	}
-	if(i)
-	{
-		temp.Format("读数据失败，错误代码:%d",i);
-		this->SetDlgItemText(IDC_EDIT_DATA,temp);
-	}
-	else
-	{
-		this->SetDlgItemText(IDC_EDIT_DATA,dataOut);
 	}
 }
 

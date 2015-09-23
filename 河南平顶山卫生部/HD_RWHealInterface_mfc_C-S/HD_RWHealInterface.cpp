@@ -452,7 +452,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	{
 		TCHAR pszError[200];
 		e->GetErrorMessage(pszError, 200);
-		//::MessageBox(NULL,pszError,NULL,MB_OK);
+		::MessageBox(NULL,pszError,NULL,MB_OK);
 		e->Delete();
 		return HTTP_EXCEPTION;
 	}

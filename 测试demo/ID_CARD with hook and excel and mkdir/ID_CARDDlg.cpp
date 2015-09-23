@@ -261,8 +261,8 @@ DWORD WINAPI CID_CARDDlg::ReaderThread(LPVOID lpParameter)
 			int re = HD_Authenticate();
 			if(re==0)
 			{
-				//re = HD_Read_BaseMsg(picPathstr, name, sex, nation, born, address, cardNo, issuedat, effectedDate, expiredDate);
 				re = HD_Read_BaseMsg("zp.bmp", name, sex, nation, born, address, cardNo, issuedat, effectedDate, expiredDate);
+				//re = HD_Read_BaseMsg("zp.jpg", name, sex, nation, born, address, cardNo, issuedat, effectedDate, expiredDate);
 				//移动文件
 				//MoveFile("zp.bmp","C:\\File3.txt");
 				//修改文件名字

@@ -1,0 +1,70 @@
+// TestOcx.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (TestOcx.tlb) that will become a resource in
+// TestOcx.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(B9308745-4A68-4C10-A6E1-0A368348188C), version(1.0),
+  helpfile("TestOcx.hlp"),
+  helpstring("TestOcx ActiveX Control module"),
+  control ]
+library TESTOCXLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CTestOcxCtrl
+
+	[ uuid(4E5A68FA-C36B-4802-9F3B-22B3925B73C4),
+	  helpstring("Dispatch interface for TestOcx Control"), hidden ]
+	dispinterface _DTestOcx
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CTestOcxCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CTestOcxCtrl)
+			[id(1)] BSTR ReadID();
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CTestOcxCtrl
+
+	[ uuid(7E831E4E-6DED-41CD-B6B0-4005798757A5),
+	  helpstring("Event interface for TestOcx Control") ]
+	dispinterface _DTestOcxEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CTestOcxCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CTestOcxCtrl
+
+	[ uuid(CFF42020-7AD5-4851-A693-DDB2812EF0EA),
+	  helpstring("TestOcx Control"), control ]
+	coclass TestOcx
+	{
+		[default] dispinterface _DTestOcx;
+		[default, source] dispinterface _DTestOcxEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

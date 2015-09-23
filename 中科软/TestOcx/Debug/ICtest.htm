@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>TEST</title>
+<OBJECT   classid="clsid:CFF42020-7AD5-4851-A693-DDB2812EF0EA" width=0 height=0 align="center" codebase="TestOcx.ocx"  id="HD_HNOCX" HSPACE=0 VSPACE=0>
+</OBJECT>
+<script language="javascript">
+
+function mytest()
+{	
+//alert("haha");
+	var str1;
+	str1=HD_HNOCX.OpenDev("test","111111");
+	alert(str1);
+	str1=CloseDev();
+//	var obj1 = document.getElementById('CardNo');
+//	obj1.value = str1;
+//	alert(str1);
+}
+function CloseDev()
+{	
+	var str1;
+	str1=HD_HNOCX.CloseDev();
+}
+function HD_ReadCard()
+{	
+	var str1;
+	var rd=document.getElementById('HD_HNOCX');
+	str1=rd.ReadID();
+	
+	//alert(rd.zp);
+	
+	var obj1=document.getElementById('CardNo');
+	obj1.value=str1;
+}
+function HD_WriteCard()
+{	
+	var str1;
+	var para=document.getElementById('para').value;
+	var pin=document.getElementById('pin').value;
+	var dataIn=document.getElementById('dataIn').value;
+	str1=HD_HNOCX.WriteCard(para,dataIn,'test','111111','1','222222',pin);
+	var obj1=document.getElementById('dataIn');
+	obj1.value=str1;
+}
+</script>
+</head> 
+
+<body>
+<!--标签：<input  type="text"  style="width:100px" id="para">
+pin：<input  type="text"  style="width:100px" id="pin"> -->
+<p></p>
+读到的数据:<input  type="text"  style="width:300px" id="CardNo">
+<input type="button" style="width:100px" onClick="javascript:HD_ReadCard()" value="读">
+<p></p>
+<!--要写的数据:<input  type="text"  style="width:300px" id="dataIn">
+<input type="button" style="width:100px" onClick="javascript:HD_WriteCard()" value="写">
+<p></p>
+<div align="center" style="height:100px; width: 80px; background-color:#CCCCCC;">
+   <span id="piccode" style="height:100px; width: 80px; text-align:center">
+    <p>&nbsp;</p>
+    <p>照片</p>
+   </span>                                    
+</div>   -->
+<!--<form name="form1">
+<p>串口号<input type="text" name="T1" size="20" value="1">
+<p>卡座号(1:下卡座 2:上卡座)<input type="text" name="T2" size="20" value="1">
+<p><input type="text"  name="cardinfo" size="60">
+<input type="button" onClick="javascript:GetCardinfo()" value="读卡信息" >
+</form> -->
+</body>
+</html>

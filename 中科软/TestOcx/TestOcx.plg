@@ -1,0 +1,45 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TestOcx - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP39AA.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /Fp"Release/TestOcx.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\github_HDOS\HDOS_VC6\ÖÐ¿ÆÈí\TestOcx\TestOcxCtl.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP39AA.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP39BA.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:no /pdb:"Release/TestOcx.pdb" /machine:I386 /def:".\TestOcx.def" /out:"Release/TestOcx.ocx" /implib:"Release/TestOcx.lib" 
+".\Release\StdAfx.obj"
+".\Release\TestOcx.obj"
+".\Release\TestOcxCtl.obj"
+".\Release\TestOcxPpg.obj"
+".\Release\TestOcx.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP39BA.tmp"
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP39BB.bat" with contents
+[
+@echo off
+regsvr32 /s /c ".\Release\TestOcx.ocx"
+echo regsvr32 exec. time > ".\Release\regsvr32.trg"
+]
+Creating command line "C:\Users\zxx\AppData\Local\Temp\RSP39BB.bat"
+Compiling...
+TestOcxCtl.cpp
+Linking...
+   Creating library Release/TestOcx.lib and object Release/TestOcx.exp
+<h3>Output Window</h3>
+Registering ActiveX Control...
+
+
+
+<h3>Results</h3>
+TestOcx.ocx - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
