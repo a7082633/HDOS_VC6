@@ -442,6 +442,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		pFile->QueryInfoStatusCode(Code);
 		if(Code!=200)
 		{
+			m_session.Close();
 			return CANT_FINDWEB;
 		}
 		while(pFile->ReadString(strData))
@@ -454,6 +455,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		e->GetErrorMessage(pszError, 200);
 		::MessageBox(NULL,pszError,NULL,MB_OK);
 		e->Delete();
+		m_session.Close();
 		return HTTP_EXCEPTION;
 	}
 	m_session.Close();
@@ -1176,6 +1178,7 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 		pFile->QueryInfoStatusCode(Code);
 		if(Code!=200)
 		{
+			m_session.Close();
 			return CANT_FINDWEB;
 		}
 		while(pFile->ReadString(strData))
@@ -1188,6 +1191,7 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 		e->GetErrorMessage(pszError, 200);
 		//::MessageBox(NULL,pszError,NULL,MB_OK);
 		e->Delete();
+		m_session.Close();
 		return HTTP_EXCEPTION;
 	}
 	m_session.Close();
