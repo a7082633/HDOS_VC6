@@ -1227,15 +1227,19 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 	const char * split = "|"; 
 	vector<string> vs;
 	char * In=NULL; 
-	In = strtok (dataIn,split);
-	while(In!=NULL)
+	if(flag!=1003&&flag!=1004&&flag!=1005&&flag!=1006&&flag!=1007&&flag!=1013&&flag!=1014&&flag!=1015)
 	{
-		vs.push_back(In);
-		In = strtok (NULL,split);
+		In = strtok (dataIn,split);
+		while(In!=NULL)
+		{
+			vs.push_back(In);
+			In = strtok (NULL,split);
+		}
 	}
 	char * pa=NULL; 
 	pa = strtok (para,split);
 	int index=0;
+	HANDLE hDev=NULL;
 	while(pa!=NULL)
 	{
 		int flag=atoi(pa);
@@ -1261,9 +1265,6 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 			}
 		}else if(flag==1024)
 		{
-			HANDLE hDev;
-//			char *p1=(char *)vs[index].c_str();
-//			char *p2=(char *)vs[index+1].c_str();
 			int re=iW_DF02EF07Info(hDev,(char *)vs[index].c_str(),(char *)vs[index+1].c_str());
 			if(re)
 			{
@@ -1271,10 +1272,8 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 				return re;
 			}
 			index+=2;
-//			char *p3=(char *)vs[index].c_str();
 		}else if(flag==1026)
 		{
-			HANDLE hDev;
 			int re=iW_DF02EF08Info(hDev,(char *)vs[index].c_str(),(char *)vs[index+1].c_str());
 			if(re)
 			{
@@ -1282,6 +1281,93 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 				return re;
 			}
 			index+=2;
+		}else if(flag==1003)
+		{
+			int re=iW_DF03ED_ALLInfo(hDev,1,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1004)
+		{
+			int re=iW_DF03ED_ALLInfo(hDev,2,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1005)
+		{
+			int re=iW_DF03ED_ALLInfo(hDev,3,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1006)
+		{
+			int re=iW_DF03ED_ALLInfo(hDev,4,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1007)
+		{
+			int re=iW_DF03ED_ALLInfo(hDev,5,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1013)
+		{
+			int re= iW_DF03EE_ALLInfo(hDev,1,dataIn);
+
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1014)
+		{
+			int re=iW_DF03EE_ALLInfo(hDev,2,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1015)
+		{
+			int re=iW_DF03EE_ALLInfo(hDev,3,dataIn);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+		}else if(flag==1027)
+		{
+			for(int i=1;i<=5;i++)
+			{
+				int re=iW_DF03EF06Info(hDev,i);
+				if(re)
+				{
+					iDClosePort();
+					return re;
+				}
+			}
+		}else if(flag==1028)
+		{
+			for(int i=1;i<=3;i++)
+			{
+				int re=iW_DF03EF05Info(hDev,i);
+				if(re)
+				{
+					iDClosePort();
+					return re;
+				}
+			}
 		}
 		pa = strtok (NULL,split);
 	}

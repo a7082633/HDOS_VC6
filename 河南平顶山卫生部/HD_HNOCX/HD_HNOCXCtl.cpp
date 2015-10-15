@@ -258,6 +258,7 @@ size_t Base64_Encode(char *pDest, const char *pSrc, size_t srclen)
 
 BSTR CHD_HNOCXCtrl::ReadCard(LPCTSTR para, LPCTSTR account, LPCTSTR password, LPCTSTR doctype, LPCTSTR userid, LPCTSTR pin) 
 {
+	//::MessageBox(NULL,"Ω¯»ÎOCX",NULL,MB_OK);
  	CString strResult;
  	// TODO: Add your dispatch handler code here
  	char dataOut[12000]={0};

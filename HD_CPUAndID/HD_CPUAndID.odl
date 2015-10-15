@@ -1,0 +1,76 @@
+// HD_CPUAndID.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (HD_CPUAndID.tlb) that will become a resource in
+// HD_CPUAndID.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(D92A72B4-12A9-4F85-A9B6-22A35FE4AEBF), version(1.0),
+  helpfile("HD_CPUAndID.hlp"),
+  helpstring("HD_CPUAndID ActiveX Control module"),
+  control ]
+library HD_CPUANDIDLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CHD_CPUAndIDCtrl
+
+	[ uuid(34EC79FF-D75C-4EAF-BBB4-6B4993F80782),
+	  helpstring("Dispatch interface for HD_CPUAndID Control"), hidden ]
+	dispinterface _DHD_CPUAndID
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CHD_CPUAndIDCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CHD_CPUAndIDCtrl)
+			[id(1)] BSTR ReaderOpen();
+			[id(2)] void ReaderClose();
+			[id(3)] BSTR ICCPowerOn();
+			[id(4)] BSTR ICCPowerOff();
+			[id(5)] BSTR ICCReaderApplicationHEX(BSTR Command_APDU);
+			[id(6)] BSTR ReadIDCard(BSTR PicPath);
+			[id(7)] BSTR GetInputPass(long ctime);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CHD_CPUAndIDCtrl
+
+	[ uuid(E69F0C36-3CFA-448B-970A-63C0D44C0584),
+	  helpstring("Event interface for HD_CPUAndID Control") ]
+	dispinterface _DHD_CPUAndIDEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CHD_CPUAndIDCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CHD_CPUAndIDCtrl
+
+	[ uuid(A2224632-AAC9-4715-8476-E337F8C6E8AF),
+	  helpstring("HD_CPUAndID Control"), control ]
+	coclass HD_CPUAndID
+	{
+		[default] dispinterface _DHD_CPUAndID;
+		[default, source] dispinterface _DHD_CPUAndIDEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

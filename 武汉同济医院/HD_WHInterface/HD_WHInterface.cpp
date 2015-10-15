@@ -37,9 +37,15 @@ unsigned long ChangeNum(char* str,int length)   //十六进制字符串转十进制数值
 int __stdcall IC_GetData(char *dataOut,char *pErr)
 {
 	int i=0;
-	//int count=TimeOut*10/3;
+	BOOL isID=true;
 	long ReaderHandle=ICC_Reader_Open("USB1");
-	//i=ICC_DispSound(ReaderHandle,2,1);
+	char VSoftware[20]={0};
+	char VHardware[20]={0};
+	char VBoot[20]={0};
+	char VDate[20]={0};
+	i=ICC_Reader_GetDeviceVersion(ReaderHandle,VSoftware,VHardware,VBoot,VDate);
+	char *p=strstr(VBoot,"186");
+	if(p==NULL) isID=false;
 	CString temp;
 	//处理磁条卡
 	//	unsigned char rlen=0;
@@ -177,7 +183,11 @@ int __stdcall IC_GetData(char *dataOut,char *pErr)
 	{
 		//非接触卡
 		//身份证
-		i=PICC_Reader_ID_Request(ReaderHandle);//身份证寻卡
+		if(isID==true)
+		{
+			i=PICC_Reader_ID_Request(ReaderHandle);//身份证寻卡
+		}else
+			i=1;
 		if(i==0)
 		{
 			i=PICC_Reader_ID_Select(ReaderHandle);//身份证选卡

@@ -61,6 +61,7 @@ protected:
 	afx_msg void OnBtnGetpin();
 	afx_msg void OnBtnGetnpin();
 	afx_msg void OnBtnNkey();
+	afx_msg void OnButton1();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

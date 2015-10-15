@@ -25,6 +25,7 @@
 #define IDC_BTN_ACTIVEKEY               1015
 #define IDC_BTN_SET_KEYLEN              1016
 #define IDC_EDIT_PIN                    1017
+#define IDC_BUTTON1                     1017
 #define IDC_BTN_GETPIN                  1018
 #define IDC_BTN_GETNPIN                 1019
 #define IDC_EDIT_CARDNO                 1020
@@ -40,7 +41,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_CONTROL_VALUE         1018
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

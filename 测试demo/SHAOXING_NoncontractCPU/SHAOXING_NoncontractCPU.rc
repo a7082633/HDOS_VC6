@@ -130,6 +130,7 @@ BEGIN
                     WS_VSCROLL | WS_TABSTOP
     LTEXT           "操作类型:",IDC_STATIC,206,293,36,9
     PUSHBUTTON      "加密",IDC_BTN_NKEY,295,289,46,15
+    PUSHBUTTON      "test",IDC_BUTTON1,45,163,50,17
 END
 
 

@@ -100,6 +100,7 @@ BEGIN_MESSAGE_MAP(CSHAOXING_NoncontractCPUDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_GETPIN, OnBtnGetpin)
 	ON_BN_CLICKED(IDC_BTN_GETNPIN, OnBtnGetnpin)
 	ON_BN_CLICKED(IDC_BTN_NKEY, OnBtnNkey)
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -622,4 +623,13 @@ void CSHAOXING_NoncontractCPUDlg::OnBtnNkey()
 		CEdit* pedit = (CEdit*)GetDlgItem(IDC_EDIT_DATA);
 		pedit->LineScroll(pedit->GetLineCount());
 	}
+}
+
+void CSHAOXING_NoncontractCPUDlg::OnButton1() 
+{
+	char VSoftware[20]={0};
+	char VHardware[20]={0};
+	char VBoot[20]={0};
+	char VDate[20]={0};
+	int i=ICC_Reader_GetDeviceVersion(hDev,VSoftware,VHardware,VBoot,VDate);
 }

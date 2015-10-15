@@ -6,7 +6,6 @@
 #endif // _MSC_VER > 1000
 
 // HD_HNOCXCtl.h : Declaration of the CHD_HNOCXCtrl ActiveX Control class.
-
 /////////////////////////////////////////////////////////////////////////////
 // CHD_HNOCXCtrl : See HD_HNOCXCtl.cpp for implementation.
 
@@ -17,7 +16,6 @@ class CHD_HNOCXCtrl : public COleControl
 // Constructor
 public:
 	CHD_HNOCXCtrl();
-
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CHD_HNOCXCtrl)
@@ -73,5 +71,4 @@ public:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
 #endif // !defined(AFX_HD_HNOCXCTL_H__EB128509_28A2_4087_B3AC_2A40B22360F6__INCLUDED)
