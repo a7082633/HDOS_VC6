@@ -6,7 +6,7 @@
 #include "Utils.h"
 using namespace std;
 #include <mbstring.h>
-
+typedef int(__stdcall *FXN)(char*,char*,char*);
 string strdata1,strdata,sDisp;
 char data1[2];
 char sAccm;
@@ -18,7 +18,8 @@ unsigned char ucATR[20]={0};
 unsigned char _CityCode[33]={0};//城市代码
 unsigned char _ATR[20]={0};//ATR分散因子
 unsigned char _Random[10]={0};
-HMODULE hModule;//动态库的模组
+HMODULE hModule=NULL;//动态库的模组
+bool isDCard=false;
 int AN_style = 0x01;
 int CN_style = 0x0F;
 int B_style	=  0xFF;
@@ -95,14 +96,16 @@ long SelectFile1(char*data,char*err)
 	strdata="";
 	strdata = "<DATA>";
 	unsigned char response[255]={0};
-	Rhand=ICC_Reader_Open("USB1");
-	if (Rhand<0)
-	{
-		strdata=strdata+"99</DATA>";
-		strcpy(data,strdata.c_str());
-		sprintf(err,"%d",Rhand);
-		return 1;
-	}
+	unsigned char cmd[200]={0};
+	unsigned char resp[200]={0};
+//	Rhand=ICC_Reader_Open("USB1");
+//	if (Rhand<0)
+//	{
+//		strdata=strdata+"99</DATA>";
+//		strcpy(data,strdata.c_str());
+//		sprintf(err,"%d",Rhand);
+//		return 1;
+//	}
 	st = ICC_Reader_pre_PowerOn(Rhand,0x01,response);
 	if (st<0)
 	{
@@ -111,7 +114,35 @@ long SelectFile1(char*data,char*err)
 		sprintf(err,"%d",st);
 		return 1;
 	}
-	memcpy(_ATR,response+5,8);
+
+	//memcpy(_cardNo , atr + count - 16 , 16 );
+	memcpy(_ATR,response+st-8,8);
+	//城市代码
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	//00A404000F7378312E73682EC9E7BBE1B1A3D5CF
+	int ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
+	if(resp[0]!=0x61)
+		return 1;
+	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
+	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
+	memcpy(cmd, "\x00\xB2\x01\x00\x12",5);
+	ret = ICC_Reader_Application(Rhand,0x01,5,cmd,resp);
+	
+	if(ret<0 || resp[ret-2]!=0x90)
+	{
+		strcpy(err,"卡片为空卡");
+		return 1;
+	}
+	char sdisp[3]={0};
+	char saccm[40]={0};
+	for(int n=0;n<ret;n++)
+	{
+		sprintf(sdisp,"%02x",resp[n]);
+		strcat(saccm,sdisp);
+	}
+	//char str[33]={0}; 
+	memcpy(_CityCode,saccm+4,32);
+
 	strdata=strdata+"00</DATA>";
 	strcpy(data,strdata.c_str());
 	return 0;
@@ -128,14 +159,17 @@ long SelectFile2(char*data,char*err)
 	strdata = "<DATA>";
 	
 	Rhand=ICC_Reader_Open("USB1");
+	FXN MHRun=(FXN)::GetProcAddress(hModule,"Run");
 	if (Rhand<0)
 	{
-		strdata=strdata+"99</DATA>";
-		strcpy(data,strdata.c_str());
-		sprintf(err,"%d",Rhand);
-		return 1;
+		isDCard=true;
+		return MHRun("1001",data,err);
+//		strdata=strdata+"99</DATA>";
+//		strcpy(data,strdata.c_str());
+//		sprintf(err,"%d",Rhand);
+//		return 1;
 	}
-
+	isDCard=false;
 	if(!g_hEvent)
 	{
 		g_hEvent = CreateEvent(NULL, FALSE, TRUE, "HD100HN");
@@ -505,8 +539,8 @@ long SelectFile9(char*data,char*err)
 	int datalen=0;
 	{
 		memset(cmd,0,260);
-		memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-		st = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+		memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+		st = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 		memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x06",7);
 		st = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 		memcpy(cmd, "\x00\xB2\x08\x00\x14",5);
@@ -563,8 +597,8 @@ long SelectFile11(char*data,char*err)
 	strdata = "<DATA>";
 	memset(resp,0,100);
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	memcpy(cmd, "\x00\xB2\x01\x00\x12",5);
@@ -682,8 +716,8 @@ long SelectFile12(char*data,char*err)
 	sDisp="";
 	strdata = "<DATA>";
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x06",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	memcpy(cmd, "\x00\xB2\x08\x00\x14",5);
@@ -806,8 +840,8 @@ long ReadFileMFEF05(char*data,char*err,int len)
 	int st = atoi(sDisp.c_str());
 	memset(resp,0,100);
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	switch(st)
@@ -985,8 +1019,8 @@ long ReadFileMFEF06(char*data,char*err,int len)
 	int st = atoi(sDisp.c_str());
 	memset(resp,0,100);
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x06",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	switch(st)
@@ -1414,6 +1448,14 @@ long SelectFile13(char*data,char*err)
 	long StartLen2 = strdata1.find("<",EndLen1); //C
 	long EndLen2 = strdata1.find(">",StartLen2);
 	sDisp = strdata1.substr(StartLen+1,EndLen-StartLen-1);
+	//sam上电
+	unsigned char response[100]={0};
+	st = ICC_Reader_pre_PowerOn(Rhand,0x11,response);
+	if (st<0)
+	{
+		strcpy(err,"请在SAM1卡槽插入PSAM卡");
+		return 1;
+	}
 	if (sDisp=="MF" || sDisp=="DDF1")
 	{
 		SelectFile("DDF1");
@@ -1800,12 +1842,30 @@ long SelectFile13(char*data,char*err)
 		}
 		unsigned char cmd[20]={0};
 		unsigned char resp[10]={0};
-		memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
-		ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
-		if(ret<2 || resp[0]!=0x90)
+//		memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
+//		ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
+//		if(ret<2 || resp[0]!=0x90)
+//		{
+//			return 1;
+//		}
+		//认证PIN
+		char Password[50]={0};
+		ret=GetPassWord(Password,err);
+		if(ret!=0)
 		{
 			return 1;
 		}
+		sDisp=Password;
+		int start=sDisp.find("<DATA>",0)+6;
+		int end=sDisp.find("</DATA>",0)-6;
+		sDisp=sDisp.substr(start,end);
+		strcpy(Password,sDisp.c_str());
+		ret=PerPINVerifyNoMF(Password,err);
+		if(ret!=0)
+		{
+			return 1;
+		}
+		/////////
 		sDisp=strdata1.substr(StartLen1+1,EndLen1-StartLen1-1);
 		if (sDisp=="EF05")
 		{	
@@ -1885,6 +1945,14 @@ long SelectFile14(char*data,char*err)
 //	long StartLen2 = strdata1.find("<",EndLen1);
 //	long EndLen2 = strdata1.find(">",StartLen2);
 	sDisp = strdata1.substr(StartLen+1,EndLen-StartLen-1);
+	//sam上电
+	unsigned char response[100]={0};
+	st = ICC_Reader_pre_PowerOn(Rhand,0x11,response);
+	if (st<0)
+	{
+		strcpy(err,"请在SAM1卡槽插入PSAM卡");
+		return 1;
+	}
 	if (sDisp=="MF" || sDisp=="DDF1")
 	{
 		SelectFile("DDF1");
@@ -2992,12 +3060,12 @@ long SelectFile14(char*data,char*err)
 		}
 		unsigned char cmd[20]={0};
 		unsigned char resp[10]={0};
-		memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
-		ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
-		if(ret<2 || resp[0]!=0x90)
-		{
-			return 1;
-		}
+		//memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
+//		ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
+//		if(ret<2 || resp[0]!=0x90)
+//		{
+//			return 1;
+//		}
 		sDisp=strdata1.substr(StartLen1+1,EndLen1-StartLen1-1);
 		if (sDisp=="EF05")
 		{	
@@ -3171,12 +3239,30 @@ long SelectFile14(char*data,char*err)
 			strdata+="<DATA><DF04><EF06>";
 			unsigned char cmd[20]={0};
 			unsigned char resp[10]={0};
-			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
-			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
-			if(ret<2 || resp[0]!=0x90)
+//			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
+//			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
+//			if(ret<2 || resp[0]!=0x90)
+//			{
+//				return 1;
+//			}
+			//认证PIN
+			char Password[50]={0};
+			ret=GetPassWord(Password,err);
+			if(ret!=0)
 			{
 				return 1;
 			}
+			sDisp=Password;
+			int start=sDisp.find("<DATA>",0)+6;
+			int end=sDisp.find("</DATA>",0)-6;
+			sDisp=sDisp.substr(start,end);
+			strcpy(Password,sDisp.c_str());
+			ret=PerPINVerifyNoMF(Password,err);
+			if(ret!=0)
+			{
+				return 1;
+			}
+			/////////
 			memset(result,0,256);
 			if(iReadRecord("EF06",0x90,0x01,AN_style,result))
 			{
@@ -3220,13 +3306,30 @@ long SelectFile14(char*data,char*err)
 		//	char tail[10]={0};
 			unsigned char cmd[20]={0};
 			unsigned char resp[10]={0};
-			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
-			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
-			if(ret<2 || resp[0]!=0x90)
+//			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
+//			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
+//			if(ret<2 || resp[0]!=0x90)
+//			{
+//				return 1;
+//			}
+			//认证PIN
+			char Password[50]={0};
+			ret=GetPassWord(Password,err);
+			if(ret!=0)
 			{
 				return 1;
 			}
-
+			sDisp=Password;
+			int start=sDisp.find("<DATA>",0)+6;
+			int end=sDisp.find("</DATA>",0)-6;
+			sDisp=sDisp.substr(start,end);
+			strcpy(Password,sDisp.c_str());
+			ret=PerPINVerifyNoMF(Password,err);
+			if(ret!=0)
+			{
+				return 1;
+			}
+			///
 			for(int i=1;i<11;i++)
 			{
 				memset(result,0,256);
@@ -3255,12 +3358,12 @@ long SelectFile14(char*data,char*err)
 		//	char tail[10]={0};
 			unsigned char cmd[20]={0};
 			unsigned char resp[10]={0};
-			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
-			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
-			if(ret<2 || resp[0]!=0x90)
-			{
-				return 1;
-			}
+//			memcpy(cmd,"\x00\x20\x00\x00\x03\x66\x66\x66",8);
+//			ret = ICC_Reader_Application(Rhand,0x01,8,cmd,resp);//X选择MF文件
+//			if(ret<2 || resp[0]!=0x90)
+//			{
+//				return 1;
+//			}
 
 			for(int i=1;i<9;i++)
 			{
@@ -3306,6 +3409,14 @@ long SelectFile15(char*data,char*err)//<DF01><EF15><C02><C0257>123</C0257><C0258
 //	long StartLen2 = strdata1.find("<",EndLen1); //C
 //	long EndLen2 = strdata1.find(">",StartLen2);
 	sDisp = strdata1.substr(StartLen+1,EndLen-StartLen-1);
+	//sam上电
+	unsigned char response[100]={0};
+	st = ICC_Reader_pre_PowerOn(Rhand,0x11,response);
+	if (st<0)
+	{
+		strcpy(err,"请在SAM1卡槽插入PSAM卡");
+		return 1;
+	}
 	if (sDisp=="MF" || sDisp=="DDF1")
 	{
 		SelectFile("DDF1");	
@@ -4325,10 +4436,22 @@ long SelectFile(char *FileId)
 	unsigned char cmd[260];
 	sDisp="";
 	int n=0;
-//	strdata1=data;
-
-	memset(resp,0,100);
 	long ret;
+//	strdata1=data;
+	if(!strcmp(FileId,"DDF1"))
+	{
+		memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+		//00A404000F7378312E73682EC9E7BBE1B1A3D5CF
+		ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
+		if(ret<2 || (resp[0]!=0x61 && resp[0]!=0x90))
+		{
+		//	strcpy(err,"没有找到文件");
+		//	strcat(err,EFid);
+			return 1;
+		}
+		return 0;
+	}
+	memset(resp,0,100);
 	memcpy(cmd, "\x00\xA4\x00\x00\x02",5);
 	cmd[5]=chartoint(FileId[0])*16+chartoint(FileId[1]);
 	cmd[6]=chartoint(FileId[2])*16+chartoint(FileId[3]);	
@@ -4499,6 +4622,16 @@ long PerPINVerify(char*data,char*err)
 	{
 		switch(resp[1])
 		{
+			case 0xcf:strcpy(err,"密钥认证错误,剩余15次");break;
+			case 0xce:strcpy(err,"密钥认证错误,剩余14次");break;
+			case 0xcd:strcpy(err,"密钥认证错误,剩余13次");break;
+			case 0xcc:strcpy(err,"密钥认证错误,剩余12次");break;
+			case 0xcb:strcpy(err,"密钥认证错误,剩余11次");break;
+			case 0xca:strcpy(err,"密钥认证错误,剩余10次");break;
+			case 0xc9:strcpy(err,"密钥认证错误,剩余9次");break;
+			case 0xc8:strcpy(err,"密钥认证错误,剩余8次");break;
+			case 0xc7:strcpy(err,"密钥认证错误,剩余7次");break;
+			case 0xc6:strcpy(err,"密钥认证错误,剩余6次");break;
 			case 0xc5:strcpy(err,"密钥认证错误,剩余5次");break;
 			case 0xc4:strcpy(err,"密钥认证错误,剩余4次");break;
 			case 0xc3:strcpy(err,"密钥认证错误,剩余3次");break;
@@ -4515,7 +4648,68 @@ long PerPINVerify(char*data,char*err)
 	strcpy(data,"<DATA>00</DATA>");
 	return 0;
 }
+long PerPINVerifyNoMF(char*data,char*err)
+{
+	unsigned char resp[100]={0};
+	unsigned char cmd[260]={0};
+	unsigned char temp[100]={0};
+	strdata="";
+	sDisp="";
+	long ret;
+	
+	strdata = data;
+	long EndLen = strdata.find("<",2);
+	long StartLen = strdata.find(">",0); 
+	sDisp = strdata.substr(StartLen+1,EndLen-StartLen-1);
+	
 
+	memcpy(cmd, "\x00\x20\x00\x00",5);
+	int len = sDisp.length()/2;
+	cmd[4]=len;
+	strcpy((char*)temp,sDisp.c_str());
+	for(int i=0;i<len;i++)
+	{
+		cmd[5+i]=(temp[2*i]-0x30)*16+temp[2*i+1]-0x30;
+	}
+	memset(resp,0,100);
+	ret = ICC_Reader_Application(Rhand,0x01,len+5,cmd,resp);
+	if (ret<0)
+	{
+		sprintf(err,"%d",ret);
+		strcpy(data,"<DATA>99</DATA>");
+		return 1;
+	}
+
+	if(resp[0]!=0x90 && resp[1]!=0x00)
+	{
+		switch(resp[1])
+		{
+			case 0xcf:strcpy(err,"密钥认证错误,剩余15次");break;
+			case 0xce:strcpy(err,"密钥认证错误,剩余14次");break;
+			case 0xcd:strcpy(err,"密钥认证错误,剩余13次");break;
+			case 0xcc:strcpy(err,"密钥认证错误,剩余12次");break;
+			case 0xcb:strcpy(err,"密钥认证错误,剩余11次");break;
+			case 0xca:strcpy(err,"密钥认证错误,剩余10次");break;
+			case 0xc9:strcpy(err,"密钥认证错误,剩余9次");break;
+			case 0xc8:strcpy(err,"密钥认证错误,剩余8次");break;
+			case 0xc7:strcpy(err,"密钥认证错误,剩余7次");break;
+			case 0xc6:strcpy(err,"密钥认证错误,剩余6次");break;
+			case 0xc5:strcpy(err,"密钥认证错误,剩余5次");break;
+			case 0xc4:strcpy(err,"密钥认证错误,剩余4次");break;
+			case 0xc3:strcpy(err,"密钥认证错误,剩余3次");break;
+			case 0xc2:strcpy(err,"密钥认证错误,剩余2次");break;
+			case 0xc1:strcpy(err,"密钥认证错误,剩余1次");break;
+			case 0xc0:strcpy(err,"密钥认证错误,剩余0次");break;
+			default:strcpy(err,"密码被锁！");break;
+		}
+
+		strcpy(data,"<DATA>99</DATA>");
+		return 1;
+	}
+
+	strcpy(data,"<DATA>00</DATA>");
+	return 0;
+}
 long ExterAuthen(unsigned char *WorkKey,int level)//
 {
 	unsigned char cmd[100]={0};
@@ -5564,27 +5758,51 @@ int GetConfigFullPath(TCHAR *configFullPath)
 	return 0;
 }
 
-typedef int(__stdcall *FXN)(char*,char*,char*);
 long WINAPI Run(char* flag,char *data,char *err)
 {
 	char DllPath[200]={0};
 	GetConfigFullPath(DllPath);
-	hModule=LoadLibraryEx(DllPath, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 	//MessageBox(NULL,DllPath,NULL,MB_OK);
+	//加载德卡动态库
 	if(hModule==NULL)
 	{
-		int Errorcold=GetLastError();
-		sprintf(err,"加载德卡动态库失败!%d",Errorcold);
-		return 1;
+		//MessageBox(NULL,"加载",NULL,MB_OK);
+		hModule=LoadLibraryEx(DllPath, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+		if(hModule==NULL)
+		{
+			int Errorcold=GetLastError();
+			sprintf(err,"加载德卡动态库失败!%d",Errorcold);
+			return 1;
+		}
 	}
-	int st;
-	int tete=0;
 	FXN MHRun=(FXN)::GetProcAddress(hModule,"Run");
-	Rhand=ICC_Reader_Open("USB1");
-	if(Rhand<=0)
+	//如果是关闭端口就卸载德卡dll
+	int rt;
+	if(!strcmp(flag,"1002"))
+	{
+		if(isDCard==true)
+		{
+			isDCard=false;
+			rt=MHRun("1002",data,err);
+		}
+		if(hModule!=NULL)
+		{
+			//MessageBox(NULL,"释放",NULL,MB_OK);
+			FreeLibrary(hModule);
+			hModule=NULL;
+		}
+		if(isDCard==true)
+		{
+			return rt;
+		}
+	}
+	//如果是德卡就调用德卡函数
+	if(isDCard==true&&strcmp(flag,"1001"))
 	{
 		return MHRun(flag,data,err);
 	}
+	int st;
+	int tete=0;
 	switch(atoi(flag))
 	{
 	case 0000://获取读卡器标识
@@ -5694,7 +5912,7 @@ long SelectFile20(char*data,char*err)
 	char sRandom[20]={0};  //伪随机数
 	char sTac[40]={0};  //TAC
 	char sMAC2[40]={0};  //MAC2
-	int start=0;
+	int start=0,end=0;
 	int ret=0;
 	strdata1=data;
 	start=strdata1.find("<AAD032>",0);
@@ -5751,108 +5969,167 @@ long SelectFile20(char*data,char*err)
 		strcpy(err,"请在SAM1卡槽插入PSAM卡");
 		return 1;
 	}
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
-	if (ret<0)
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memcpy(cmd, "\x00\xB2\x01\x00\x12",5);
 	ret = ICC_Reader_Application(Rhand,0x01,5,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	Utils::BinToHexstr((unsigned char *)sCityCode,resp+2,3);
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\x3F\x00",7);
 	ret = ICC_Reader_Application(Rhand,0x11,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memcpy(cmd, "\x00\xB0\x96\x00\x06",5);
 	ret = ICC_Reader_Application(Rhand,0x11,5,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
-	Utils::BinToHexstr((unsigned char *)sZDJBH,resp,6);
+	Utils::BinToHexstr((unsigned char *)sZDJBH,resp,6);       //获取终端机编号
+
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDF\x01",7);             //SAM选df01
 	ret = ICC_Reader_Application(Rhand,0x11,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\x00\x19",7);
 	ret = ICC_Reader_Application(Rhand,0x11,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memcpy(cmd, "\x00\xB0\x00\x00\x04",5);
 	ret = ICC_Reader_Application(Rhand,0x11,5,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
-	Utils::BinToHexstr((unsigned char *)sZDJYXH,resp,4);
+	Utils::BinToHexstr((unsigned char *)sZDJYXH,resp,4);  //终端机交易序号
+
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDF\x04",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
+	}
+	//认证PIN
+	char Password[50]={0};
+	ret=GetPassWord(Password,err);
+	if(ret!=0)
+	{
 		return 1;
 	}
+	sDisp=Password;
+	start=sDisp.find("<DATA>",0)+6;
+	end=sDisp.find("</DATA>",0)-6;
+	sDisp=sDisp.substr(start,end);
+	strcpy(Password,sDisp.c_str());
+	ret=PerPINVerifyNoMF(Password,err);
+	if(ret!=0)
+	{
+		return 1;
+	}
+	/////////
 	sprintf((char *)scmd,"B02801011301%s%s%s%s16",sGRZHJH,sGRZFJH,sTCJJJE,sZDJBH);
 	Utils::HexstrToBin(cmd,scmd,strlen((const char *)scmd));
 	int cmdlen=strlen((const char *)scmd)/2+1;
 	ret = ICC_Reader_Application(Rhand,0x01,cmdlen,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	Utils::BinToHexstr((unsigned char *)sTJJYXH,resp+14,2);
 	Utils::BinToHexstr((unsigned char *)sDATA1,resp+16,2);
 	Utils::BinToHexstr((unsigned char *)sRandom,resp+18,4);
+
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDF\x01",7);             //SAM选df01
 	ret = ICC_Reader_Application(Rhand,0x11,7,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		if(resp[ret-2]!=0x61)
+		{
+			sprintf(err,"%d",ret);
+			return 1;
+		}
 	}
 	memset(scmd,0,400);
 	unsigned char sCityCode2[40]={0};
 	Utils::BinToHexstr(sCityCode2,(unsigned char *)sCityCode,6);
-	sprintf((char *)scmd,"807001002C%s%s%s%s%s32%s%s%s%s727808",sRandom,sTJJYXH,sGRZHJH,sGRZFJH,sTCJJJE,sTime,sDATA1,sATR,sCityCode2);
+	sprintf((char *)scmd,"807001002C%s%s%s%s%s32%s%s%s%s737808",sRandom,sTJJYXH,sGRZHJH,sGRZFJH,sTCJJJE,sTime,sDATA1,sATR,sCityCode2);
 	Utils::HexstrToBin(cmd,scmd,strlen((const char *)scmd));
 	cmdlen=strlen((const char *)scmd)/2+1;
 	ret = ICC_Reader_Application(Rhand,0x11,cmdlen,cmd,resp);
-	if (ret<0)
+	if (ret<0||resp[ret-2]!=0x90)
 	{
-		sprintf(err,"%d",ret);
-		return 1;
+		sprintf((char *)scmd,"8070010024%s%s%s%s%s32%s%s%s08",sRandom,sTJJYXH,sGRZHJH,sGRZFJH,sTCJJJE,sTime,sDATA1,sATR);
+		if (ret<0||resp[ret-2]!=0x90)
+			if(resp[ret-2]!=0x61)
+			{
+				sprintf(err,"%d",ret);
+				return 1;
+			}
 	}
-	Utils::BinToHexstr((unsigned char *)sZDJYXH2,resp,4);
+	Utils::BinToHexstr((unsigned char *)sZDJYXH2,resp,4); 
 	Utils::BinToHexstr((unsigned char *)sMAC1,resp+4,4);
 
 	memset(scmd,0,400);
-	sprintf((char *)scmd,"B02C01000F%s%s%s08",sZDJYXH2,sTime,sMAC1);
+	sprintf((char *)scmd,"B02C01000F%s%s%s08",sZDJYXH2,sTime,sMAC1);//改
 	Utils::HexstrToBin(cmd,scmd,strlen((const char *)scmd));
 	cmdlen=strlen((const char *)scmd)/2+1;
 	ret = ICC_Reader_Application(Rhand,0x01,cmdlen,cmd,resp);
@@ -5983,8 +6260,8 @@ long SelectFile17(char*data,char*err)
 	strdata = "<DATA>";
 	memset(resp,0,100);
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	memcpy(cmd, "\x00\xB2\x01\x00\x12",5);
@@ -6061,6 +6338,24 @@ long SelectFile17(char*data,char*err)
 		sprintf(err,"%d",ret);
 		return 1;
 	}
+	//认证PIN
+	char Password[50]={0};
+	ret=GetPassWord(Password,err);
+	if(ret!=0)
+	{
+		return 1;
+	}
+	sDisp=Password;
+	int start=sDisp.find("<DATA>",0)+6;
+	int end=sDisp.find("</DATA>",0)-6;
+	sDisp=sDisp.substr(start,end);
+	strcpy(Password,sDisp.c_str());
+	ret=PerPINVerifyNoMF(Password,err);
+	if(ret!=0)
+	{
+		return 1;
+	}
+	/////////
 	memset(cmd,0,260);
 	memcpy(cmd, "\xB0\x28\x01\x01\x13",5);
 //	memcpy(cmd, "\xB0\x28\x01\x01\x13\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x71\x20\x01\x00\x00\x03\x16",25);
@@ -6074,6 +6369,7 @@ long SelectFile17(char*data,char*err)
 		sprintf(err,"%d",ret);
 		return 1;
 	}
+	strdata="";
 	strdata+="<C01>";
 	sDisp="";
 	for(int n=0;n<4;n++)
@@ -6157,10 +6453,30 @@ long SelectFile16(char *data,char *err)
 	strdata = "<DATA>";
 	memset(resp,0,100);
 	long ret;
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDD\xF1",7);
-	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);//X选择MF文件
+	memcpy(cmd, "\x00\xA4\x04\x00\x0F\x73\x78\x31\x2E\x73\x68\x2E\xC9\xE7\xBB\xE1\xB1\xA3\xD5\xCF",20);
+	ret = ICC_Reader_Application(Rhand,0x01,20,cmd,resp);//X选择MF文件
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xDF\x04",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
+	//认证PIN
+	char Password[50]={0};
+	ret=GetPassWord(Password,err);
+	if(ret!=0)
+	{
+		return 1;
+	}
+	sDisp=Password;
+	int start=sDisp.find("<DATA>",0)+6;
+	int end=sDisp.find("</DATA>",0)-6;
+	sDisp=sDisp.substr(start,end);
+	strcpy(Password,sDisp.c_str());
+	ret=PerPINVerifyNoMF(Password,err);
+	if(ret!=0)
+	{
+		return 1;
+	}
+	sDisp="";
+	strdata = "<DATA>";
+	/////////
 	memcpy(cmd, "\x00\xA4\x00\x00\x02\xEF\x05",7);
 	ret = ICC_Reader_Application(Rhand,0x01,7,cmd,resp);
 	memcpy(cmd, "\x00\xB2\x84\x00\x05",5);

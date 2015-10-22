@@ -6,6 +6,9 @@
 --------------------Configuration: HD_RWHealInterface - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating command line "bscmake.exe /nologo /o"Release/HD_RWHealInterface.bsc"  ".\Release\StdAfx.sbr" ".\Release\HD_RWHealInterface.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 

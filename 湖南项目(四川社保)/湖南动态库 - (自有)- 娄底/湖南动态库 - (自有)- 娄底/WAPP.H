@@ -33,6 +33,7 @@ long SelectFile19(char*data,char*err);
 long SelectFile20(char*data,char*err);
 long GetPassWord(char*data,char*err);
 long PerPINVerify(char*data,char*err);
+long PerPINVerifyNoMF(char*data,char*err);
 long ResetPassWord(char*data,char*err);
 long PerPINChange(char*data,char*err);
 long PerPINUnLock(char*data,char*err);

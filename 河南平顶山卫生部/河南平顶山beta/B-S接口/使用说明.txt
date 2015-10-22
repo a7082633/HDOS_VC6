@@ -1,0 +1,2 @@
+2.以管理员身份运行install.bat
+3.用IE浏览器打开ICtest.htm

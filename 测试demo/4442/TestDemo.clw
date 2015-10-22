@@ -7,7 +7,7 @@ LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "TestDemo.h"
 
-ClassCount=4
+ClassCount=3
 Class1=CTestDemoApp
 Class2=CTestDemoDlg
 Class3=CAboutDlg
@@ -30,6 +30,7 @@ ImplementationFile=TestDemoDlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
+LastObject=IDC_BTN_MODIFY
 
 [CLS:CAboutDlg]
 Type=0

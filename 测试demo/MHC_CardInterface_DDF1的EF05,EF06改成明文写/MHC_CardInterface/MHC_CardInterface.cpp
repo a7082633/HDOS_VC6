@@ -2153,18 +2153,19 @@ MHC_CARDINTERFACE_API int __stdcall iW_DF02EF08Info(HANDLE hDev,
 	u.BinToHexstr((unsigned char *)resp , (unsigned char *)divGene , 24);
 	
 	//组织数据写入
-//	strcpy(apdu , "04DC000324");
-//	ret = UpdateBinEncMac(STK_DF02 , apdu , resp);
-
-	strcpy(apdu , "00DC000318");
-	strcat(apdu,resp);
-
-	char sw[5];
-	ret = rd.RF_Send (apdu , resp , sw);
-	if ((ret != IRV_OK) ||(strcmp(sw , "9000") != 0))
-	{
-		return IRV_WR_RCDERR;
-	}
+	strcpy(apdu , "04DC000324");
+	ret = UpdateBinEncMac(STK_DF02 , apdu , resp);
+	if (ret != IRV_OK) 
+		return ret;
+//	strcpy(apdu , "00DC000318");
+//	strcat(apdu,resp);
+//
+//	char sw[5];
+//	ret = rd.RF_Send (apdu , resp , sw);
+//	if ((ret != IRV_OK) ||(strcmp(sw , "9000") != 0))
+//	{
+//		return IRV_WR_RCDERR;
+//	}
 	return IRV_OK;
 
 }

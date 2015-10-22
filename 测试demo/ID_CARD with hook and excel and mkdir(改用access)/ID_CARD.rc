@@ -1,0 +1,306 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\ID_CARD.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ID_CARD.ico"
+IDI_ICON1               ICON    DISCARDABLE     "res\\华大集成.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 ID_CARD"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "ID_CARD 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 (C) 2015",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_ID_CARD_DIALOG DIALOGEX 0, 0, 320, 211
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ID_CARD"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "退出",IDOK,197,160,50,22,NOT WS_VISIBLE
+    PUSHBUTTON      "开始工作",IDC_BTN_OPENDEV,19,18,59,32
+    PUSHBUTTON      "停止工作",IDC_BTN_CLOSEDEV,19,18,59,32,NOT WS_VISIBLE
+    LTEXT           "",IDC_STATIC_STATE,57,169,192,11
+    LTEXT           "",IDC_STATIC_STATE_CARD,57,185,192,10
+    LTEXT           "姓名:",IDC_STATIC,95,19,20,11
+    LTEXT           "性别:",IDC_STATIC,95,37,20,11
+    LTEXT           "民族:",IDC_STATIC,95,55,20,11
+    LTEXT           "出生日期:",IDC_STATIC,95,71,36,11
+    LTEXT           "地      址:",IDC_STATIC,95,127,44,11
+    LTEXT           "身份证号码:",IDC_STATIC,95,145,44,11
+    LTEXT           "有效期限  :",IDC_STATIC,95,107,44,11
+    LTEXT           "签发机关:",IDC_STATIC,95,90,37,11
+    EDITTEXT        IDC_EDIT_NAME,120,17,95,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SEX,120,34,95,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NATION,120,51,95,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ADDR,140,123,136,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_BORNDATE,133,69,83,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DEADLINE,140,104,136,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SIGNADDR,133,86,83,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CARDNO,140,142,136,14,ES_AUTOHSCROLL
+    LTEXT           "设备状态:",IDC_STATIC,17,169,39,12
+    LTEXT           "读卡状态:",IDC_STATIC,17,185,39,12
+    PUSHBUTTON      "清空内容",IDC_BTN_CLA_CONTENT,19,56,59,32
+    GROUPBOX        "照片",IDC_STATIC,235,17,67,79
+    PUSHBUTTON      "照片路径",IDC_BTN_SELCTPHODIR,77,189,74,15,NOT 
+                    WS_VISIBLE
+    PUSHBUTTON      "身份证信息路径",IDC_BTN_IDCARD_EXCEL,147,189,74,15,NOT 
+                    WS_VISIBLE
+    EDITTEXT        IDC_EDIT_PHOTODIR,97,114,60,13,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE
+    EDITTEXT        IDC_EDIT_INFODIR,97,136,61,13,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE
+    PUSHBUTTON      "创建目录",IDC_BUTTON_TEST,253,159,50,12,NOT WS_VISIBLE
+    PUSHBUTTON      "功能开启",IDC_BTN_OPENHOOK,21,189,59,15,NOT WS_VISIBLE
+    PUSHBUTTON      "功能关闭",IDC_BTN_CLOSEHOOK,213,189,59,15,NOT 
+                    WS_VISIBLE
+    PUSHBUTTON      "数据查询",IDC_BTN_OPENQUERY,20,94,59,32
+END
+
+IDD_DIALOG_QUERYDATA DIALOG DISCARDABLE  0, 0, 405, 259
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "数据查询"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,193,238,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Cancel",IDCANCEL,43,238,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "查询",IDC_BTN_QUERY,7,7,46,29
+    PUSHBUTTON      "全部数据",IDC_BTN_SHOWALL,54,7,46,29
+    CONTROL         "List2",IDC_LIST_DATA,"SysListView32",LVS_REPORT | 
+                    LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,7,64,391,188
+    COMBOBOX        IDC_COMBO_EXPRESSION,7,43,78,96,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_EXPRESSION,87,43,311,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "导出数据",IDC_BTN_EXPORT,101,7,46,29
+    PUSHBUTTON      "备份数据",IDC_BTN_BACKUP,150,7,46,29
+END
+
+IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 213, 129
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "查询"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,44,108,50,14
+    PUSHBUTTON      "取消",IDCANCEL,120,108,50,14
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "ID_CARD Microsoft 基础类应用程序\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "ID_CARD\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2015\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "ID_CARD.EXE\0"
+            VALUE "ProductName", "ID_CARD 应用程序\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_ID_CARD_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 204
+    END
+
+    IDD_DIALOG_QUERYDATA, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 398
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 252
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 206
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 122
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_QUERYDATA DLGINIT
+BEGIN
+    IDC_COMBO_EXPRESSION, 0x403, 5, 0
+0xd5d0, 0xfbc3, "\000" 
+    IDC_COMBO_EXPRESSION, 0x403, 5, 0
+0xd4d0, 0xf0b1, "\000" 
+    IDC_COMBO_EXPRESSION, 0x403, 5, 0
+0xf1c3, 0xe5d7, "\000" 
+    IDC_COMBO_EXPRESSION, 0x403, 11, 0
+0xedc9, 0xddb7, 0xa4d6, 0xc5ba, 0xebc2, "\000" 
+    IDC_COMBO_EXPRESSION, 0x403, 9, 0
+0xa9c7, 0xa2b7, 0xfabb, 0xd8b9, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 ID_CARD(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\ID_CARD.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
