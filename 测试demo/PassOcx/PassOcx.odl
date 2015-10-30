@@ -1,0 +1,70 @@
+// PassOcx.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (PassOcx.tlb) that will become a resource in
+// PassOcx.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(74303000-FAC5-4D32-AB02-D1D2B9867BE5), version(1.0),
+  helpfile("PassOcx.hlp"),
+  helpstring("PassOcx ActiveX Control module"),
+  control ]
+library PASSOCXLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CPassOcxCtrl
+
+	[ uuid(4920EB5B-4456-4BD6-AF06-9AEE6734EFD1),
+	  helpstring("Dispatch interface for PassOcx Control"), hidden ]
+	dispinterface _DPassOcx
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CPassOcxCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CPassOcxCtrl)
+			[id(1)] BSTR GetInputPass();
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CPassOcxCtrl
+
+	[ uuid(862C0F89-27F2-48EA-B820-78CC47F70051),
+	  helpstring("Event interface for PassOcx Control") ]
+	dispinterface _DPassOcxEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CPassOcxCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CPassOcxCtrl
+
+	[ uuid(9BCCCB83-D575-4782-9395-EC7CA29AA91A),
+	  helpstring("PassOcx Control"), control ]
+	coclass PassOcx
+	{
+		[default] dispinterface _DPassOcx;
+		[default, source] dispinterface _DPassOcxEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

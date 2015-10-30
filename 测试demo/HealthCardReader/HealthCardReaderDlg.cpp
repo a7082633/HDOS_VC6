@@ -477,7 +477,7 @@ void CHealthCardReaderDlg::OnBtnReadPic()
 	temp.Format("%02x%02x",picData[0],picData[1]);
 	long len=strtol(temp,NULL,16);
 
-	CFile file;
+	CFile file;//
 	CFileException e;
 	if(!file.Open("zp.jpg",CFile::typeBinary|CFile::modeCreate|CFile::modeWrite, &e))
 	{

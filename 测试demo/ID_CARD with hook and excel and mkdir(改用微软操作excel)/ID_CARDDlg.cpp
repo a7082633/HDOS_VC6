@@ -199,6 +199,7 @@ void CID_CARDDlg::OnBtnClosedev()
 	if(this->m_hThread!=NULL)
 	{
 		::TerminateThread(m_hThread,NULL);
+		CloseHandle(m_hThread);
 		m_hThread=NULL;
 	}
 	GetDlgItem(IDC_BTN_OPENDEV)->ShowWindow(SW_SHOW); 
@@ -317,15 +318,6 @@ DWORD WINAPI CID_CARDDlg::ReaderThread(LPVOID lpParameter)
 				objBooks.Close();
 				objApp.Quit();	
 //				//姓名、性别、身份证号码、有效期、签发机关、住址。
-//				sampleArray.RemoveAll();
-//				sampleArray.Add("所属省市县（区）");
-//				sampleArray.Add("公民身份号码");
-//				sampleArray.Add("姓名");
-//				sampleArray.Add("性别");
-//				sampleArray.Add("民族");
-//				sampleArray.Add("出生日期");
-//				sampleArray.Add("相片");
-//				SS.AddHeaders(sampleArray);		
 				if(re==0)
 				{
 					//int n=sizeof(BITMAPFILEHEADER);

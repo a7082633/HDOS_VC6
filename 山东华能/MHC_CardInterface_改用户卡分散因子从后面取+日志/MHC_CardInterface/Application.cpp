@@ -319,8 +319,8 @@ void loadCardNo(char * atr)
 {
 	memset(_cardNo , 0, sizeof(_cardNo));
 	int count=strlen(atr);
-	memcpy(_cardNo , atr + count - 16 , 16 );
-	//memcpy(_cardNo , atr + 10 , 16 );
+	//memcpy(_cardNo , atr + count - 16 , 16 );
+	memcpy(_cardNo , atr + 10 , 16 );
 }
 
 //将卡片中 数据加载到全局变量

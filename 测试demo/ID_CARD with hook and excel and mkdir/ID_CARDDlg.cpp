@@ -202,6 +202,7 @@ void CID_CARDDlg::OnBtnClosedev()
 	if(this->m_hThread!=NULL)
 	{
 		::TerminateThread(m_hThread,NULL);
+		CloseHandle(m_hThread);
 		m_hThread=NULL;
 	}
 	GetDlgItem(IDC_BTN_OPENDEV)->ShowWindow(SW_SHOW); 

@@ -38,8 +38,9 @@
 #define IDC_COMBO_EXPRESSION            1030
 #define IDC_EDIT_EXPRESSION             1031
 #define IDC_BTN_EXPORT                  1032
-#define IDC_BTN_EXPORT2                 1033
 #define IDC_BTN_BACKUP                  1033
+#define IDC_BTN_BACKUP2                 1034
+#define IDC_BTN_OPENBACKUP              1034
 
 // Next default values for new objects
 // 

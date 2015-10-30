@@ -13,11 +13,11 @@ Class2=CInterfaceDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=6
-Resource1=IDD_DIALOG_input2
+Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_ABOUTBOX
+Resource3=IDD_DIALOG_input
 Class4=InputDialog
-Resource4=IDD_DIALOG_input
+Resource4=IDD_DIALOG_input2
 Class5=dialogInput2
 Resource5=IDD_INTERFACEDEMO_DIALOG
 Class6=PSAMDialog

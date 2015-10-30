@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CDialogQueryData, CDialog)
 	ON_BN_CLICKED(IDC_BTN_QUERY, OnBtnQuery)
 	ON_BN_CLICKED(IDC_BTN_EXPORT, OnBtnExport)
 	ON_BN_CLICKED(IDC_BTN_BACKUP, OnBtnBackup)
+	ON_BN_CLICKED(IDC_BTN_OPENBACKUP, OnBtnOpenbackup)
+	ON_WM_CLOSE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -92,6 +94,7 @@ BOOL CDialogQueryData::OnInitDialog()
 		}
 		m_pRecordset->MoveNext();///移到下一条记录
 	}
+	isOpenBackup=false;
 //	if (m_pRecordset->GetState() == adStateOpen)
 //	{
 //		m_pRecordset->Close();
@@ -108,6 +111,22 @@ BOOL CDialogQueryData::OnInitDialog()
 
 void CDialogQueryData::OnBtnShowall() 
 {
+	if(isOpenBackup)
+	{
+		if (m_pRecordset_backup->GetState() == adStateOpen)
+		{
+			m_pRecordset_backup->Close();
+		}
+		if(m_pConnection_backup->GetState()==adStateOpen) 
+			m_pConnection_backup->Close(); ///如果已经打开了连接则关闭它
+		if (m_pConnection_backup)
+		{
+			m_pConnection_backup.Release();
+			m_pConnection_backup = NULL;
+		}
+		isOpenBackup=false;
+	}
+	GetDlgItem(IDC_BTN_BACKUP)->EnableWindow(TRUE);//设置按钮可用
 	m_list.DeleteAllItems();
 	m_pRecordset->MoveFirst();
 	_variant_t name,sex,nation,born,addr,cardno,issue,yxq,jiezhi;
@@ -159,29 +178,27 @@ void CDialogQueryData::OnBtnQuery()
 	{
 	case 4:
 		sprintf(sql,"select * from DBID where 姓名='%s'",sExp.GetBuffer(0));
-		sExp.ReleaseBuffer();
-		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 		break;
 	case 3:
 		sprintf(sql,"select * from DBID where 性别='%s'",sExp.GetBuffer(0));
-		sExp.ReleaseBuffer();
-		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 		break;
 	case 0:
 		sprintf(sql,"select * from DBID where 民族='%s'",sExp.GetBuffer(0));
-		sExp.ReleaseBuffer();
-		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 		break;
 	case 2:
 		sprintf(sql,"select * from DBID where 身份证号码='%s'",sExp.GetBuffer(0));
-		sExp.ReleaseBuffer();
-		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 		break;
 	case 1:
 		sprintf(sql,"select * from DBID where 签发机关='%s'",sExp.GetBuffer(0));
-		sExp.ReleaseBuffer();
-		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 		break;
+	}
+	sExp.ReleaseBuffer();
+	if(isOpenBackup)
+	{
+		m_pRecordset_q=m_pConnection_backup->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
+	}else
+	{
+		m_pRecordset_q=m_pConnection->Execute((_bstr_t)sql,&RecordsAffected,adCmdText);
 	}
 	_variant_t name,sex,nation,born,addr,cardno,issue,yxq,jiezhi;
 	while(!m_pRecordset_q->adoEOF)
@@ -352,4 +369,121 @@ void CDialogQueryData::OnBtnBackup()
 		AfxMessageBox("数据库备份失败!");  
 	}
 
+}
+
+void CDialogQueryData::OnBtnOpenbackup() 
+{
+	//先判断是否已经打开了数据库
+	if(isOpenBackup)
+	{
+		//this->MessageBox("关闭!");
+		if (m_pRecordset_backup->GetState() == adStateOpen)
+		{
+			m_pRecordset_backup->Close();
+		}
+		if(m_pConnection_backup->GetState()==adStateOpen) 
+			m_pConnection_backup->Close(); ///如果已经打开了连接则关闭它
+		if (m_pConnection_backup)
+		{
+			m_pConnection_backup.Release();
+			m_pConnection_backup = NULL;
+		}
+	}
+	////////////////
+	BOOL isOpen = TRUE;		//是否打开(否则为保存)
+	CString filter = L"文件 (*.mdb)|*.mdb||";	//文件过虑的类型
+	CFileDialog openFileDlg(isOpen, NULL, NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT|OFN_NOCHANGEDIR, filter, NULL);
+	INT_PTR result = openFileDlg.DoModal();
+	CString filePath;
+	if(result == IDOK) 
+	{
+		filePath = openFileDlg.GetPathName();
+		//this->MessageBox(filePath);
+	}else
+	{
+		isOpenBackup=false;
+		return;
+	}
+	////////////连接数据库//////////////
+	HRESULT hr;
+	try
+	{
+		hr = m_pConnection_backup.CreateInstance("ADODB.Connection");///创建Connection对象
+		if(SUCCEEDED(hr))
+		{
+			char sOpen[200]={0};
+			sprintf(sOpen,"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=%s",filePath);
+			m_pConnection_backup->ConnectionTimeout = 5;
+			hr = m_pConnection_backup->Open(sOpen,"","",adModeUnknown);///连接数据库
+			//上面一句中连接字串中的Provider是针对ACCESS2000环境的，对于ACCESS97,需要改为:Provider=Microsoft.Jet.OLEDB.3.51;  }
+		}
+	}
+	catch(_com_error e)///捕捉异常
+	{
+		CString errormessage;
+		errormessage.Format("连接数据库失败!\r\n错误信息:%s",e.ErrorMessage());
+		AfxMessageBox(errormessage);///显示错误信息
+		return ;
+	} 
+	//打开纪录集Log
+	//m_pRecordset=m_pConnection->Execute("INSERT INTO DBID(姓名,性别,民族,出生日期,家庭住址,身份证号码,签发机关,有效期起,有效期止) VALUES ('2','2','2','2','2','2','2','2','2')",&RecordsAffected,adCmdText);
+	//	r.CreateInstance(_uuidof(Recordset));
+	m_pRecordset_backup.CreateInstance("ADODB.Recordset");
+	CString s="select * from DBID";
+	_bstr_t bs=s.AllocSysString();
+	m_pRecordset_backup->Open(bs,m_pConnection_backup.GetInterfacePtr(),adOpenDynamic,adLockOptimistic,adCmdText);
+	//显示数据
+	_variant_t name,sex,nation,born,addr,cardno,issue,yxq,jiezhi;
+	m_list.DeleteAllItems();
+	while(!m_pRecordset_backup->adoEOF)
+	{
+		name = m_pRecordset_backup->GetCollect(_variant_t((long)1));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		sex = m_pRecordset_backup->GetCollect(_variant_t((long)2));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		nation = m_pRecordset_backup->GetCollect(_variant_t((long)3));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		born = m_pRecordset_backup->GetCollect(_variant_t((long)4));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		addr = m_pRecordset_backup->GetCollect(_variant_t((long)5));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		cardno = m_pRecordset_backup->GetCollect(_variant_t((long)6));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		issue = m_pRecordset_backup->GetCollect(_variant_t((long)7));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		yxq = m_pRecordset_backup->GetCollect(_variant_t((long)8));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		jiezhi = m_pRecordset_backup->GetCollect(_variant_t((long)9));//取得第1列的值,从0开始计数，你也可以直接给出列的名称；
+		if(name.vt != VT_NULL && sex.vt != VT_NULL && nation.vt != VT_NULL && 
+			born.vt != VT_NULL&& addr.vt != VT_NULL&& jiezhi.vt != VT_NULL&& 
+			cardno.vt != VT_NULL&& issue.vt != VT_NULL	&& yxq.vt != VT_NULL)
+		{
+			int n=m_list.GetItemCount();
+			m_list.InsertItem(n,(LPCTSTR)(_bstr_t)name,0);
+			m_list.SetItemText(n,1,(LPCTSTR)(_bstr_t)sex);
+			m_list.SetItemText(n,2,(LPCTSTR)(_bstr_t)nation);
+			m_list.SetItemText(n,3,(LPCTSTR)(_bstr_t)born);
+			m_list.SetItemText(n,4,(LPCTSTR)(_bstr_t)addr);
+			m_list.SetItemText(n,5,(LPCTSTR)(_bstr_t)cardno);
+			m_list.SetItemText(n,6,(LPCTSTR)(_bstr_t)issue);
+			m_list.SetItemText(n,7,(LPCTSTR)(_bstr_t)yxq);
+			m_list.SetItemText(n,8,(LPCTSTR)(_bstr_t)jiezhi);
+		}
+		m_pRecordset_backup->MoveNext();///移到下一条记录
+	}
+	//
+	isOpenBackup=true;
+	GetDlgItem(IDC_BTN_BACKUP)->EnableWindow(FALSE);
+}
+
+void CDialogQueryData::OnClose() 
+{
+	// TODO: Add your message handler code here and/or call default
+	if(isOpenBackup)
+	{
+		if (m_pRecordset_backup->GetState() == adStateOpen)
+		{
+			m_pRecordset_backup->Close();
+		}
+		if(m_pConnection_backup->GetState()==adStateOpen) 
+			m_pConnection_backup->Close(); ///如果已经打开了连接则关闭它
+		if (m_pConnection_backup)
+		{
+			m_pConnection_backup.Release();
+			m_pConnection_backup = NULL;
+		}
+	}
+	CDialog::OnClose();
 }

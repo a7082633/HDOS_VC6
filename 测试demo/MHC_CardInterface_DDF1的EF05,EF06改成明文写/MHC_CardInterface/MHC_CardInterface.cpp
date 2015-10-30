@@ -1461,7 +1461,6 @@ MHC_CARDINTERFACE_API int __stdcall iW_DF01EF08Info(HANDLE hDev,
 	char apdu[ 10 + 1];
 	char resp[100];
 	char divGene[49];
-
 	//获取用户卡卡号，城市代码
 	int ret = GetCNandCityCode(divGene , resp );
 	if (ret != IRV_OK)
