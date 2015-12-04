@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TestDemo - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/TestDemo.res" /d "_DEBUG" /d "_AFXDLL" "D:\github_HDOS\HDOS_VC6\湖南项目(四川社保)\TestDemo\TestDemo.rc"" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP29C7.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/TestDemo.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\湖南项目(四川社保)\TestDemo\TestDemo.cpp"
+"D:\github_HDOS\HDOS_VC6\湖南项目(四川社保)\TestDemo\TestDemoDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP29C7.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP29D8.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/TestDemo.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\湖南项目(四川社保)\TestDemo\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP29D8.tmp" 
+Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/TestDemo.pdb" /debug /machine:I386 /out:"Debug/TestDemo.exe" /pdbtype:sept  ".\Debug\StdAfx.obj" ".\Debug\TestDemo.obj" ".\Debug\TestDemoDlg.obj" ".\Debug\TestDemo.res" "
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+TestDemo.cpp
+TestDemoDlg.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/TestDemo.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\TestDemo.sbr" ".\Debug\TestDemoDlg.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+TestDemo.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

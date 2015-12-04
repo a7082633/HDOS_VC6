@@ -7,3 +7,9 @@ EXPORTS
 	IChange_Pin
 	IR_ReadCard
 	IR_WriteCard
+	ICC_Reader_Open
+	ICC_Reader_Close
+	PICC_Reader_FindCard
+	PICC_Reader_Application
+	StrToHex
+	HexToStr

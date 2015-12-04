@@ -13,11 +13,11 @@ Class2=CM1Dlg
 Class3=CAboutDlg
 
 ResourceCount=5
-Resource1=IDD_ABOUTBOX
+Resource1=IDD_M1_DIALOG
 Resource2=IDR_MAINFRAME
-Resource3=IDD_M1_DIALOG
+Resource3=IDD_DIALOG_LOADKEY
 Class4=CDialogLoadKey
-Resource4=IDD_DIALOG_LOADKEY
+Resource4=IDD_ABOUTBOX
 Class5=CDlialogPass
 Resource5=IDD_DIALOG_PASS
 

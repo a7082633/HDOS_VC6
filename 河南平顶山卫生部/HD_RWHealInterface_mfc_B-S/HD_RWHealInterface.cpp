@@ -32,6 +32,32 @@ HMODULE GetCurrentModule()
 	return reinterpret_cast<HMODULE>(&__ImageBase);
 #endif
 }
+int GetConfigFullPath2(TCHAR *configFullPath)
+{
+	unsigned long r=GetModuleFileName(GetCurrentModule(),configFullPath,MAX_PATH);
+	if(r==0)
+	{
+		return 120;
+	}
+	char *pc=strrchr(configFullPath,'\\');
+	*pc=0;
+	strcat(configFullPath,"\\SSSE32.dll");
+	return 0;
+}
+//加载SSSE32
+TCHAR configFullPath_dll[MAX_PATH]; // MAX_PATH
+int ret=GetConfigFullPath2(configFullPath_dll);
+HMODULE hModule=::LoadLibrary(configFullPath_dll);
+typedef int(__stdcall *FXN)(char*);
+typedef int(__stdcall *FXN2)(long);
+typedef int(__stdcall *FXN3)(long,unsigned char *);
+typedef int(__stdcall *FXN4)(long,unsigned char);
+typedef int(__stdcall *FXN5)(unsigned char *,int,unsigned char *);
+typedef int(__stdcall *FXN6)(long,char *);
+typedef int(__stdcall *FXN7)(long,unsigned char,unsigned char*);
+typedef int(__stdcall *FXN8)(long,unsigned char,long,unsigned char*,unsigned char*);
+typedef int(__stdcall *FXN9)(long,long,unsigned char*,unsigned char*);
+//
 BOOL FindProcess()
 {
 	int i=0;
@@ -59,114 +85,114 @@ BOOL FindProcess()
 		return false;
 	}
 }
-MHC_CARDINTERFACE_API int __stdcall IDOpenPort(char *account,char *password)
-{
-	char addr[300]={0};
-//	char des[300]={0};
-//	CString sdes;
-//	::GetCurrentDirectory(300,des);
-//	sdes.Format("%s\\config.ini",des);
-//	::MessageBox(NULL,sdes,NULL,MB_OK);
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Device_Address",NULL,addr,sizeof(addr),"D:\\config.ini");
-	//DWORD ConfigLen=GetPrivateProfileString("INFO","Device_Address",NULL,addr,sizeof(addr),".\\config.ini");
-	//::MessageBox(NULL,addr,NULL,MB_OK);
-	//char *addr="http://221.176.197.13:8011/Api!DeviceIdentify.do";
-	/////////////////////////////////////////////////////////
-	long hReader=ICC_Reader_Open("USB1");
-	char cmd[100]={0};
-	unsigned char Response[50]={0};
-	if(hReader<=0)//设备打开失败返回
-	{
-		return hReader;
-	}
-	//获取sam卡序列号
-		//操作SAM卡
-	int rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
-	if(rt<=0)
-	{
-		return rt;
-	}
-		//选SAM卡的MF
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xA4\x00\x00\x00",5); 
-	int len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
-	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
-	{
-		return IFD_ICC_TypeError;
-	}
-		//选0015
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\x00\x15",7); 
-	len = ICC_Reader_Application(hReader,0x11,7,(unsigned char *)cmd,Response);
-	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
-	{
-		return IFD_ICC_TypeError;
-	}
-		//读取sam卡的序列号
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xB0\x00\x00\x0A",5); 
-	len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
-	if(len<=0||Response[len-2]!=0x90)
-	{
-		return IFD_ICC_TypeError;
-	}
-	unsigned char SamNo[21]={0};
-	HexToStr((unsigned char *)Response,10,SamNo);
-	//获取机具号
-	char Dev_Ser[50]={0};
-	rt=ICC_Reader_GetDeviceCSN(hReader,Dev_Ser);
-	if(rt<=0)
-	{
-		return rt;
-	}
-	//发送http请求
-	CInternetSession m_session("Webservice32");
-	CHttpFile *pFile;
-	//char HttpResponse[500]={0};
-	CString HttpResponse="";
-	try
-	{
-		CString strData;
-		char requestUrl[500]={0};
-		//char requestUrl[500]={"http://221.176.197.13:8011/Api!DeviceIdentify.do?account=test&password=111111&macno=000011&samno=123456"};
-		sprintf(requestUrl,"%s?account=%s&password=%s&macno=%s&samno=%s",
-			addr,account,password,Dev_Ser,SamNo);
-		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
-		DWORD   dwFlags   =   INTERNET_FLAG_TRANSFER_BINARY|INTERNET_FLAG_EXISTING_CONNECT|INTERNET_FLAG_RELOAD; 
-		pFile = (CHttpFile *) m_session.OpenURL(requestUrl,1,dwFlags);
-		DWORD Code;
-		pFile->QueryInfoStatusCode(Code);
-		if(Code!=200)
-		{
-			return CANT_FINDWEB;
-		}
-		//::MessageBox(NULL,"haha",NULL,MB_OK);
-		while(pFile->ReadString(strData))
-			HttpResponse+=strData;
-		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
-	}
-	catch(CInternetException* e)  //捕获异常
-	{
-		TCHAR pszError[200];
-		e->GetErrorMessage(pszError, 200);
-		//::MessageBox(NULL,pszError,NULL,MB_OK);
-		e->Delete();
-		return HTTP_EXCEPTION;
-	}
-	//pFile->Close();
-	m_session.Close();
-	char rtstr[10]={0};
-	memcpy(rtstr,HttpResponse.GetBuffer(0),4);
-	HttpResponse.ReleaseBuffer();
-	ICC_Reader_Close(hReader);
-	if(0==strcmp(rtstr,"0000"))
-		return iDOpenPort();
-	else return atoi(rtstr);
-//	return 0;
-}
+//MHC_CARDINTERFACE_API int __stdcall IDOpenPort(char *account,char *password)
+//{
+//	char addr[300]={0};
+////	char des[300]={0};
+////	CString sdes;
+////	::GetCurrentDirectory(300,des);
+////	sdes.Format("%s\\config.ini",des);
+////	::MessageBox(NULL,sdes,NULL,MB_OK);
+//	DWORD ConfigLen=GetPrivateProfileString("INFO","Device_Address",NULL,addr,sizeof(addr),"D:\\config.ini");
+//	//DWORD ConfigLen=GetPrivateProfileString("INFO","Device_Address",NULL,addr,sizeof(addr),".\\config.ini");
+//	//::MessageBox(NULL,addr,NULL,MB_OK);
+//	//char *addr="http://221.176.197.13:8011/Api!DeviceIdentify.do";
+//	/////////////////////////////////////////////////////////
+//	long hReader=ICC_Reader_Open("USB1");
+//	char cmd[100]={0};
+//	unsigned char Response[50]={0};
+//	if(hReader<=0)//设备打开失败返回
+//	{
+//		return hReader;
+//	}
+//	//获取sam卡序列号
+//		//操作SAM卡
+//	int rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
+//	if(rt<=0)
+//	{
+//		return rt;
+//	}
+//		//选SAM卡的MF
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xA4\x00\x00\x00",5); 
+//	int len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
+//	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
+//	{
+//		return IFD_ICC_TypeError;
+//	}
+//		//选0015
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xA4\x00\x00\x02\x00\x15",7); 
+//	len = ICC_Reader_Application(hReader,0x11,7,(unsigned char *)cmd,Response);
+//	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
+//	{
+//		return IFD_ICC_TypeError;
+//	}
+//		//读取sam卡的序列号
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xB0\x00\x00\x0A",5); 
+//	len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
+//	if(len<=0||Response[len-2]!=0x90)
+//	{
+//		return IFD_ICC_TypeError;
+//	}
+//	unsigned char SamNo[21]={0};
+//	HexToStr((unsigned char *)Response,10,SamNo);
+//	//获取机具号
+//	char Dev_Ser[50]={0};
+//	rt=ICC_Reader_GetDeviceCSN(hReader,Dev_Ser);
+//	if(rt<=0)
+//	{
+//		return rt;
+//	}
+//	//发送http请求
+//	CInternetSession m_session("Webservice32");
+//	CHttpFile *pFile;
+//	//char HttpResponse[500]={0};
+//	CString HttpResponse="";
+//	try
+//	{
+//		CString strData;
+//		char requestUrl[500]={0};
+//		//char requestUrl[500]={"http://221.176.197.13:8011/Api!DeviceIdentify.do?account=test&password=111111&macno=000011&samno=123456"};
+//		sprintf(requestUrl,"%s?account=%s&password=%s&macno=%s&samno=%s",
+//			addr,account,password,Dev_Ser,SamNo);
+//		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
+//		DWORD   dwFlags   =   INTERNET_FLAG_TRANSFER_BINARY|INTERNET_FLAG_EXISTING_CONNECT|INTERNET_FLAG_RELOAD; 
+//		pFile = (CHttpFile *) m_session.OpenURL(requestUrl,1,dwFlags);
+//		DWORD Code;
+//		pFile->QueryInfoStatusCode(Code);
+//		if(Code!=200)
+//		{
+//			return CANT_FINDWEB;
+//		}
+//		//::MessageBox(NULL,"haha",NULL,MB_OK);
+//		while(pFile->ReadString(strData))
+//			HttpResponse+=strData;
+//		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
+//	}
+//	catch(CInternetException* e)  //捕获异常
+//	{
+//		TCHAR pszError[200];
+//		e->GetErrorMessage(pszError, 200);
+//		//::MessageBox(NULL,pszError,NULL,MB_OK);
+//		e->Delete();
+//		return HTTP_EXCEPTION;
+//	}
+//	//pFile->Close();
+//	m_session.Close();
+//	char rtstr[10]={0};
+//	memcpy(rtstr,HttpResponse.GetBuffer(0),4);
+//	HttpResponse.ReleaseBuffer();
+//	ICC_Reader_Close(hReader);
+//	if(0==strcmp(rtstr,"0000"))
+//		return iDOpenPort();
+//	else return atoi(rtstr);
+////	return 0;
+//}
 MHC_CARDINTERFACE_API int __stdcall IDClosePort(void)
 {
 	return iDClosePort();
@@ -176,153 +202,153 @@ MHC_CARDINTERFACE_API int __stdcall IVerifyPIN(HANDLE hDev,char * PIN)
 	int rt=iVerifyPIN(hDev,PIN);
 	return rt;
 }
-MHC_CARDINTERFACE_API int __stdcall IPowerOn(HANDLE hDev,int slot, 
-											 char * ATR,char *account,
-											 char *password,int doctype,
-											 char *para,char *userid,char *pin)
-{
-	long hReader=ICC_Reader_Open("USB1");
-	char cmd[100]={0};
-	unsigned char Response[50]={0};
-	if(hReader<=0)//设备打开失败返回
-	{
-		return hReader;
-	}
-	//取卡的芯片号
-		//请求卡片
-	int rt=0;
-	rt=PICC_Reader_Request(hReader);
-	if(rt!=0)
-	{
-		return rt;
-	}
-		//防碰撞
-	unsigned char uid[10]={0};
-	rt =PICC_Reader_anticoll(hReader,uid);
-	if(rt)
-	{
-		return rt;
-	}
-		//选卡
-	rt=PICC_Reader_Select(hReader,0x41);
-	if(rt)
-	{
-		return rt;
-	}
-		//上电
-	rt=PICC_Reader_PowerOnTypeA(hReader,Response);
-	if(rt<=0)
-	{
-		return rt;
-	}
-	unsigned char csno[17]={0};
-	HexToStr(Response+5,8,csno);
-	//获取机具号（从芯片获取）
-	char macno[50]={0};
-	rt=ICC_Reader_GetDeviceCSN(hReader,macno);
-	if(rt<=0)
-	{
-		return rt;
-	}
-	//获取sam卡序列号
-//	char SamATR[50]={0};
-//	rt=PowerOn(hDev,0x11,SamATR);
+//MHC_CARDINTERFACE_API int __stdcall IPowerOn(HANDLE hDev,int slot, 
+//											 char * ATR,char *account,
+//											 char *password,int doctype,
+//											 char *para,char *userid,char *pin)
+//{
+//	long hReader=ICC_Reader_Open("USB1");
+//	char cmd[100]={0};
+//	unsigned char Response[50]={0};
+//	if(hReader<=0)//设备打开失败返回
+//	{
+//		return hReader;
+//	}
+//	//取卡的芯片号
+//		//请求卡片
+//	int rt=0;
+//	rt=PICC_Reader_Request(hReader);
+//	if(rt!=0)
+//	{
+//		return rt;
+//	}
+//		//防碰撞
+//	unsigned char uid[10]={0};
+//	rt =PICC_Reader_anticoll(hReader,uid);
 //	if(rt)
 //	{
 //		return rt;
 //	}
-//	char samno[300]={0};
-//	rt=iReader_SAM_Public((int)hDev,samno);
+//		//选卡
+//	rt=PICC_Reader_Select(hReader,0x41);
 //	if(rt)
 //	{
 //		return rt;
 //	}
-		//操作SAM卡
-	memset(Response,0,50);
-	rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
-	if(rt<=0)
-	{
-		return rt;
-	}
-		//选SAM卡的MF
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xA4\x00\x00\x00",5); 
-	int len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
-	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
-	{
-		return len;
-	}
-	//选0015
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xA4\x00\x00\x02\x00\x15",7); 
-	len = ICC_Reader_Application(hReader,0x11,7,(unsigned char *)cmd,Response);
-	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
-	{
-		return IFD_ICC_TypeError;
-	}
-		//读取sam卡的序列号
-	memset(cmd,0,100);
-	memset(Response,0,50);
-	memcpy(cmd, "\x00\xB0\x00\x00\x0A",5); 
-	len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
-	if(len<=0||Response[len-2]!=0x90)
-	{
-		return IFD_ICC_TypeError;
-	}
-	unsigned char samno[21]={0};
-	HexToStr((unsigned char *)Response,10,samno);
-	ICC_Reader_PowerOff(hReader,0x11);
-	//发送http请求
-	char addr[300]={0};
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),".\\config.ini");
-	//MessageBox(NULL,addr,NULL,MB_OK);
-	CInternetSession m_session("Webservice32");
-	CString HttpResponse;
-	try
-	{
-		CString strData;
-//		char requestUrl[500]={"http://221.176.197.13:8011/Api!CardIdentify.do?account=test&password=111111&csno=410425200810190216&macno=000011&samno=123456&doctype=1&funtype=0&para=0|1|0&userid=001"};
-		char requestUrl[500]={0};
-		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=1&para=%s&userid=%s",
-			addr,account,password,csno,macno,samno,doctype,para,userid);
-		//MessageBox(NULL,requestUrl,NULL,MB_OK);
-		CHttpFile *pFile;
-		//MessageBox(NULL,requestUrl,NULL,MB_OK);
-		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
-		DWORD Code;
-		pFile->QueryInfoStatusCode(Code);
-		if(Code!=200)
-		{
-			return CANT_FINDWEB;
-		}
-		while(pFile->ReadString(strData))
-			HttpResponse+=strData;
-		pFile->Close();
-	}
-	catch(CInternetException* e)  //捕获异常
-	{
-		TCHAR pszError[200];
-		e->GetErrorMessage(pszError, 200);
-		::MessageBox(NULL,pszError,NULL,MB_OK);
-		e->Delete();
-		return HTTP_EXCEPTION;
-	}
-	m_session.Close();
-	char rtstr[10]={0};
-	memcpy(rtstr,HttpResponse.GetBuffer(0),4);
-	ICC_Reader_Close(hReader);
-
-	if(0==strcmp(rtstr,"0000"))
-	{
-		rt=PowerOn(hDev,slot,ATR);
-		if(rt) return rt;
-		rt=IVerifyPIN(hDev,pin);
-		return rt;
-	}
-	else return atoi(rtstr);
-}
+//		//上电
+//	rt=PICC_Reader_PowerOnTypeA(hReader,Response);
+//	if(rt<=0)
+//	{
+//		return rt;
+//	}
+//	unsigned char csno[17]={0};
+//	HexToStr(Response+5,8,csno);
+//	//获取机具号（从芯片获取）
+//	char macno[50]={0};
+//	rt=ICC_Reader_GetDeviceCSN(hReader,macno);
+//	if(rt<=0)
+//	{
+//		return rt;
+//	}
+//	//获取sam卡序列号
+////	char SamATR[50]={0};
+////	rt=PowerOn(hDev,0x11,SamATR);
+////	if(rt)
+////	{
+////		return rt;
+////	}
+////	char samno[300]={0};
+////	rt=iReader_SAM_Public((int)hDev,samno);
+////	if(rt)
+////	{
+////		return rt;
+////	}
+//		//操作SAM卡
+//	memset(Response,0,50);
+//	rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
+//	if(rt<=0)
+//	{
+//		return rt;
+//	}
+//		//选SAM卡的MF
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xA4\x00\x00\x00",5); 
+//	int len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
+//	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
+//	{
+//		return len;
+//	}
+//	//选0015
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xA4\x00\x00\x02\x00\x15",7); 
+//	len = ICC_Reader_Application(hReader,0x11,7,(unsigned char *)cmd,Response);
+//	if( (Response[len-2]!=0x61) && (Response[len-2]!=0x90) )
+//	{
+//		return IFD_ICC_TypeError;
+//	}
+//		//读取sam卡的序列号
+//	memset(cmd,0,100);
+//	memset(Response,0,50);
+//	memcpy(cmd, "\x00\xB0\x00\x00\x0A",5); 
+//	len = ICC_Reader_Application(hReader,0x11,5,(unsigned char *)cmd,Response);
+//	if(len<=0||Response[len-2]!=0x90)
+//	{
+//		return IFD_ICC_TypeError;
+//	}
+//	unsigned char samno[21]={0};
+//	HexToStr((unsigned char *)Response,10,samno);
+//	ICC_Reader_PowerOff(hReader,0x11);
+//	//发送http请求
+//	char addr[300]={0};
+//	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),".\\config.ini");
+//	//MessageBox(NULL,addr,NULL,MB_OK);
+//	CInternetSession m_session("Webservice32");
+//	CString HttpResponse;
+//	try
+//	{
+//		CString strData;
+////		char requestUrl[500]={"http://221.176.197.13:8011/Api!CardIdentify.do?account=test&password=111111&csno=410425200810190216&macno=000011&samno=123456&doctype=1&funtype=0&para=0|1|0&userid=001"};
+//		char requestUrl[500]={0};
+//		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=1&para=%s&userid=%s",
+//			addr,account,password,csno,macno,samno,doctype,para,userid);
+//		//MessageBox(NULL,requestUrl,NULL,MB_OK);
+//		CHttpFile *pFile;
+//		//MessageBox(NULL,requestUrl,NULL,MB_OK);
+//		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
+//		DWORD Code;
+//		pFile->QueryInfoStatusCode(Code);
+//		if(Code!=200)
+//		{
+//			return CANT_FINDWEB;
+//		}
+//		while(pFile->ReadString(strData))
+//			HttpResponse+=strData;
+//		pFile->Close();
+//	}
+//	catch(CInternetException* e)  //捕获异常
+//	{
+//		TCHAR pszError[200];
+//		e->GetErrorMessage(pszError, 200);
+//		::MessageBox(NULL,pszError,NULL,MB_OK);
+//		e->Delete();
+//		return HTTP_EXCEPTION;
+//	}
+//	m_session.Close();
+//	char rtstr[10]={0};
+//	memcpy(rtstr,HttpResponse.GetBuffer(0),4);
+//	ICC_Reader_Close(hReader);
+//
+//	if(0==strcmp(rtstr,"0000"))
+//	{
+//		rt=PowerOn(hDev,slot,ATR);
+//		if(rt) return rt;
+//		rt=IVerifyPIN(hDev,pin);
+//		return rt;
+//	}
+//	else return atoi(rtstr);
+//}
 MHC_CARDINTERFACE_API int __stdcall IChange_Pin(int hDev,char *oldPin,char *newPin)
 {
 	return iChange_Pin(hDev,oldPin,newPin);
@@ -332,7 +358,7 @@ int GetConfigFullPath(TCHAR *configFullPath)
 	unsigned long r=GetModuleFileName(GetCurrentModule(),configFullPath,MAX_PATH);
 	if(r==0)
 	{
-		return 120;
+		return 122;
 	}
 	char *pc=strrchr(configFullPath,'\\');
 	*pc=0;
@@ -355,6 +381,23 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 		::MessageBox(NULL,"请运行卫计委卡管程序","提示",MB_OK);
 		return PROCCESS_EXIST;
 	}
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN ICC_Reader_Open=(FXN)::GetProcAddress(hModule,"ICC_Reader_Open"); //打开端口
+	FXN2 PICC_Reader_Request=(FXN2)::GetProcAddress(hModule,"PICC_Reader_Request"); //请求卡片
+	FXN2 ICC_Reader_Close=(FXN2)::GetProcAddress(hModule,"ICC_Reader_Close"); //关闭端口
+	FXN3 PICC_Reader_anticoll=(FXN3)::GetProcAddress(hModule,"PICC_Reader_anticoll"); //防碰撞
+	FXN4 PICC_Reader_Select=(FXN4)::GetProcAddress(hModule,"PICC_Reader_Select"); //选卡
+	FXN3 PICC_Reader_PowerOnTypeA=(FXN3)::GetProcAddress(hModule,"PICC_Reader_PowerOnTypeA"); //TYPE A上电
+	FXN5 HexToStr=(FXN5)::GetProcAddress(hModule,"HexToStr"); //TYPE A上电
+	FXN4 ICC_Reader_PowerOff=(FXN4)::GetProcAddress(hModule,"ICC_Reader_PowerOff"); //接触卡下电
+	FXN6 ICC_Reader_GetDeviceCSN=(FXN6)::GetProcAddress(hModule,"ICC_Reader_GetDeviceCSN"); //获取芯片号
+	FXN7 ICC_Reader_pre_PowerOn=(FXN7)::GetProcAddress(hModule,"ICC_Reader_pre_PowerOn"); //非接上电
+	FXN8 ICC_Reader_Application=(FXN8)::GetProcAddress(hModule,"ICC_Reader_Application"); //发送指令
 	//先获取配置文件路径
 	TCHAR configFullPath[MAX_PATH]; // MAX_PATH
 	int rt=GetConfigFullPath(configFullPath);
@@ -401,8 +444,8 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 		ICC_Reader_Close(hReader);
 		return rt;
 	}
-	unsigned char csno[17]={0};
-	HexToStr(Response+5,8,csno);
+	unsigned char csno[50]={0};
+	HexToStr(Response,rt,csno);
 	ICC_Reader_PowerOff(hReader,0x01);
 	//获取机具号（从芯片获取）
 	char macno[50]={0};
@@ -416,7 +459,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 	//获取sam卡序列号
 		//操作SAM卡
 	memset(Response,0,50);
-	rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
+	rt=ICC_Reader_pre_PowerOn(hReader,0x11,Response); //sam卡复位
 	if(rt<=0)
 	{
 		//::MessageBox(NULL,"SAM上电失败!",NULL,MB_OK);
@@ -1182,6 +1225,9 @@ MHC_CARDINTERFACE_API int __stdcall IR_ReadCard(char *para,char *dataOut,
 				sprintf(dataOut+len,"%s%s%s|",ZYJLBS1,ZYJLBS2,ZYJLBS3);
 				break;
 			}
+		default:
+			iDClosePort();
+			return 120;
 		}
 		p = strtok(NULL,split);
 	}
@@ -1201,6 +1247,27 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 		::MessageBox(NULL,"请运行卫计委卡管程序","提示",MB_OK);
 		return PROCCESS_EXIST;
 	}
+	//获取SSSE32函数
+//	TCHAR configFullPath[MAX_PATH]; // MAX_PATH
+//	int rt=GetConfigFullPath(configFullPath);
+//	if(rt!=0) return rt;
+//	HMODULE hModule=::LoadLibrary(configFullPath);
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN ICC_Reader_Open=(FXN)::GetProcAddress(hModule,"ICC_Reader_Open"); //打开端口
+	FXN2 PICC_Reader_Request=(FXN2)::GetProcAddress(hModule,"PICC_Reader_Request"); //请求卡片
+	FXN2 ICC_Reader_Close=(FXN2)::GetProcAddress(hModule,"ICC_Reader_Close"); //关闭端口
+	FXN3 PICC_Reader_anticoll=(FXN3)::GetProcAddress(hModule,"PICC_Reader_anticoll"); //防碰撞
+	FXN4 PICC_Reader_Select=(FXN4)::GetProcAddress(hModule,"PICC_Reader_Select"); //选卡
+	FXN3 PICC_Reader_PowerOnTypeA=(FXN3)::GetProcAddress(hModule,"PICC_Reader_PowerOnTypeA"); //TYPE A上电
+	FXN5 HexToStr=(FXN5)::GetProcAddress(hModule,"HexToStr"); //TYPE A上电
+	FXN4 ICC_Reader_PowerOff=(FXN4)::GetProcAddress(hModule,"ICC_Reader_PowerOff"); //接触卡下电
+	FXN6 ICC_Reader_GetDeviceCSN=(FXN6)::GetProcAddress(hModule,"ICC_Reader_GetDeviceCSN"); //获取芯片号
+	FXN7 ICC_Reader_pre_PowerOn=(FXN7)::GetProcAddress(hModule,"ICC_Reader_pre_PowerOn"); //非接上电
+	FXN8 ICC_Reader_Application=(FXN8)::GetProcAddress(hModule,"ICC_Reader_Application"); //发送指令
 	//先获取配置文件路径
 	TCHAR configFullPath[MAX_PATH]; // MAX_PATH
 	int rt=GetConfigFullPath(configFullPath);
@@ -1243,8 +1310,8 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 		ICC_Reader_Close(hReader);
 		return rt;
 	}
-	unsigned char csno[17]={0};
-	HexToStr(Response+5,8,csno);
+	unsigned char csno[40]={0};
+	HexToStr(Response,rt,csno);
 	ICC_Reader_PowerOff(hReader,0x01);
 	//获取机具号（从芯片获取）
 	char macno[50]={0};
@@ -1257,7 +1324,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 	//获取sam卡序列号
 		//操作SAM卡
 	memset(Response,0,50);
-	rt=ICC_Reader_PowerOn(hReader,0x11,Response); //sam卡复位
+	rt=ICC_Reader_pre_PowerOn(hReader,0x11,Response); //sam卡复位
 	if(rt<=0)
 	{
 		ICC_Reader_Close(hReader);
@@ -1370,7 +1437,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 	char * In=NULL; 
 	In = strtok (dataIn,split);
 	char *p=dataIn;
-	if(flag==1003||flag==1004||flag==1005||flag==1006||flag==1007||flag==1013||flag==1014||flag==1015||flag==1024||flag==1026)
+	if(flag==1003||flag==1004||flag==1005||flag==1006||flag==1007||flag==1008||flag==1013||flag==1014||flag==1015||flag==1016||flag==1024||flag==1026)
 	{
 		while(*p!='\0')
 		{
@@ -1381,7 +1448,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 			p++;
 		}
 	}
-	if(flag!=1003&&flag!=1004&&flag!=1005&&flag!=1006&&flag!=1007&&flag!=1013&&flag!=1014&&flag!=1015)
+	if(flag!=1003&&flag!=1004&&flag!=1005&&flag!=1006&&flag!=1007&&flag!=1008&&flag!=1013&&flag!=1014&&flag!=1015&&flag!=1016)
 	{
 		In = strtok (dataIn,split);
 		while(In!=NULL)
@@ -1402,7 +1469,173 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 			iDClosePort();
 			return 114;
 		}
-		if(flag<=57)
+		if(flag>=41&&flag<=55)
+		{
+			switch(flag)
+			{
+			case 41:
+				{
+					int i=iW_DF02EF05Info(hDev,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 42:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 43:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 44:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 45:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 46:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 47:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 48:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 49:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 50:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 51:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 52:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 53:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL,NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 54:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str(),NULL);
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 55:
+				{
+					int i=iW_DF02EF05Info(hDev,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,(char *)vs[index++].c_str());
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			case 56:
+				{
+					int i=iW_DF02EF06Info(hDev,(char *)vs[index++].c_str());
+					if(i)	
+					{
+						iDClosePort();
+						return i;
+					}
+					break;
+				}
+			}//end switch
+		}
+		else if(flag<=57)
 		{
 			//开始写
 			ITEMSELECT pvSelect={0};
@@ -1507,7 +1740,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 			for(int i=1;i<=5;i++)
 			{
 				string str=dataIn;
-				str=str.substr((i-1)*2,2);
+				str=str.substr(i-1,1);
 				if(!str.compare("F")||!str.compare("f"))
 				{
 					int re=iErase_DF03EF06Info(hDev,i);
@@ -1531,7 +1764,7 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 			for(int i=1;i<=3;i++)
 			{
 				string str=dataIn;
-				str=str.substr((i-1)*2,2);
+				str=str.substr(i-1,1);
 				if(!str.compare("F")||!str.compare("f"))
 				{
 					int re=iErase_DF03EF05Info(hDev,i);
@@ -1550,9 +1783,351 @@ MHC_CARDINTERFACE_API int __stdcall IR_WriteCard(char *para,char *dataIn,
 					}
 				}
 			}
+		}else if(flag==1008)
+		{
+			char MZJLBS1[30]={0};	
+			char MZJLBS2[10]={0};
+			char MZJLBS3[10]={0};
+			char MZJLBS4[10]={0};
+			char MZJLBS5[10]={0};
+			int re=iR_DF03EF06Info(hDev,MZJLBS1,MZJLBS2,MZJLBS3,MZJLBS4,MZJLBS5);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+			int i=0;
+			for(;i<5;i++)
+			{
+				switch(i)
+				{
+				case 0:
+					{
+						if(!strcmp(MZJLBS1,"ff")||!strcmp(MZJLBS1,"FF"))
+						{
+							re=iW_DF03ED_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF06Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 1:
+					{
+						if(!strcmp(MZJLBS2,"ff")||!strcmp(MZJLBS2,"FF"))
+						{
+							re=iW_DF03ED_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF06Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 2:
+					{
+						if(!strcmp(MZJLBS3,"ff")||!strcmp(MZJLBS3,"FF"))
+						{
+							re=iW_DF03ED_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF06Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 3:
+					{
+						if(!strcmp(MZJLBS4,"ff")||!strcmp(MZJLBS4,"FF"))
+						{
+							re=iW_DF03ED_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF06Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 4:
+					{
+						if(!strcmp(MZJLBS5,"ff")||!strcmp(MZJLBS5,"FF"))
+						{
+							re=iW_DF03ED_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF06Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				}//end switch
+			}//end for
+			if(i==5)
+			{
+				for(i=0;i<5;i++)
+				{
+					iErase_DF03EF06Info(hDev,i+1);
+				}
+				re=iW_DF03ED_ALLInfo(hDev,1,dataIn);
+				if(re)
+				{
+					iDClosePort();
+					return re;
+				}
+				re=iW_DF03EF06Info(hDev,1);
+			}
+		}else if(flag==1016)
+		{
+			char ZYJLBS1[30]={0};	
+			char ZYJLBS2[10]={0};
+			char ZYJLBS3[10]={0};
+			int re=iR_DF03EF05Info(hDev,ZYJLBS1,ZYJLBS2,ZYJLBS3);
+			if(re)
+			{
+				iDClosePort();
+				return re;
+			}
+			int i=0;
+			for(;i<3;i++)
+			{
+				switch(i)
+				{
+				case 0:
+					{
+						if(!strcmp(ZYJLBS1,"ff")||!strcmp(ZYJLBS1,"FF"))
+						{
+							re=iW_DF03EE_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF05Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 1:
+					{
+						if(!strcmp(ZYJLBS2,"ff")||!strcmp(ZYJLBS2,"FF"))
+						{
+							re=iW_DF03EE_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF05Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				case 2:
+					{
+						if(!strcmp(ZYJLBS3,"ff")||!strcmp(ZYJLBS3,"FF"))
+						{
+							re=iW_DF03EE_ALLInfo(hDev,i+1,dataIn);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							re=iW_DF03EF05Info(hDev,i+1);
+							if(re)
+							{
+								iDClosePort();
+								return re;
+							}
+							iDClosePort();
+							return 0;
+						}
+						break;
+					}
+				}//end switch
+			}//end for
+			if(i==3)
+			{
+				for(i=0;i<3;i++)
+				{
+					iErase_DF03EF05Info(hDev,i+1);
+				}
+				re=iW_DF03EE_ALLInfo(hDev,1,dataIn);
+				if(re)
+				{
+					iDClosePort();
+					return re;
+				}
+				re=iW_DF03EF05Info(hDev,1);
+			}
+		}else
+		{
+			iDClosePort();
+			return 120;
 		}
 		pa = strtok (NULL,split);
 	}
 	iDClosePort();
 	return 0;
+}
+MHC_CARDINTERFACE_API long __stdcall ICC_Reader_Open(char* dev_Name)
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN HNICC_Reader_Open=(FXN)::GetProcAddress(hModule,"ICC_Reader_Open"); //打开端口
+	long rt=HNICC_Reader_Open(dev_Name);
+	return rt;
+}
+
+MHC_CARDINTERFACE_API long __stdcall ICC_Reader_Close(long ReaderHandle)
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN2 HNICC_Reader_Close=(FXN2)::GetProcAddress(hModule,"ICC_Reader_Close"); //打开端口
+	long rt=HNICC_Reader_Close(ReaderHandle);
+	return rt;
+}
+
+
+MHC_CARDINTERFACE_API long __stdcall PICC_Reader_FindCard(long ReaderHandle)
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN2 PICC_Reader_Request=(FXN2)::GetProcAddress(hModule,"PICC_Reader_Request"); //请求卡片
+	FXN3 PICC_Reader_anticoll=(FXN3)::GetProcAddress(hModule,"PICC_Reader_anticoll"); //防碰撞
+	FXN4 PICC_Reader_Select=(FXN4)::GetProcAddress(hModule,"PICC_Reader_Select"); //选卡
+	FXN3 PICC_Reader_PowerOnTypeA=(FXN3)::GetProcAddress(hModule,"PICC_Reader_PowerOnTypeA"); //TYPE A上电
+	long rt=PICC_Reader_Request(ReaderHandle);
+	if(rt!=0)
+	{
+		return rt;
+	}
+	//防碰撞
+	unsigned char uid[10]={0};
+	rt =PICC_Reader_anticoll(ReaderHandle,uid);
+	if(rt)
+	{
+		return rt;
+	}
+	//选卡
+	rt=PICC_Reader_Select(ReaderHandle,0x41);
+	if(rt)
+	{
+		return rt;
+	}
+	//上电
+	unsigned char Response[200]={0};
+	rt=PICC_Reader_PowerOnTypeA(ReaderHandle,Response);
+	if(rt<=0)
+	{
+		return rt;
+	}
+	return 0;
+}
+
+MHC_CARDINTERFACE_API long __stdcall  PICC_Reader_Application(long  ReaderHandle,long Lenth_of_Command_APDU, unsigned  char*  Command_APDU, unsigned  char*  Response_APDU)
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN9 HNPICC_Reader_Application=(FXN9)::GetProcAddress(hModule,"PICC_Reader_Application"); //发送指令
+	long rt=HNPICC_Reader_Application(ReaderHandle,Lenth_of_Command_APDU,Command_APDU,Response_APDU);
+	return rt;
+}
+
+MHC_CARDINTERFACE_API long __stdcall  StrToHex(unsigned char *strIn,int inLen,unsigned char *strOut)//将字符命令流转为16进制流
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN5 HNStrToHex=(FXN5)::GetProcAddress(hModule,"StrToHex"); //发送指令
+	long rt=HNStrToHex(strIn,inLen,strOut);
+	return rt;
+}
+MHC_CARDINTERFACE_API long __stdcall  HexToStr(unsigned char *strIn,int inLen,unsigned char *strOut)
+{
+	//获取SSSE32函数
+	if(hModule==NULL) 
+	{
+		::MessageBox(NULL,"加载SSSE32失败","提示",MB_OK);
+		return 121;
+	}
+	FXN5 HNHexToStr=(FXN5)::GetProcAddress(hModule,"HexToStr"); //发送指令
+	long rt=HNHexToStr(strIn,inLen,strOut);
+	return rt;
 }

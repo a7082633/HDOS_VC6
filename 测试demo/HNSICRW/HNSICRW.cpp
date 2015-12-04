@@ -13,6 +13,6 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
 long WINAPI Run(char* flag,char*data,char*err)
 {
-	::MessageBox(NULL,"测试成功!",NULL,MB_OK);
+	::MessageBox(NULL,"测试成功!",NULL,MB_OK);//
 	return 0;
 }

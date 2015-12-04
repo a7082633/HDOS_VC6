@@ -11,6 +11,7 @@
 #define IDC_BTN_CLOSE                   1001
 #define IDC_BTN_SAMON                   1002
 #define IDC_BTN_SAMON2                  1003
+#define IDC_BTN_SENDCMD                 1003
 #define IDC_EDIT2                       1005
 #define IDC_EDIT_PARA                   1005
 #define IDC_BTN_READ                    1006
@@ -26,6 +27,10 @@
 #define IDC_BUTTON1                     1015
 #define IDC_BTN_TEST                    1015
 #define IDC_STATIC_STATE                1016
+#define IDC_EDIT_APDU                   1017
+#define IDC_STATIC_GROUP                1018
+#define IDC_STATIC_CA                   1019
+#define IDC_BTN_FINDCARD                1020
 
 // Next default values for new objects
 // 
@@ -33,7 +38,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        129
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1017
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

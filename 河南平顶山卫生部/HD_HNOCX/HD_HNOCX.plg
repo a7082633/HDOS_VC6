@@ -3,14 +3,60 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: HD_HNOCX - Win32 Release--------------------
+--------------------Configuration: HD_HNOCX - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPF746.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_WINDLL" /FR"Debug/" /Fp"Debug/HD_HNOCX.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\河南平顶山卫生部\HD_HNOCX\HD_HNOCX.cpp"
+"D:\github_HDOS\HDOS_VC6\河南平顶山卫生部\HD_HNOCX\HD_HNOCXCtl.cpp"
+"D:\github_HDOS\HDOS_VC6\河南平顶山卫生部\HD_HNOCX\HD_HNOCXPpg.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPF746.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPF747.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_WINDLL" /FR"Debug/" /Fp"Debug/HD_HNOCX.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\河南平顶山卫生部\HD_HNOCX\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPF747.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPF748.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:yes /pdb:"Debug/HD_HNOCX.pdb" /debug /machine:I386 /def:".\HD_HNOCX.def" /out:"Debug/HD_HNOCX.ocx" /implib:"Debug/HD_HNOCX.lib" /pdbtype:sept 
+".\Debug\HD_HNOCX.obj"
+".\Debug\HD_HNOCXCtl.obj"
+".\Debug\HD_HNOCXPpg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\HD_HNOCX.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSPF748.tmp"
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPF749.bat" with contents
+[
+@echo off
+regsvr32 /s /c ".\Debug\HD_HNOCX.ocx"
+echo regsvr32 exec. time > ".\Debug\regsvr32.trg"
+]
+Creating command line "C:\Users\zxx\AppData\Local\Temp\RSPF749.bat"
+Compiling...
+StdAfx.cpp
+Compiling...
+HD_HNOCX.cpp
+HD_HNOCXCtl.cpp
+HD_HNOCXPpg.cpp
+Generating Code...
+Linking...
+   Creating library Debug/HD_HNOCX.lib and object Debug/HD_HNOCX.exp
+HD_HNOCX.exp : warning LNK4070: /OUT:PDS_HNOCX.OCX directive in .EXP differs from output filename "Debug/HD_HNOCX.ocx"; ignoring directive
+<h3>Output Window</h3>
+Registering ActiveX Control...
+Creating command line "bscmake.exe /nologo /o"Debug/HD_HNOCX.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\HD_HNOCX.sbr" ".\Debug\HD_HNOCXCtl.sbr" ".\Debug\HD_HNOCXPpg.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-PDS_HNOCX.ocx - 0 error(s), 0 warning(s)
+HD_HNOCX.ocx - 0 error(s), 1 warning(s)
 </pre>
 </body>
 </html>

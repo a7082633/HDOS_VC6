@@ -178,7 +178,14 @@ STDAPI DllRegisterServer(void)
 STDAPI DllUnregisterServer(void)
 {
 	AFX_MANAGE_STATE(_afxModuleAddrThis);
-
+    // 删除控件初始化安全入口.  
+    HRESULT hr=UnRegisterCLSIDInCategory(CLSID_SafeItem, CATID_SafeForInitializing);  
+    if (FAILED(hr))  
+        return hr;  
+    // 删除控件脚本安全入口  
+    hr=UnRegisterCLSIDInCategory(CLSID_SafeItem, CATID_SafeForScripting);  
+    if (FAILED(hr))  
+        return hr; 
 	if (!AfxOleUnregisterTypeLib(_tlid, _wVerMajor, _wVerMinor))
 		return ResultFromScode(SELFREG_E_TYPELIB);
 

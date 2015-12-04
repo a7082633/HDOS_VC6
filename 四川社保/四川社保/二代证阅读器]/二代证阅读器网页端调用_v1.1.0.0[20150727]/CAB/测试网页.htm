@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>二代证阅读器测试网页</title>
+    <style type="text/css">
+        .style1
+        {
+            width: 172px;
+        }
+        .style2
+        {
+            width: 113px;
+        }
+        .style3
+        {
+            width: 225px;
+        }
+        .style4
+        {
+            width: 225px;
+            height: 83px;
+        }
+        .style5
+        {
+            height: 83px;
+        }
+    </style>
+</head>
+<object classid="clsid:6D2088B7-1B97-4960-9535-5115614F29E0" id="WidControl"  codebase="WidControl.cab#version=1,1,0,0" width="1" height="1">
+</object>
+<body onbeforeunload="OnCleanData()">
+  浙江维尔科技股份有限公司 二代证阅读器 测试网页<br />
+    <table style="border-style: double; width: 800px; height: 384px; ">
+    <tr>
+    <td class="style3">姓名:</td>
+    <td class="style1">
+			 <input id="Text1" type="text" style="width: 165px" name="Name" /></td>
+    <td class="style2">性别:</td>
+    <td>
+			 <input id="Text2" type="text" name="Sex" style="width:204px;" /></td>
+    <td rowspan="3">
+        <img  src="" style="width: 156px; height: 95px" name="Pic1" 
+            align="middle"/></td>
+    </tr>
+    <tr>
+    <td class="style3">民族:</td>
+    <td class="style1">
+			 <input id="Text3" type="text" style="width: 163px" name="Folk" /></td>
+    <td class="style2">出生日期:</td>
+    <td>
+			 <input id="Text4" type="text" name="BirthDate" style="width: 203px" /></td>
+    </tr>
+    <tr>
+    <td class="style3">住址:</td>
+    <td colspan="3">
+                 <input id="Text5" style="width: 491px" type="text" name="Address" /></td>
+    </tr>
+     <tr>
+    <td class="style3">身份证号:</td>
+    <td colspan="3">
+                 <input id="Text6" style="width: 491px" type="text" name="IdNo" /></td>
+    <td rowspan="3">
+        <img  src="" style="width: 156px; height: 87px" name="Pic2" 
+            align="middle"/></td>
+    </tr>
+     <tr>
+    <td class="style3">签发机关:</td>
+    <td colspan="3">
+                 <input id="Text6" style="width: 492px" type="text" name="Agency" /></td>
+    </tr>
+     <tr>
+    <td class="style3">有效期限:</td>
+    <td colspan="3">
+                 <input id="Texst6" style="width: 493px" type="text" name="Valid" /></td>
+    </tr>
+    <tr>
+    <td class="style3">模块编号:</td>
+    <td colspan="3">
+                 <input id="Text7" style="width: 491px" type="text" name="Mode" /></td>
+    <td>&nbsp;</td>
+    </tr>
+    <tr>
+    <td class="style3">BMP照片数据Base64编码:</td>
+    <td colspan="4">
+                 <textarea id="TextArea1" name="PhotoB64" 
+            style="width: 656px; height: 45px" rows="1"></textarea></tr>
+     <tr>
+    <td class="style3">JPG照片数据Base64编码:</td>
+    <td colspan="4">
+                 <textarea id="TextArea1" name="JpgB64" 
+            style="width: 652px; height: 45px" rows="1"></textarea></tr>
+     <tr>
+    <td class="style4">指纹数据Base64编码:</td>
+    <td colspan="4" class="style5">
+                 <textarea id="TextArea1" name="FingerB64" 
+            style="width: 652px; height: 45px" rows="1"></textarea></tr>
+     </table>
+<table>
+  <tr>
+    <td colspan="4" style="text-align: right">
+		<input type="button" value="读身份证" onClick="Idcard();">
+      	<input type="button" value="打印身份证正面" onClick="PrintCard(1);">
+      	<input type="button" value="打印身份证反面" onClick="PrintCard(2);">
+      	<input type="button" value="打印身份证正、反面" onClick="PrintCard(3);">
+    </td>
+  </tr>
+  </table>
+<script language=javascript>
+function Idcard(){
+	var result;
+	//注意：第一个参数为对应的设备端口，USB型为1001，串口型为1至16
+	//第二个参数为文件保存路径及文件名，当为“”时，保存在系统临时目录(由API GetTempPath获得)
+	//ReadCard函数调用示例如下：
+	result=WidControl.ReadCard(1001,"C:\\wid\\photo.bmp");
+	//result=WidControl.ReadCard(1001,"C:\\wid\\");
+	//result=WidControl.ReadCard(1001,"C:\\wid");
+	//result=WidControl.ReadCard(1001,"");	
+	//result=WidControl.ReadCard(1001,"C:\\wid\\photo.jpg");
+	document.all['Mode'].value=WidControl.GetSAMID();
+	if (result==1){
+		document.all['Name'].value=WidControl.GetName();
+		document.all['Sex'].value=WidControl.GetSex();
+		document.all['Folk'].value=WidControl.GetFolk();
+		document.all['BirthDate'].value=WidControl.GetBirthDate();
+		document.all['Address'].value=WidControl.GetAddress();
+		document.all['IdNo'].value=WidControl.GetCode();
+		document.all['Agency'].value=WidControl.GetAgency();
+		document.all['Valid'].value=WidControl.GetValid();
+		document.all['PhotoB64'].value=WidControl.GetPhotobuf();
+		document.all['JpgB64'].value=WidControl.GetJPGPhotoBuf();
+		document.all['FingerB64'].value=WidControl.GetFPData();
+		document.all['Pic1'].src = "C:\\wid\\1.bmp";
+		document.all['Pic2'].src = "C:\\wid\\2.bmp";	
+	}else{
+		if (result==-1)
+			alert("端口初始化失败！");
+		if (result==-2)
+			alert("请重新将卡片放到读卡器上！");
+		if (result==-3)
+			alert("读取数据失败！");
+		if (result==-4)
+			alert("生成照片文件失败，请检查设定路径和磁盘空间！");
+	}
+}
+
+function PrintCard(iPrintType)
+{
+ 	var result;
+	result=WidControl.PrintCard(iPrintType);
+}
+
+function OnCleanData()
+{
+	document.all['Name'].value="";
+	document.all['Sex'].value="";
+	document.all['Folk'].value="";
+	document.all['BirthDate'].value="";
+	document.all['Address'].value="";
+	document.all['IdNo'].value="";
+	document.all['Agency'].value="";
+	document.all['Valid'].value="";
+	document.all['PhotoB64'].value="";
+	document.all['JpgB64'].value="";
+	document.all['FingerB64'].value="";
+	document.all['Pic1'].src = "";
+	document.all['Pic2'].src = "";
+	document.all['Mode'].value="";
+}
+</script>
+</body>
+</html>

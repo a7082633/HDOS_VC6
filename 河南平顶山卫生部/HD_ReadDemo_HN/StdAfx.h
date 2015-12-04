@@ -22,8 +22,8 @@
 #include <fstream.h>
 #include "PDS_RWHealInterface.h"
 #pragma comment(lib,"PDS_RWHealInterface.lib")
-#include "SSSE32.h"
-#pragma comment(lib,"SSSE32.lib")
+//#include "SSSE32.h"
+//#pragma comment(lib,"SSSE32.lib")
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

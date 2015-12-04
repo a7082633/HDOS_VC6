@@ -6,11 +6,41 @@
 --------------------Configuration: HD_CPUAndID - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP5AD4.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /Fp"Release/HD_CPUAndID.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\github_HDOS\HDOS_VC6\HD_CPUAndID\HD_CPUAndIDCtl.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP5AD4.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP5AE5.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:no /pdb:"Release/HD_CPUAndID.pdb" /machine:I386 /def:".\HD_CPUAndID.def" /out:"Release/HD_CPUAndID.ocx" /implib:"Release/HD_CPUAndID.lib" 
+.\Release\HD_CPUAndID.obj
+.\Release\HD_CPUAndIDCtl.obj
+.\Release\HD_CPUAndIDPpg.obj
+.\Release\StdAfx.obj
+.\Release\HD_CPUAndID.res
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP5AE5.tmp"
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP5AE6.bat" with contents
+[
+@echo off
+regsvr32 /s /c ".\Release\HD_CPUAndID.ocx"
+echo regsvr32 exec. time > ".\Release\regsvr32.trg"
+]
+Creating command line "C:\Users\zxx\AppData\Local\Temp\RSP5AE6.bat"
+Compiling...
+HD_CPUAndIDCtl.cpp
+D:\github_HDOS\HDOS_VC6\HD_CPUAndID\HD_CPUAndIDCtl.cpp(296) : warning C4244: 'argument' : conversion from 'long' to 'unsigned char', possible loss of data
+Linking...
+   Creating library Release/HD_CPUAndID.lib and object Release/HD_CPUAndID.exp
+<h3>Output Window</h3>
+Registering ActiveX Control...
 
 
 
 <h3>Results</h3>
-HD_CPUAndID.ocx - 0 error(s), 0 warning(s)
+HD_CPUAndID.ocx - 0 error(s), 1 warning(s)
 </pre>
 </body>
 </html>

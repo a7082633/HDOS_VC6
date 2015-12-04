@@ -1,0 +1,143 @@
+<HTML>
+<HEAD>
+<TITLE>ATL 3.0 test page for object DCReaderOcx</TITLE>
+<SCRIPT language="javascript">
+          function get(){
+                   var result;
+                   var Data; 
+                   result =DCReaderOcx.Runs(1001,Data);
+                   if(result==0){
+                   	alert(DCReaderOcx.get_rdata());                       
+                   }
+                   else
+                   	{                    		
+                   		alert(DCReaderOcx.get_errmsg());
+                   	}       
+                  
+                   }
+          function out(){     
+                   var result;
+                   var Data;                  
+                   result = DCReaderOcx.Runs(1000,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}  
+                  }
+          function sti(){     
+                   var result;
+                   var Data;                   
+                   result = DCReaderOcx.Runs(2001,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}  
+                  }       
+          function dgf(){     
+                   var result;
+                   var Data;                                 
+                   result = DCReaderOcx.Runs(2002,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}  
+                  }
+          function Psaa(){                               //验证
+                   var result;
+                   var Data;
+                   Data="<PASS>888888</PASS>";
+                   result = DCReaderOcx.Runs(4001,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}      
+                   
+          }
+          function PsaaAlter(){
+                   var result;
+                   var Data;
+                   Data="<OLD>123456</OLD><NEW>888888</NEW>";    //Data=原密码+修改后密码
+                   result = DCReaderOcx.Runs(4002,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}      
+                   
+          }
+          function PsaaReset(){                                   //重置
+                   var result;
+                   var Data;
+                   Data="<PASS>123456</PASS>";                   
+                   result = DCReaderOcx.Runs(4003,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}      
+                   
+          }
+          function dsfgf(){     
+                   var result;
+                   var Data;
+                   alert("1111111111");                  
+                   result = DCReaderOcx.Runs(5002,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}  
+                  }
+          function sbinfo(){     
+                   var result;
+                   var Data;                
+                   result = DCReaderOcx.Runs(2005,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert(DCReaderOcx.get_rdata());
+                   	}  
+                  }
+         function int(){
+                   var result;
+                   var Data;             
+                   result = DCReaderOcx.Runs(1002,Data);
+                   if(result!=0){
+                       alert(DCReaderOcx.get_errmsg());
+                   } 
+                   else{
+                   	   alert("关闭成功");
+                   	}     
+                   
+          }         
+</SCRIPT>
+</HEAD>
+<BODY>
+<OBJECT ID="DCReaderOcx" CLASSID="CLSID:598DB085-7B0D-4D52-A713-72BB894A1DE2"></OBJECT>
+<FORM name = "Form1">
+	<p><input type="text" name="Text1" value="" widht="50" ></p>
+<input type="button" onClick="javascript:get()" value="连接" >
+<input type="button" onClick="javascript:out()" value="卡复位" >
+<input type="button" onClick="javascript:sti()" value="读   卡">
+<input type="button" onClick="javascript:dgf()" value="读   卡">
+<input type="button" onClick="javascript:Psaa()" value="验证PIN码">
+<input type="button" onClick="javascript:PsaaAlter()" value="修改PIN码">
+<input type="button" onClick="javascript:PsaaReset()" value="重置PIN码">
+<input type="button" onClick="javascript:dsfgf()" value="读电话">
+<input type="button" onClick="javascript:sbinfo()" value="读社保">
+<input type="button" onClick="javascript:int()" value="关闭" >
+</FORM>
+</BODY>
+</HTML>

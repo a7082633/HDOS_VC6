@@ -1,0 +1,48 @@
+<html>
+<head>
+<TITLE>键盘测试页面</TITLE>
+<OBJECT id="KeyBoardX" codeBase=/HD_KeyBoardX.dll classid="clsid:1374D6CD-34C3-4298-9822-5A408CD9E40B" style="display:none" width="0" height="0"></OBJECT>
+<!-- 
+ -->
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<script type="text/javascript" language="javascript" >
+function GetKeyBoard_onclick()
+{
+//	alert("KeyBoard");
+	 
+	var KeyBoardX = document.getElementById("KeyBoardX");	
+	var bool; //主要用于返回信息
+	var password = document.getElementById("password");
+	bool = KeyBoardX.GetInputPass(15);
+	
+	if(bool != 0)
+	{
+		if(bool == -1)
+		{
+			document.write("<center><p><h1>键盘测试错误</h1></p></center><br>错误类别：<font color='#FF0000'>连设备失败，请确认设备已经连接上电脑！</font><br>");
+		}
+		else if(bool == -2)
+		{
+			document.write("<center><p><h1>键盘测试错误</h1></p></center><br>错误类别：<font color='#FF0000'>获取键盘超时或者输入密码位数不是6位！</font><br>");
+		}
+		else
+		{
+			document.write("<center><p><h1>键盘测试错误</h1></p></center><br>错误类别：<font color='#FF0000'>获取密码键盘失败！</font></p>");
+		}
+	}
+	else
+	{
+			password.value = KeyBoardX.sPin;
+			alert(password.value);
+	}
+}
+
+</script>
+</head>
+<body>
+<center><p><h1>键盘测试页面</h1>
+</p></center>
+个人密码:<input type="password" id="password" value="" size="16" maxlength="6" />
+<input id="Button1" type="button" value="获取键盘密码" onClick="return GetKeyBoard_onclick()" />
+</body>
+</html>

@@ -15,6 +15,7 @@ class CHD_ReadDemo_HNDlg : public CDialog
 {
 // Construction
 public:
+	long ReaderHandle;
 	CHD_ReadDemo_HNDlg(CWnd* pParent = NULL);	// standard constructor
 
 // Dialog Data
@@ -46,7 +47,8 @@ protected:
 	afx_msg void OnBtnRead();
 	afx_msg void OnBtnSamau();
 	afx_msg void OnBtnWrite();
-	afx_msg void OnBtnTest();
+	afx_msg void OnBtnSendcmd();
+	afx_msg void OnBtnFindcard();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -46,6 +46,6 @@
 using namespace std;
 #include "MHC_CardInterface.h"
 #pragma comment(lib,"WSB_RWInterface.lib")
-#include "SSSE32.h"
-#pragma comment(lib,"SSSE32.lib")
+//#include "SSSE32.h"
+//#pragma comment(lib,"SSSE32.lib")
 #endif // !defined(AFX_STDAFX_H__10CAEEBD_E67D_4951_B387_AE8D8FDD8EFE__INCLUDED_)

@@ -3222,6 +3222,7 @@ MHC_CARDINTERFACE_API int __stdcall iW_DF03ED_ALLInfo(HANDLE hDev,
 							  char * szData											  
 							  )//全写
 {
+	//::MessageBox(NULL,"HAHA",NULL,MB_OK);
 	unsigned char tempdata[6000]={0};
 	int len = strlen(szData);
 	int start =0;//传入数据偏移量

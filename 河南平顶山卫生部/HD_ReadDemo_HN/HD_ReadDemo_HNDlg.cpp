@@ -87,7 +87,8 @@ BEGIN_MESSAGE_MAP(CHD_ReadDemo_HNDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_SAMON, OnBtnSamon)
 	ON_BN_CLICKED(IDC_BTN_READ, OnBtnRead)
 	ON_BN_CLICKED(IDC_BTN_WRITE, OnBtnWrite)
-	ON_BN_CLICKED(IDC_BTN_TEST, OnBtnTest)
+	ON_BN_CLICKED(IDC_BTN_SENDCMD, OnBtnSendcmd)
+	ON_BN_CLICKED(IDC_BTN_FINDCARD, OnBtnFindcard)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -177,6 +178,18 @@ HCURSOR CHD_ReadDemo_HNDlg::OnQueryDragIcon()
 
 void CHD_ReadDemo_HNDlg::OnBtnOpen() 
 {
+	this->SetDlgItemText(IDC_STATIC_CA,"");
+	ReaderHandle=ICC_Reader_Open("USB1");
+	CString temp;
+	if(ReaderHandle<=0)
+	{
+		temp.Format("打开端口失败，错误代码:%d",ReaderHandle);
+		this->SetDlgItemText(IDC_STATIC_CA,temp);
+		return;
+	}else
+	{
+		this->SetDlgItemText(IDC_STATIC_CA,"打开端口成功!");
+	}
 //	CString account,password,doctype,funtype,userid,para;
 //	this->GetDlgItemText(IDC_EDIT_USERNAME,account);
 //	this->GetDlgItemText(IDC_EDIT_PASSWORD,password);
@@ -202,6 +215,11 @@ void CHD_ReadDemo_HNDlg::OnBtnOpen()
 
 void CHD_ReadDemo_HNDlg::OnBtnClose() 
 {
+	this->SetDlgItemText(IDC_STATIC_CA,"");
+	long ret=ICC_Reader_Close(ReaderHandle);
+	CString temp;
+	this->SetDlgItemText(IDC_STATIC_CA,"关闭端口成功!");
+
 //	IDClosePort();
 }
 
@@ -263,6 +281,7 @@ void CHD_ReadDemo_HNDlg::OnBtnCardon()
 
 void CHD_ReadDemo_HNDlg::OnBtnRead() 
 {
+	this->SetDlgItemText(IDC_STATIC_STATE,"");
 	CString account,password,doctype,funtype,userid,para,sampin;
 	this->GetDlgItemText(IDC_EDIT_USERNAME,account);
 	this->GetDlgItemText(IDC_EDIT_PASSWORD,password);
@@ -280,6 +299,7 @@ void CHD_ReadDemo_HNDlg::OnBtnRead()
 	{
 		temp.Format("读数据失败，错误代码:%d",i);
 		this->SetDlgItemText(IDC_STATIC_STATE,temp);
+		return;
 	}
 	else
 	{
@@ -366,6 +386,7 @@ void CHD_ReadDemo_HNDlg::OnBtnSamau()
 
 void CHD_ReadDemo_HNDlg::OnBtnWrite() 
 {
+	this->SetDlgItemText(IDC_STATIC_STATE,"");
 	CString account,password,doctype,funtype,userid,para,sampin,value;
 	this->GetDlgItemText(IDC_EDIT_USERNAME,account);
 	this->GetDlgItemText(IDC_EDIT_PASSWORD,password);
@@ -384,6 +405,7 @@ void CHD_ReadDemo_HNDlg::OnBtnWrite()
 	{
 		temp.Format("写数据失败，错误代码:%d",i);
 		this->SetDlgItemText(IDC_EDIT_DATA,temp);
+		return;
 	}
 	else
 	{
@@ -391,6 +413,67 @@ void CHD_ReadDemo_HNDlg::OnBtnWrite()
 	}
 }
 
-void CHD_ReadDemo_HNDlg::OnBtnTest() 
+
+
+void CHD_ReadDemo_HNDlg::OnBtnSendcmd() 
 {
+	this->SetDlgItemText(IDC_STATIC_CA,"");
+	CString scmd;
+	this->GetDlgItemText(IDC_EDIT_APDU,scmd);
+	if(scmd.GetLength()%2!=0)
+	{
+		this->SetDlgItemText(IDC_STATIC_CA,"指令长度有误!");
+	}
+	long ret=0;//=PICC_Reader_Application(ReaderHandle,long Lenth_of_Command_APDU, unsigned  char*  Command_APDU, unsigned  char*  Response_APDU); 
+	unsigned char Command_APDU[500]={0};
+	unsigned char Response_APDU[500]={0};
+	StrToHex((unsigned char *)scmd.GetBuffer(0),scmd.GetLength(),Command_APDU);
+	ret=PICC_Reader_Application(ReaderHandle,scmd.GetLength()/2,Command_APDU,Response_APDU); 
+	scmd.ReleaseBuffer();
+	CString temp;
+	if(ret)
+	{
+		temp.Format("发送指令失败，错误代码:%d",ret);
+		this->SetDlgItemText(IDC_STATIC_CA,temp);
+	}
+	unsigned char sResponse_APDU[500]={0};
+	HexToStr(Response_APDU,ret,sResponse_APDU);
+	this->SetDlgItemText(IDC_STATIC_CA,(const char *)sResponse_APDU);
+
+}
+
+//void CHD_ReadDemo_HNDlg::OnBtnFindcard2() 
+//{
+//	this->SetDlgItemText(IDC_STATIC_CA,"");
+//	CString scmd;
+//	this->GetDlgItemText(IDC_EDIT_APDU,scmd);
+//	if(scmd.GetLength()%2!=0)
+//	{
+//		this->SetDlgItemText(IDC_STATIC_CA,"指令长度有误!");
+//	}
+//	long ret=0;//=PICC_Reader_Application(ReaderHandle,long Lenth_of_Command_APDU, unsigned  char*  Command_APDU, unsigned  char*  Response_APDU); 
+//	unsigned char Command_APDU[500]={0};
+//	unsigned char Response_APDU[500]={0};
+//	ret=PICC_Reader_Application(ReaderHandle,scmd.GetLength()/2,(unsigned char *)scmd.GetBuffer(0),Response_APDU); 
+//	scmd.ReleaseBuffer();
+//	CString temp;
+//	if(ret)
+//	{
+//		temp.Format("寻卡失败，错误代码:%d",ret);
+//		this->SetDlgItemText(IDC_STATIC_STATE,temp);
+//	}
+//}
+
+void CHD_ReadDemo_HNDlg::OnBtnFindcard() 
+{
+	this->SetDlgItemText(IDC_STATIC_CA,"");
+	long ret=PICC_Reader_FindCard(ReaderHandle); 
+	CString temp;
+	if(ret)
+	{
+		temp.Format("寻卡失败，错误代码:%d",ret);
+		this->SetDlgItemText(IDC_STATIC_CA,temp);
+		return ;
+	}
+	this->SetDlgItemText(IDC_STATIC_CA,"寻卡成功!");
 }

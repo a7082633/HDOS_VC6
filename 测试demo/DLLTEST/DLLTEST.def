@@ -1,0 +1,10 @@
+
+LIBRARY        DLLTEST
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	justtest

@@ -85,6 +85,8 @@ BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, OnButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, OnButton5)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -215,18 +217,32 @@ void CTestDlg::OnButton2()
 
 void CTestDlg::OnButton3() 
 {
-	int i=HD_InitComm(1001);
-	i=HD_Authenticate();
-	char name[200]={0};
-	char sex[200]={0};
-	char nation[200]={0};
-	char born[200]={0};
-	char address[400]={0};
-	char cardNo[400]={0};
-	char issuedat[200]={0};
-	char effectedDate[200]={0};
-	char expiredDate[200]={0};
-	char picData[87725]={0};
-	char temp2[300]={0};
-	i=HD_Read_BaseInfo("C:\\zp.jpg",picData,name,sex,nation,born,address,cardNo,issuedat,effectedDate,expiredDate);
+//	int i=HD_InitComm(1001);
+//	i=HD_Authenticate();
+//	char name[200]={0};
+//	char sex[200]={0};
+//	char nation[200]={0};
+//	char born[200]={0};
+//	char address[400]={0};
+//	char cardNo[400]={0};
+//	char issuedat[200]={0};
+//	char effectedDate[200]={0};
+//	char expiredDate[200]={0};
+//	char picData[87725]={0};
+//	char temp2[300]={0};
+//	i=HD_Read_BaseInfo("C:\\zp.jpg",picData,name,sex,nation,born,address,cardNo,issuedat,effectedDate,expiredDate);
+}
+
+void CTestDlg::OnButton4() 
+{
+//	long ReaderHandle=ICC_Reader_Open("USB1");
+//	char dev_Ser[100]={0};
+//	long rt=ICC_Reader_GetDeviceSN(ReaderHandle,dev_Ser);
+//	rt=ICC_Reader_GetDeviceCSN(ReaderHandle,dev_Ser);
+}
+
+void CTestDlg::OnButton5() 
+{
+	// TODO: Add your control notification handler code here
+	justtest();
 }

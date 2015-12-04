@@ -44,6 +44,9 @@
 #define OPEN_FILE_ERR	116      // 打开照片文件流出错
 #define CANT_FINDWEB	117      // 找不到主页
 #define HTTP_EXCEPTION	118      // http异常
+#define PROCCESS_EXIST	119      // 进程不存在
+#define FLAG_ERROR	    120      // 标签不存在
+#define LOAD_FAILURE	    121      // 加载基础库失败
 #define HTTP_EXCEPTION1 1001	//缺少账号或为空
 #define HTTP_EXCEPTION2 1002	//缺少密码或为空
 #define HTTP_EXCEPTION3 1003	//身份验证失败
@@ -79,5 +82,10 @@
 MHC_CARDINTERFACE_API int __stdcall IChange_Pin(int hDev,char *oldPin,char *newPin); //修改PIN
 MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,char *account,char *password,int doctype,char *userid,char *pin);
 MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,char *account,char *password,int doctype,char *userid,char *pin);
-
+MHC_CARDINTERFACE_API long __stdcall ICC_Reader_Open(char* dev_Name); 
+MHC_CARDINTERFACE_API long __stdcall ICC_Reader_Close(long ReaderHandle);
+MHC_CARDINTERFACE_API long __stdcall PICC_Reader_FindCard(long ReaderHandle);
+MHC_CARDINTERFACE_API long __stdcall  PICC_Reader_Application(long  ReaderHandle,long Lenth_of_Command_APDU, unsigned  char*  Command_APDU, unsigned  char*  Response_APDU); 
+MHC_CARDINTERFACE_API long __stdcall  StrToHex(unsigned char *strIn,int inLen,unsigned char *strOut);//将字符命令流转为16进制流
+MHC_CARDINTERFACE_API long __stdcall  HexToStr(unsigned char *strIn,int inLen,unsigned char *strOut);//将16进制命令流转为字符流
 #endif // !defined(AFX_HD_RWHEALINTERFACE_H__ECF36EDA_9730_46D9_8146_0BEF432004DC__INCLUDED_)
