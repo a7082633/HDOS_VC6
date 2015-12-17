@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>TEST</title>
+<OBJECT   classid="clsid:C2C8A499-2A17-452A-9DFD-B3BC781CAF9C" width=0 height=0 align="center"   id="HD_HNOCX" HSPACE=0 VSPACE=0>
+</OBJECT>
+<script language="javascript">
+function HDOpenDevice()
+{
+	var PIN=document.getElementById('Key').value;
+	var str1=HD_HNOCX.HDOpenDevice(PIN);
+	var obj1 = document.getElementById('dispinfo');
+	obj1.value = obj1.value+"\r\n"+str1;
+}
+function HDCloseDevice()
+{
+	var str1;
+	str1=HD_HNOCX.HDCloseDevice();
+	var obj1 = document.getElementById('dispinfo');
+	obj1.value = obj1.value+"\r\n"+str1;
+}
+function HDReadCardInfo()
+{
+	var key = document.getElementById('Key').value;
+	var str1 = HD_HNOCX.HDReadCardInfo(key);
+	var obj1 = document.getElementById('dispinfo');
+	obj1.value = obj1.value+"\r\n"+str1;
+}
+function ClearText()
+{
+	var obj1 = document.getElementById('dispinfo');
+	obj1.value = "";
+}
+</script>
+</head> 
+
+<body>
+<center>
+<input type="button" onClick="javascript:ClearText()" value="清空内容">
+<p></p>
+<textarea  name="dispinfo" cols="150" rows="15" id="dispinfo"></textarea>
+<p></p>
+<input type="button" onClick="javascript:HDOpenDevice()" value="打开设备">	
+<input type="button" onClick="javascript:HDCloseDevice()" value="关闭设备">	
+<p></p>
+<label>Sam卡PIN:</label>
+<input  type="text" id="PIN" style="width:100px" value="1234"/>	
+<p></p>
+<label>临时卡密码:</label>
+<input  type="text" id="Key" style="width:100px" value="ffffffffffff"/>	
+<p></p>
+<input type="button" onClick="javascript:HDReadCardInfo()" value="读卡信息">
+<p></p>
+</body>
+</html>

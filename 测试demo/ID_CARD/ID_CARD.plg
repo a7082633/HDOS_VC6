@@ -6,32 +6,6 @@
 --------------------Configuration: ID_CARD - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP7C33.tmp" with contents
-[
-/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Release/" /Fp"Release/ID_CARD.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\ID_CARD\ID_CARD.cpp"
-"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\ID_CARD\ID_CARDDlg.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP7C33.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP7C34.tmp" with contents
-[
-/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Release/" /Fp"Release/ID_CARD.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\ID_CARD\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP7C34.tmp" 
-<h3>Output Window</h3>
-Compiling...
-StdAfx.cpp
-Compiling...
-ID_CARD.cpp
-ID_CARDDlg.cpp
-Generating Code...
-Creating command line "link.exe /nologo /subsystem:windows /incremental:no /pdb:"Release/ID_CARD.pdb" /machine:I386 /out:"Release/ID_CARD.exe"  ".\Release\ID_CARD.obj" ".\Release\ID_CARDDlg.obj" ".\Release\StdAfx.obj" ".\Release\ID_CARD.res" "
-<h3>Output Window</h3>
-Linking...
-Creating command line "bscmake.exe /nologo /o"Release/ID_CARD.bsc"  ".\Release\StdAfx.sbr" ".\Release\ID_CARD.sbr" ".\Release\ID_CARDDlg.sbr""
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 

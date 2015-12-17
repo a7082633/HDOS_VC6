@@ -1,0 +1,71 @@
+// HD_ZTHM1ActiveX.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (HD_ZTHM1ActiveX.tlb) that will become a resource in
+// HD_ZTHM1ActiveX.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(DE648149-65D5-4533-87D0-C330154A2BED), version(1.0),
+  helpfile("HD_ZTHM1ActiveX.hlp"),
+  helpstring("HD_ZTHM1ActiveX ActiveX Control module"),
+  control ]
+library HD_ZTHM1ACTIVEXLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CHD_ZTHM1ActiveXCtrl
+
+	[ uuid(EB7EB6E6-9A3F-4AEC-B950-F1784ED768E0),
+	  helpstring("Dispatch interface for HD_ZTHM1ActiveX Control"), hidden ]
+	dispinterface _DHD_ZTHM1ActiveX
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CHD_ZTHM1ActiveXCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CHD_ZTHM1ActiveXCtrl)
+			[id(1)] BSTR HDWriteM1(BSTR Key, BSTR Name, BSTR Sex, BSTR IDNo, BSTR Born, BSTR CardNo, BSTR MakeCDT);
+			[id(2)] BSTR HDReadM1(BSTR Key, BSTR Addr);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CHD_ZTHM1ActiveXCtrl
+
+	[ uuid(925CF380-7C05-4174-A320-26B4D964FE9E),
+	  helpstring("Event interface for HD_ZTHM1ActiveX Control") ]
+	dispinterface _DHD_ZTHM1ActiveXEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CHD_ZTHM1ActiveXCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CHD_ZTHM1ActiveXCtrl
+
+	[ uuid(B0ACD71D-006D-428B-B1B6-A21171E93543),
+	  helpstring("HD_ZTHM1ActiveX Control"), control ]
+	coclass HD_ZTHM1ActiveX
+	{
+		[default] dispinterface _DHD_ZTHM1ActiveX;
+		[default, source] dispinterface _DHD_ZTHM1ActiveXEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

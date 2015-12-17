@@ -297,17 +297,39 @@ void CDialogQueryData::OnBtnExport()
 	objRange.SetItem(COleVariant(long(1)),COleVariant(long(7)),COleVariant("签发机关"));
 	objRange.SetItem(COleVariant(long(1)),COleVariant(long(8)),COleVariant("有效期起"));
 	objRange.SetItem(COleVariant(long(1)),COleVariant(long(9)),COleVariant("有效期止"));
-	for(int i=0;i<m_list.GetItemCount();i++)
+	int SelectedCount=m_list.GetSelectedCount();
+	if(0==SelectedCount)
 	{
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(1)),COleVariant(m_list.GetItemText(i,0)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(2)),COleVariant(m_list.GetItemText(i,1)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(3)),COleVariant(m_list.GetItemText(i,2)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(4)),COleVariant(m_list.GetItemText(i,3)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(5)),COleVariant(m_list.GetItemText(i,4)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(6)),COleVariant(m_list.GetItemText(i,5)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(7)),COleVariant(m_list.GetItemText(i,6)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(8)),COleVariant(m_list.GetItemText(i,7)));
-		objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(9)),COleVariant(m_list.GetItemText(i,8)));
+		for(int i=0;i<m_list.GetItemCount();i++)
+		{
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(1)),COleVariant(m_list.GetItemText(i,0)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(2)),COleVariant(m_list.GetItemText(i,1)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(3)),COleVariant(m_list.GetItemText(i,2)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(4)),COleVariant(m_list.GetItemText(i,3)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(5)),COleVariant(m_list.GetItemText(i,4)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(6)),COleVariant(m_list.GetItemText(i,5)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(7)),COleVariant(m_list.GetItemText(i,6)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(8)),COleVariant(m_list.GetItemText(i,7)));
+			objRange.SetItem(COleVariant(long(i+1+1)),COleVariant(long(9)),COleVariant(m_list.GetItemText(i,8)));
+		}
+	}else
+	{
+		POSITION pos=m_list.GetFirstSelectedItemPosition(); 
+		int nId=0,count=0;
+		while(pos)
+		{
+			nId=(int)m_list.GetNextSelectedItem(pos); 
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(1)),COleVariant(m_list.GetItemText(nId,0)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(2)),COleVariant(m_list.GetItemText(nId,1)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(3)),COleVariant(m_list.GetItemText(nId,2)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(4)),COleVariant(m_list.GetItemText(nId,3)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(5)),COleVariant(m_list.GetItemText(nId,4)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(6)),COleVariant(m_list.GetItemText(nId,5)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(7)),COleVariant(m_list.GetItemText(nId,6)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(8)),COleVariant(m_list.GetItemText(nId,7)));
+			objRange.SetItem(COleVariant(long(count+1+1)),COleVariant(long(9)),COleVariant(m_list.GetItemText(nId,8)));
+			count++;
+		}
 	}
 	objRange.AttachDispatch(objSheet.GetColumns(),true);
 	//设置列的列宽  
@@ -319,6 +341,10 @@ void CDialogQueryData::OnBtnExport()
 	cols.SetHorizontalAlignment(_variant_t((long)-4131)); //左对齐
 	cols.AttachDispatch(objRange.GetItem(COleVariant((long)5),VOptional).pdispVal,TRUE);
 	cols.SetColumnWidth(COleVariant((long)25)); //设置列宽
+	cols.AttachDispatch(objRange.GetItem(COleVariant((long)6),VOptional).pdispVal,TRUE);
+	cols.SetColumnWidth(COleVariant((long)30)); //设置列宽
+	cols.AttachDispatch(objRange.GetItem(COleVariant((long)7),VOptional).pdispVal,TRUE);
+	cols.SetColumnWidth(COleVariant((long)30)); //设置列宽
 	cols.AttachDispatch(objRange.GetItem(COleVariant((long)8),VOptional).pdispVal,TRUE);
 	cols.SetColumnWidth(COleVariant((long)15)); //设置列宽
 	cols.SetHorizontalAlignment(_variant_t((long)-4131)); //左对齐

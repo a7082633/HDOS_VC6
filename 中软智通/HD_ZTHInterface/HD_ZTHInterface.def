@@ -1,0 +1,12 @@
+
+LIBRARY        HD_ZTHInterface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	HD_OpenDevice
+	HD_CloseDevice
+	HD_ReadCardInfo

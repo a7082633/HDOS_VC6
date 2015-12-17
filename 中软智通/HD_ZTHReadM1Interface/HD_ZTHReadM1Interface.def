@@ -1,0 +1,10 @@
+
+LIBRARY        HD_ZTHReadM1Interface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	HD_ReadM1

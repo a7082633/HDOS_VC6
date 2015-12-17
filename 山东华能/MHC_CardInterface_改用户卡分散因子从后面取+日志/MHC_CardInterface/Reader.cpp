@@ -218,7 +218,7 @@ int Reader::RF_Send( char * _APDU_CMD, char *_APDU_Responce ,  char * _SW)
 
 	return RD_OK;
 #endif*/
-	log_append_to_file("Reader.log",_APDU_CMD,"发送-健康卡",3);
+//	log_append_to_file("Reader.log",_APDU_CMD,"发送-健康卡",3);
 	u.HexstrToBin(send , (unsigned char*)_APDU_CMD , strlen((char *)_APDU_CMD));
 	
 	retval = PICC_Reader_Application(Reader::m_hReader,len , send  ,resp);
@@ -228,7 +228,7 @@ int Reader::RF_Send( char * _APDU_CMD, char *_APDU_Responce ,  char * _SW)
 	u.BinToHexstr((unsigned char*)_APDU_Responce , resp , retval - 2) ;
 	unsigned temp[7000]={0};
 	u.BinToHexstr((unsigned char*)temp , resp , retval) ;
-	log_append_to_file("Reader.log",(char *)temp,"接收-健康卡",3);
+//	log_append_to_file("Reader.log",(char *)temp,"接收-健康卡",3);
 	u.BinToHexstr((unsigned char*)_SW , resp + retval - 2 , 2);
 
 	return RD_OK;
@@ -328,7 +328,7 @@ int Reader::PSAM_Send( char * _APDU_CMD, char *_APDU_Responce ,  char * _SW)
 	return RD_OK;
 #endif
 	*/
-	log_append_to_file("Reader.log",_APDU_CMD,"发送sam",1);
+//	log_append_to_file("Reader.log",_APDU_CMD,"发送sam",1);
 	u.HexstrToBin(send , (unsigned char*)_APDU_CMD , strlen((char *)_APDU_CMD));
 	
 	retval = ICC_Reader_Application(Reader::m_hReader,_SLOT,len , send  ,resp);
@@ -338,7 +338,7 @@ int Reader::PSAM_Send( char * _APDU_CMD, char *_APDU_Responce ,  char * _SW)
 	u.BinToHexstr((unsigned char*)_APDU_Responce , resp , retval - 2) ;
 	unsigned temp[7000]={0};
 	u.BinToHexstr((unsigned char*)temp , resp , retval) ;
-	log_append_to_file("Reader.log",(char *)temp,"接收sam",2);
+//	log_append_to_file("Reader.log",(char *)temp,"接收sam",2);
 	u.BinToHexstr((unsigned char*)_SW , resp + retval - 2 , 2);
 
 	return RD_OK;

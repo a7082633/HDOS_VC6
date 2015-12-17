@@ -1,0 +1,22 @@
+LIBRARY        BHGX_CARD_HD
+
+VERSION        1.0
+
+EXETYPE WINDOWS
+
+EXPORTS
+		bProbe
+		iOpen
+		iClose
+		iReadBin
+		iWriteBin
+		iReadRec
+		iWriteRec
+		iAppendRec
+		iSignRec
+		iIOCtl
+		ICCSet
+		iUCardAuthSys
+		iSelectFile
+		iGetRandom
+		iChangePwdEx

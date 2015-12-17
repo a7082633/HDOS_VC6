@@ -1,0 +1,9 @@
+; HD_ZTHReadM1ActiveX.def : Declares the module parameters.
+
+LIBRARY      "HD_ZTHREADM1ACTIVEX.OCX"
+
+EXPORTS
+	DllCanUnloadNow     @1 PRIVATE
+	DllGetClassObject   @2 PRIVATE
+	DllRegisterServer   @3 PRIVATE
+	DllUnregisterServer @4 PRIVATE

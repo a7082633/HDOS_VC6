@@ -1,0 +1,11 @@
+
+LIBRARY        HD_ZTHM1Interface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	HD_WriteM1
+	HD_ReadM1

@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>B/S-Demo</title>
+<OBJECT   classid="clsid:B0ACD71D-006D-428B-B1B6-A21171E93543" width=0 height=0 align="center"   id="HD_HNOCX" HSPACE=0 VSPACE=0>
+</OBJECT>
+<script language="javascript">
+function HDWriteM1()
+{
+	var Key=document.getElementById('KEY').value;
+	var Name=document.getElementById('NAME').value;
+	var Sex=document.getElementById('SEX').value;
+	var IDNo=document.getElementById('IDNO').value;
+	var Born=document.getElementById('BORNDATE').value;
+	var CardNo=document.getElementById('CARDNO').value;
+	var MakeCDT=document.getElementById('MAKECARDDT').value;
+	var str1=HD_HNOCX.HDWriteM1(Key,Name,Sex,IDNo,Born,CardNo,MakeCDT) 
+	var obj1 = document.getElementById('STATE');
+	obj1.value=str1;
+}
+function HDReadM1()
+{
+	var Key=document.getElementById('KEY').value;
+	var BlockNo=document.getElementById('ADDR').value;
+	var Data=document.getElementById('DATA');
+	var str1=HD_HNOCX.HDReadM1(Key,BlockNo);
+	Data.value=str1;
+}
+</script>
+</head> 
+
+<body>
+<center>
+<label>临时卡密码:</label>
+<input  type="text" id="KEY" style="width:100px" value="ffffffffffff"/>	
+<p></p>
+<label>姓名:</label>
+<input  type="text" id="NAME" style="width:100px" value=""/>	
+<p></p>
+<label>性别:</label>
+<input  type="text" id="SEX" style="width:100px" value=""/>	
+<p></p>
+<label>身份证号:</label>
+<input  type="text" id="IDNO" style="width:100px" value=""/>	
+<p></p>
+<label>出生日期:</label>
+<input  type="text" id="BORNDATE" style="width:100px" value=""/>	
+<p></p>
+<label>卡号:</label>
+<input  type="text" id="CARDNO" style="width:100px" value=""/>	
+<p></p>
+<label>发卡日期:</label>
+<input  type="text" id="MAKECARDDT" style="width:100px" value=""/>	
+<p></p>
+<input type="button" onClick="javascript:HDWriteM1()" value="写入数据">	
+<p></p>
+<label>块号(0-63):</label>
+<input  type="text" id="ADDR" style="width:50px" value="2"/>
+<input  type="text" id="DATA" readonly="" style="width:300px" value=""/>
+<input type="button" onClick="javascript:HDReadM1()" value="读">		
+<p></p>
+<label>状态:</label><input type="text" readonly=""  id="STATE" style="width:400px">	
+</body>
+</html>

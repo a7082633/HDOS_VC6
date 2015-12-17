@@ -1,0 +1,70 @@
+// HD_ZTHReadM1ActiveX.odl : type library source for ActiveX Control project.
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (HD_ZTHReadM1ActiveX.tlb) that will become a resource in
+// HD_ZTHReadM1ActiveX.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(03464E87-1A26-497A-A50A-7B614F645EC3), version(1.0),
+  helpfile("HD_ZTHReadM1ActiveX.hlp"),
+  helpstring("HD_ZTHReadM1ActiveX ActiveX Control module"),
+  control ]
+library HD_ZTHREADM1ACTIVEXLib
+{
+	importlib(STDOLE_TLB);
+	importlib(STDTYPE_TLB);
+
+	//  Primary dispatch interface for CHD_ZTHReadM1ActiveXCtrl
+
+	[ uuid(648C0B83-CC34-49AD-A16F-2F27A7A1F437),
+	  helpstring("Dispatch interface for HD_ZTHReadM1ActiveX Control"), hidden ]
+	dispinterface _DHD_ZTHReadM1ActiveX
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CHD_ZTHReadM1ActiveXCtrl)
+			//}}AFX_ODL_PROP
+
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CHD_ZTHReadM1ActiveXCtrl)
+			[id(1)] BSTR HDReadM1(BSTR Key, BSTR Addr);
+			//}}AFX_ODL_METHOD
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+	};
+
+	//  Event dispatch interface for CHD_ZTHReadM1ActiveXCtrl
+
+	[ uuid(46E5769D-3FEB-4D7F-AD6D-7C26306F2F21),
+	  helpstring("Event interface for HD_ZTHReadM1ActiveX Control") ]
+	dispinterface _DHD_ZTHReadM1ActiveXEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+			// NOTE - ClassWizard will maintain event information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_EVENT(CHD_ZTHReadM1ActiveXCtrl)
+			//}}AFX_ODL_EVENT
+	};
+
+	//  Class information for CHD_ZTHReadM1ActiveXCtrl
+
+	[ uuid(22A9D2E4-0C4A-4590-85C5-5BE4634978C3),
+	  helpstring("HD_ZTHReadM1ActiveX Control"), control ]
+	coclass HD_ZTHReadM1ActiveX
+	{
+		[default] dispinterface _DHD_ZTHReadM1ActiveX;
+		[default, source] dispinterface _DHD_ZTHReadM1ActiveXEvents;
+	};
+
+
+	//{{AFX_APPEND_ODL}}
+	//}}AFX_APPEND_ODL}}
+};

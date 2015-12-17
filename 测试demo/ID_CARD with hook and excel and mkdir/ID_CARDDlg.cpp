@@ -506,7 +506,7 @@ void CID_CARDDlg::OnBtnOpenhook()
 void CID_CARDDlg::OnBtnClosehook() 
 {
     if(Hook)  
-    {  
+    {   
         BOOL result = UnhookWindowsHookEx((HHOOK)Hook); // Ð¶ÔØ¹³×Ó  
         if (result) Hook = NULL;  
     }
