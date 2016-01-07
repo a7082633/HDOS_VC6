@@ -79,7 +79,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 WSB_RWInterface.lib /nologo /subsystem:windows /debug /machine:I386 /out:"../..\_NEWDEBUG\InterfaceDemo.exe" /pdbtype:sept /libpath:"../_DEBUG"
+# ADD LINK32 WSB_RWInterface.lib /nologo /subsystem:windows /debug /machine:I386 /out:"..\..\_NEWDEBUG\InterfaceDemo.exe" /pdbtype:sept /libpath:"../_DEBUG"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 

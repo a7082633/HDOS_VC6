@@ -191,6 +191,7 @@ ON_BN_CLICKED(IDC_BUTTON_FK_READ, OnButtonFkRead)
 	ON_BN_CLICKED(IDC_WRITEALL, OnWriteall)
 	ON_BN_CLICKED(IDC_READEDLL, OnReadedll)
 	ON_BN_CLICKED(IDC_WRITEEDLL, OnWriteedll)
+	ON_BN_CLICKED(IDC_BTN_TESTZKR, OnBtnTestzkr)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -2621,4 +2622,10 @@ void CInterfaceDemoDlg::OnWriteedll()
 	}
 	
 	return;
+}
+
+void CInterfaceDemoDlg::OnBtnTestzkr() 
+{
+	char iszData[500]="213002AA315002102150041234";
+	int re=HD_WDF03ED00(1,iszData);
 }

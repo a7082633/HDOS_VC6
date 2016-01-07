@@ -15,9 +15,9 @@ Class3=CAboutDlg
 ResourceCount=6
 Resource1=IDD_DIALOG_input2
 Resource2=IDR_MAINFRAME
-Resource3=IDD_ABOUTBOX
+Resource3=IDD_INTERFACEDEMO_DIALOG
 Class4=InputDialog
-Resource4=IDD_INTERFACEDEMO_DIALOG
+Resource4=IDD_ABOUTBOX
 Class5=dialogInput2
 Resource5=IDD_DIALOG_input
 Class6=PSAMDialog
@@ -56,7 +56,7 @@ Control4=IDOK,button,1342373889
 [DLG:IDD_INTERFACEDEMO_DIALOG]
 Type=1
 Class=CInterfaceDemoDlg
-ControlCount=91
+ControlCount=92
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
 Control3=IDC_STATIC_FK_BASEINFO,button,1342177287
@@ -148,6 +148,7 @@ Control88=IDC_READALL,button,1342242816
 Control89=IDC_WRITEALL,button,1342242816
 Control90=IDC_READEDLL,button,1342242816
 Control91=IDC_WRITEEDLL,button,1342242816
+Control92=IDC_BTN_TESTZKR,button,1342242816
 
 [DLG:IDD_DIALOG_input]
 Type=1

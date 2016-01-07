@@ -51,9 +51,7 @@ MHC_CARDINTERFACE_API int __stdcall PowerOn(HANDLE hDev,int slot, char * ATR) ; 
 
 MHC_CARDINTERFACE_API int __stdcall iVerifyPIN(HANDLE hDev,char * PIN) ;//校验PSAM卡PIN
 
-MHC_CARDINTERFACE_API int __stdcall iChange_Pin(int hDev,
-												  char *oldPin, 
-												  char *newPin);  
+MHC_CARDINTERFACE_API int __stdcall iChange_Pin(int hDev,char *oldPin, char *newPin);  
 
 MHC_CARDINTERFACE_API int __stdcall iReader_SAM_Public(int hDev,
 														 char* info);//该函数取得SAM卡片公共信息文件
@@ -327,7 +325,6 @@ MHC_CARDINTERFACE_API int __stdcall iErase_DF03EF06Info(HANDLE hDev,
 
 //5.如果卡内存储数据的类型是CN_style和B_style， szData的size需要大于(卡内存储空间的2倍+1)
 
-
 MHC_CARDINTERFACE_API int __stdcall iR_DF03EEInfo(HANDLE hDev,
 							  int	 nRecorderNo,
 							  char * szData,											  
@@ -356,6 +353,9 @@ MHC_CARDINTERFACE_API int __stdcall iW_DF03EE_ALLInfo(HANDLE hDev,
 
 
 //门诊信息文件
+MHC_CARDINTERFACE_API int __stdcall HD_WDF03ED00(int inRecorderNo,
+									char * iszData);
+
 MHC_CARDINTERFACE_API int __stdcall iR_DF03EDInfo(HANDLE hDev,
 							  int	 nRecorderNo,
 							  char * szData,											  

@@ -109,6 +109,7 @@ protected:
 	afx_msg void OnWriteall();
 	afx_msg void OnReadedll();
 	afx_msg void OnWriteedll();
+	afx_msg void OnBtnTestzkr();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

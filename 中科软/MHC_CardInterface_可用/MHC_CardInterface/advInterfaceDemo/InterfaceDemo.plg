@@ -6,55 +6,11 @@
 --------------------Configuration: InterfaceDemo - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating command line "rc.exe /l 0x804 /fo"Debug/InterfaceDemo.res" /d "_DEBUG" /d "_AFXDLL" "C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemo.rc"" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB9B.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /I "./Includes" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/InterfaceDemo.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\dialogInput2.cpp"
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InputDialog.cpp"
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemo.cpp"
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemoDlg.cpp"
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\PSAMDialog.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPB9B.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB9C.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /I "./Includes" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/InterfaceDemo.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPB9C.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB9D.tmp" with contents
-[
-WSB_RWInterface.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/InterfaceDemo.pdb" /debug /machine:I386 /out:"../..\_NEWDEBUG\InterfaceDemo.exe" /pdbtype:sept /libpath:"../_DEBUG" 
-.\Debug\dialogInput2.obj
-.\Debug\InputDialog.obj
-.\Debug\InterfaceDemo.obj
-.\Debug\InterfaceDemoDlg.obj
-.\Debug\PSAMDialog.obj
-.\Debug\StdAfx.obj
-.\Debug\InterfaceDemo.res
-]
-Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSPB9D.tmp"
-<h3>Output Window</h3>
-Compiling resources...
-Compiling...
-StdAfx.cpp
-Compiling...
-dialogInput2.cpp
-InputDialog.cpp
-InterfaceDemo.cpp
-InterfaceDemoDlg.cpp
-C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemoDlg.cpp(437) : warning C4101: 'resLen' : unreferenced local variable
-C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemoDlg.cpp(2329) : warning C4101: 'szData' : unreferenced local variable
-C:\Users\zxx\Desktop\MHC_CardInterface\MHC_CardInterface\advInterfaceDemo\InterfaceDemoDlg.cpp(2431) : warning C4101: 'resLen' : unreferenced local variable
-PSAMDialog.cpp
-Generating Code...
-Linking...
 
 
 
 <h3>Results</h3>
-InterfaceDemo.exe - 0 error(s), 3 warning(s)
+InterfaceDemo.exe - 0 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

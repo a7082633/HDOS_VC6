@@ -398,6 +398,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		char requestUrl[500]={0};
 		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s",
 			addr,account,password,csno,macno,samno,doctype,para,userid);
+		::MessageBox(NULL,requestUrl,NULL,MB_OK);
 		CHttpFile *pFile;
 		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
 		DWORD Code;
@@ -427,6 +428,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	if(0==strcmp(rtstr,"0000"))
 //	if(1)
 	{
+		//::MessageBox(NULL,"通过！","提示",MB_OK);
 		HANDLE hDev;
 		rt=iDOpenPort();
 		if(rt)
@@ -456,6 +458,12 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	}
 	else
 	{
+//		CString sstemp;
+		int ii=atoi(rtstr);
+//		::MessageBox(NULL,"rtstr","提示",MB_OK);
+//		sstemp.Format("%d",ii);
+//		::MessageBox(NULL,sstemp,"提示",MB_OK);
+		if(ii==0) return HTTP_EXCEPTION;
 		return atoi(rtstr);
 	}
 	const char * split = "|"; 

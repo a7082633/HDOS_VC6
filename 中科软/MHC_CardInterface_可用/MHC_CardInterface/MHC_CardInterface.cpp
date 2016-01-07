@@ -3776,3 +3776,293 @@ MHC_CARDINTERFACE_API int __stdcall  iReader_SAM_Certificate(int hDev,
 
 	return IRV_OK;	
 }
+//写门诊信息
+MHC_CARDINTERFACE_API int __stdcall HD_WDF03ED00(int inRecorderNo,char * iszData)
+{
+	int LenOfiszData=strlen(iszData);
+	if(iszData==NULL||LenOfiszData<=0)
+	{
+		return IRV_PARA_ERR;
+	}
+	HANDLE hDev=NULL;
+	char sRecNo[4]={0};
+	char sLen[4]={0};
+	char sData[500]={0};
+	char Data[3014]={0};
+	int iRecNo=0;            //记录号
+	int iLen=0;              //记录自定义长度
+	int iRealLen=0;          //记录真实长度
+	int index=0;
+	int iOffset=0;          //偏移
+	int re=0;
+	/////写空值//////////////////////////////3013
+	for(int i=213;i<=382;i++)
+	{
+		switch(_stDataFileMAP[i].cCoding)
+		{
+		case B_style:
+		case CN_style:
+		case NO_style:
+			{
+				memset(Data+_stBINmap[i-64].ioffset,0xff,_stDataFileMAP[i].iDataLen);
+				break;
+			}
+		case AN_style:
+			{
+				memset(Data+_stBINmap[i-64].ioffset,0x00,_stDataFileMAP[i].iDataLen);
+				break;
+			}
+		}
+	}
+	re=iW_DF03EDInfo(hDev,inRecorderNo,Data,0,3013,AN_style);
+	if(re)
+	{
+		return re;
+	}
+	/////////////////////////////////////////
+	while(index!=LenOfiszData)
+	{
+		memcpy(sRecNo,iszData+index,3);//获取记录号
+		memcpy(sLen,iszData+index+3,3);//获取记录自定义长度
+		iRecNo=atoi(sRecNo);
+		if(iRecNo<213||iRecNo>384)
+		{
+			return IRV_PARA_ERR;
+		}
+		iLen=atoi(sLen);
+		if(iRecNo==0||iLen==0)
+		{
+			return IRV_PARA_ERR;
+		}
+		iRealLen=_stDataFileMAP[iRecNo].iDataLen;
+		iOffset=_stBINmap[iRecNo-64].ioffset;
+		switch(_stDataFileMAP[iRecNo].cCoding)
+		{
+		case B_style:
+		case AN_style:
+			{
+				memset(sData,'0',500);
+				memcpy(sData,iszData+index+6,iLen);
+				break;
+			}
+		case CN_style:
+			{
+				memset(sData,'f',500);
+				memcpy(sData,iszData+index+6,iLen);
+				break;
+			}
+		}
+		Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen*2);
+		//re=0;
+		re=iW_DF03EDInfo(hDev,inRecorderNo,Data,iOffset,iRealLen,AN_style);
+		if(re)
+		{
+			return re;
+		}
+		index+=(iLen+6);
+	}
+	return IRV_OK;
+}
+MHC_CARDINTERFACE_API int __stdcall HD_RDF03ED00(int inRecorderNo,char * iszData)
+{
+	HANDLE hDev=NULL;
+	char szData[3014]={0};
+	char sTag[4]={0};
+	char sLen[4]={0};
+	char sValue[500]={0};
+	int re=iR_DF03EDInfo(hDev,inRecorderNo,szData,0,3013,AN_style);
+	if(re)
+	{
+		return re;
+	}
+	for(int i=213;i<=382;i++)
+	{
+		switch(_stDataFileMAP[i].cCoding)
+		{
+		case B_style:
+		case CN_style:
+		case NO_style:
+			{
+				if(szData[_stBINmap[i-64].ioffset]!=0xff)
+				{
+					sprintf(sTag,"%03d",i);
+					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					char *p=strchr(sValue,'f');
+					if(p!=NULL)
+					{
+						*p=0x00;
+					}
+					p=strchr(sValue,'F');
+					if(p!=NULL)
+					{
+						*p=0x00;
+					}
+					sprintf(sLen,"%03d",strlen(sValue));
+					strcat(iszData,sTag);
+					strcat(iszData,sLen);
+					strcat(iszData,sValue);
+				}
+				break;
+			}
+		case AN_style:
+			{
+				if(szData[_stBINmap[i-64].ioffset]!=0x00)
+				{
+					sprintf(sTag,"%03d",i);
+					memcpy((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					sprintf(sLen,"%03d",strlen(sValue));
+					strcat(iszData,sTag);
+					strcat(iszData,sLen);
+					strcat(iszData,sValue);
+				}
+				break;
+			}
+		}
+	}
+	return IRV_OK;
+}
+
+MHC_CARDINTERFACE_API int __stdcall HD_WDF03EE00(int inRecorderNo,char * iszData)
+{
+	int LenOfiszData=strlen(iszData);
+	if(iszData==NULL||LenOfiszData<=0)
+	{
+		return IRV_PARA_ERR;
+	}
+	HANDLE hDev=NULL;
+	char sRecNo[4]={0};
+	char sLen[4]={0};
+	char sData[500]={0};
+	char Data[1640]={0};
+	int iRecNo=0;            //记录号
+	int iLen=0;              //记录自定义长度
+	int iRealLen=0;          //记录真实长度
+	int index=0;
+	int iOffset=0;          //偏移
+	int re=0;
+	/////写空值//////////////////////////////1639
+	for(int i=64;i<=210;i++)
+	{
+		switch(_stDataFileMAP[i].cCoding)
+		{
+		case B_style:
+		case CN_style:
+		case NO_style:
+			{
+				memset(Data+_stBINmap[i-64].ioffset,0xff,_stDataFileMAP[i].iDataLen);
+				break;
+			}
+		case AN_style:
+			{
+				memset(Data+_stBINmap[i-64].ioffset,0x00,_stDataFileMAP[i].iDataLen);
+				break;
+			}
+		}
+	}
+	re=iW_DF03EEInfo(hDev,inRecorderNo,Data,0,1639,AN_style);
+	if(re)
+	{
+		return re;
+	}
+	/////////////////////////////////////////
+	while(index!=LenOfiszData)
+	{
+		memcpy(sRecNo,iszData+index,3);//获取记录号
+		memcpy(sLen,iszData+index+3,3);//获取记录自定义长度
+		iRecNo=atoi(sRecNo);
+		if(iRecNo<64||iRecNo>212)
+		{
+			return IRV_PARA_ERR;
+		}
+		iLen=atoi(sLen);
+		if(iRecNo==0||iLen==0)
+		{
+			return IRV_PARA_ERR;
+		}
+		iRealLen=_stDataFileMAP[iRecNo].iDataLen;
+		iOffset=_stBINmap[iRecNo-64].ioffset;
+		switch(_stDataFileMAP[iRecNo].cCoding)
+		{
+		case B_style:
+		case AN_style:
+			{
+				memset(sData,'0',500);
+				memcpy(sData,iszData+index+6,iLen);
+				break;
+			}
+		case CN_style:
+			{
+				memset(sData,'f',500);
+				memcpy(sData,iszData+index+6,iLen);
+				break;
+			}
+		}
+		Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen);
+		//re=0;
+		re=iW_DF03EEInfo(hDev,inRecorderNo,Data,iOffset,iRealLen,AN_style);
+		if(re)
+		{
+			return re;
+		}
+		index+=(iLen+6);
+	}
+	return IRV_OK;
+}
+MHC_CARDINTERFACE_API int __stdcall HD_RDF03EE00(int inRecorderNo,char * iszData)
+{
+	HANDLE hDev=NULL;
+	char szData[1640]={0};
+	char sTag[4]={0};
+	char sLen[4]={0};
+	char sValue[500]={0};
+	int re=iR_DF03EEInfo(hDev,inRecorderNo,szData,0,1639,AN_style);
+	if(re)
+	{
+		return re;
+	}
+	for(int i=64;i<=210;i++)
+	{
+		switch(_stDataFileMAP[i].cCoding)
+		{
+		case B_style:
+		case CN_style:
+		case NO_style:
+			{
+				if(szData[_stBINmap[i-64].ioffset]!=0xff)
+				{
+					sprintf(sTag,"%03d",i);
+					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					char *p=strchr(sValue,'f');
+					if(p!=NULL)
+					{
+						*p=0x00;
+					}
+					p=strchr(sValue,'F');
+					if(p!=NULL)
+					{
+						*p=0x00;
+					}
+					sprintf(sLen,"%03d",strlen(sValue));
+					strcat(iszData,sTag);
+					strcat(iszData,sLen);
+					strcat(iszData,sValue);
+				}
+				break;
+			}
+		case AN_style:
+			{
+				if(szData[_stBINmap[i-64].ioffset]!=0x00)
+				{
+					sprintf(sTag,"%03d",i);
+					memcpy((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					sprintf(sLen,"%03d",strlen(sValue));
+					strcat(iszData,sTag);
+					strcat(iszData,sLen);
+					strcat(iszData,sValue);
+				}
+				break;
+			}
+		}
+	}
+	return IRV_OK;
+}

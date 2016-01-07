@@ -1,0 +1,9 @@
+
+LIBRARY        HD_HDRWInterface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
