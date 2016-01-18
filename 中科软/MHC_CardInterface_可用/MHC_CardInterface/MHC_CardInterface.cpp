@@ -3795,6 +3795,8 @@ MHC_CARDINTERFACE_API int __stdcall HD_WDF03ED00(int inRecorderNo,char * iszData
 	int index=0;
 	int iOffset=0;          //偏移
 	int re=0;
+
+	//strcpy(iszData,"217006感冒科217009药物名称121700212217003360217017检查检验项目名称121700312321700201217017门诊费用分类名称1217013手术操作名称121500820151213213012就诊机构名称21600612233421400811212111214009症状名称1");
 	/////写空值//////////////////////////////3013
 	for(int i=213;i<=382;i++)
 	{
@@ -3841,18 +3843,19 @@ MHC_CARDINTERFACE_API int __stdcall HD_WDF03ED00(int inRecorderNo,char * iszData
 		case B_style:
 		case AN_style:
 			{
-				memset(sData,'0',500);
+				memset(sData,0,500);
 				memcpy(sData,iszData+index+6,iLen);
+				memcpy(Data,sData,500);
 				break;
 			}
 		case CN_style:
 			{
 				memset(sData,'f',500);
 				memcpy(sData,iszData+index+6,iLen);
+				Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen*2);
 				break;
 			}
 		}
-		Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen*2);
 		//re=0;
 		re=iW_DF03EDInfo(hDev,inRecorderNo,Data,iOffset,iRealLen,AN_style);
 		if(re)
@@ -3870,7 +3873,10 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03ED00(int inRecorderNo,char * iszData
 	char sTag[4]={0};
 	char sLen[4]={0};
 	char sValue[500]={0};
+	//char sValueTemp[500]={0};
 	int re=iR_DF03EDInfo(hDev,inRecorderNo,szData,0,3013,AN_style);
+	//szData[155]=0xff;
+	//strcpy(szData,"hahaha!");
 	if(re)
 	{
 		return re;
@@ -3883,10 +3889,15 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03ED00(int inRecorderNo,char * iszData
 		case CN_style:
 		case NO_style:
 			{
-				if(szData[_stBINmap[i-64].ioffset]!=0xff)
+				if(szData[_stBINmap[i-64].ioffset]!=-1)
 				{
 					sprintf(sTag,"%03d",i);
-					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					//::MessageBox(NULL,szData,NULL,MB_OK);
+					//char Message[50]={0};
+					//sprintf(Message,"%d,%d,%s",_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen,szData);
+					//::MessageBox(NULL,sTag,NULL,MB_OK);
+					memset(sValue,0,500);
+					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
 					char *p=strchr(sValue,'f');
 					if(p!=NULL)
 					{
@@ -3898,9 +3909,11 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03ED00(int inRecorderNo,char * iszData
 						*p=0x00;
 					}
 					sprintf(sLen,"%03d",strlen(sValue));
+					//::MessageBox(NULL,sLen,NULL,MB_OK);
 					strcat(iszData,sTag);
 					strcat(iszData,sLen);
 					strcat(iszData,sValue);
+					//::MessageBox(NULL,sValue,NULL,MB_OK);
 				}
 				break;
 			}
@@ -3909,11 +3922,16 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03ED00(int inRecorderNo,char * iszData
 				if(szData[_stBINmap[i-64].ioffset]!=0x00)
 				{
 					sprintf(sTag,"%03d",i);
-					memcpy((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					//::MessageBox(NULL,sTag,NULL,MB_OK);
+					memset(sValue,0,500);
+					memcpy((unsigned char *)sValue,szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
+					//Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
 					sprintf(sLen,"%03d",strlen(sValue));
+					//::MessageBox(NULL,sLen,NULL,MB_OK);
 					strcat(iszData,sTag);
 					strcat(iszData,sLen);
 					strcat(iszData,sValue);
+					//::MessageBox(NULL,sValue,NULL,MB_OK);
 				}
 				break;
 			}
@@ -3986,18 +4004,19 @@ MHC_CARDINTERFACE_API int __stdcall HD_WDF03EE00(int inRecorderNo,char * iszData
 		case B_style:
 		case AN_style:
 			{
-				memset(sData,'0',500);
+				memset(sData,0,500);
 				memcpy(sData,iszData+index+6,iLen);
+				memcpy(Data,sData,500);
 				break;
 			}
 		case CN_style:
 			{
 				memset(sData,'f',500);
 				memcpy(sData,iszData+index+6,iLen);
+				Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen*2);
 				break;
 			}
 		}
-		Utils::HexstrToBin((unsigned char *)Data,(unsigned char *)sData,iRealLen);
 		//re=0;
 		re=iW_DF03EEInfo(hDev,inRecorderNo,Data,iOffset,iRealLen,AN_style);
 		if(re)
@@ -4028,10 +4047,10 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03EE00(int inRecorderNo,char * iszData
 		case CN_style:
 		case NO_style:
 			{
-				if(szData[_stBINmap[i-64].ioffset]!=0xff)
+				if(szData[_stBINmap[i-64].ioffset]!=-1)
 				{
 					sprintf(sTag,"%03d",i);
-					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
 					char *p=strchr(sValue,'f');
 					if(p!=NULL)
 					{
@@ -4054,7 +4073,9 @@ MHC_CARDINTERFACE_API int __stdcall HD_RDF03EE00(int inRecorderNo,char * iszData
 				if(szData[_stBINmap[i-64].ioffset]!=0x00)
 				{
 					sprintf(sTag,"%03d",i);
-					memcpy((unsigned char *)sValue,(unsigned char *)szData[_stBINmap[i-64].ioffset],_stDataFileMAP[i].iDataLen);
+					memset(sValue,0,500);
+					memcpy((unsigned char *)sValue,(unsigned char *)szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
+					//Utils::BinToHexstr((unsigned char *)sValue,(unsigned char *)szData+_stBINmap[i-64].ioffset,_stDataFileMAP[i].iDataLen);
 					sprintf(sLen,"%03d",strlen(sValue));
 					strcat(iszData,sTag);
 					strcat(iszData,sLen);

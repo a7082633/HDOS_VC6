@@ -6,36 +6,6 @@
 --------------------Configuration: HD_ZTHM1Interface - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP6B70.tmp" with contents
-[
-/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "HD_ZTHM1INTERFACE_EXPORTS" /FR"Release/" /Fp"Release/HD_ZTHM1Interface.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"D:\github_HDOS\HDOS_VC6\中软智通\HD_ZTHM1Interface\HD_ZTHM1Interface.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP6B70.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP6B71.tmp" with contents
-[
-/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "HD_ZTHM1INTERFACE_EXPORTS" /FR"Release/" /Fp"Release/HD_ZTHM1Interface.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"D:\github_HDOS\HDOS_VC6\中软智通\HD_ZTHM1Interface\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP6B71.tmp" 
-<h3>Output Window</h3>
-Compiling...
-StdAfx.cpp
-Compiling...
-HD_ZTHM1Interface.cpp
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP6D08.tmp" with contents
-[
-kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"Release/HD_ZTHM1Interface.pdb" /machine:I386 /def:".\HD_ZTHM1Interface.def" /out:"Release/HD_ZTHM1Interface.dll" /implib:"Release/HD_ZTHM1Interface.lib" 
-".\Release\HD_ZTHM1Interface.obj"
-".\Release\StdAfx.obj"
-]
-Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP6D08.tmp"
-<h3>Output Window</h3>
-Linking...
-   Creating library Release/HD_ZTHM1Interface.lib and object Release/HD_ZTHM1Interface.exp
-Creating command line "bscmake.exe /nologo /o"Release/HD_ZTHM1Interface.bsc"  ".\Release\StdAfx.sbr" ".\Release\HD_ZTHM1Interface.sbr""
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 

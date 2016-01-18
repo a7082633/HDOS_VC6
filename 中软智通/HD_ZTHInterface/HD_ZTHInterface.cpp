@@ -56,6 +56,21 @@ int __stdcall HD_ReadCardInfo(char *Key,char *CardType,char *CardNo,char *Name,c
 	if(ret==0)
 	{
 		//健康卡
+		//读姓名、性别、出生日期、身份证号码
+		ret=iR_DDF1EF06Info(hDev,XM,XB,MZ,CSRQ,SFZH);
+		if(ret!=0)
+		{
+			sprintf(pErr,"读DDF1EF06失败,错误代码:%d",ret);
+			return 1;
+		}
+		//读发卡日期
+		char Temp[500]={0};
+		ret=iR_DDF1EF05Info(hDev,Temp,Temp,Temp,Temp,Temp,FKSJ,Temp,Temp,Temp,Temp);
+		if(ret!=0)
+		{
+			sprintf(pErr,"读DDF1EF05失败,错误代码:%d",ret);
+			return 1;
+		}
 		//读卡号
 		char TermType[3]={0};
 		char PortType[3]={0};
@@ -87,21 +102,6 @@ int __stdcall HD_ReadCardInfo(char *Key,char *CardType,char *CardNo,char *Name,c
 		strcpy(KYXQ,"20");
 		strcat(KYXQ,p+4);
 		//memcpy(KYXQ,p+4,LenOfDate);
-		//读姓名、性别、出生日期、身份证号码
-		ret=iR_DDF1EF06Info(hDev,XM,XB,MZ,CSRQ,SFZH);
-		if(ret!=0)
-		{
-			sprintf(pErr,"读DDF1EF06失败,错误代码:%d",ret);
-			return 1;
-		}
-		//读发卡日期
-		char Temp[500]={0};
-		ret=iR_DDF1EF05Info(hDev,Temp,Temp,Temp,Temp,Temp,FKSJ,Temp,Temp,Temp,Temp);
-		if(ret!=0)
-		{
-			sprintf(pErr,"读DDF1EF05失败,错误代码:%d",ret);
-			return 1;
-		}
 		//开始填数据
 		strcpy(CardType,"1");  //卡类型
 		strcpy(CardNo,KH);  //卡号

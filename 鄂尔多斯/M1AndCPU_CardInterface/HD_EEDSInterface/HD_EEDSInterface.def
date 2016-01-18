@@ -1,0 +1,9 @@
+LIBRARY        HD_EEDSInterface
+
+VERSION        1.0
+
+
+EXETYPE WINDOWS
+
+EXPORTS        
+	ReadInfo

@@ -1910,7 +1910,7 @@ BHGX_HD_API int __stdcall iSelectFile( unsigned char iCardType, unsigned char *p
 	char Message[500]={0};
 	sprintf(Message,"(iSelectFile)卡类型:%d\r\n文件名:%s\r\n",iCardType,pInFID);
 	::MessageBox(NULL,Message,NULL,MB_OK);
-	///////////////////////////
+	/////////////////////////////
 	if(DevHandle <= 0)
 	{
 		return WS_ERR_DEVICECONNECT;

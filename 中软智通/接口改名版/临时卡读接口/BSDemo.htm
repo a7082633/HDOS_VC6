@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>B/S-Demo</title>
+<OBJECT   classid="clsid:22A9D2E4-0C4A-4590-85C5-5BE4634978C3" width=0 height=0 align="center"   id="HD_HNOCX" HSPACE=0 VSPACE=0>
+</OBJECT>
+<script language="javascript">
+
+function HDReadM1()
+{
+	var Key=document.getElementById('KEY').value;
+	var BlockNo=document.getElementById('ADDR').value;
+	var Data=document.getElementById('DATA');
+	var str1=HD_HNOCX.HDReadM1(Key,BlockNo);
+	Data.value=str1;
+}
+</script>
+</head> 
+
+<body>
+<center>
+<label>Key:</label>
+<input  type="text" id="KEY" style="width:100px" value="ffffffffffff"/>
+<p></p>
+<label>¿éºÅ(0-63):</label>
+<input  type="text" id="ADDR" style="width:50px" value="2"/>
+<input  type="text" id="DATA" readonly="" style="width:300px" value=""/>
+<input type="button" onClick="javascript:HDReadM1()" value="¶Á">		
+<p></p>
+<label>×´Ì¬:</label><input type="text" readonly=""  id="STATE" style="width:400px">	
+</body>
+</html>

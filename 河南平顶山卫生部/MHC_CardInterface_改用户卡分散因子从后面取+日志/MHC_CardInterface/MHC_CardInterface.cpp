@@ -3202,7 +3202,9 @@ MHC_CARDINTERFACE_API int __stdcall iW_DF03EE_ALLInfo(HANDLE hDev,
 			}
 			else if(_stDataFileMAP[i+64].cCoding==B_style)
 			{
-				u.HexstrToBin(tempdata+post , temp , _stDataFileMAP[i+64].iDataLen*2);
+				memset(tempdata+post,0xff,_stDataFileMAP[i+64].iDataLen);
+				//u.HexstrToBin(tempdata+post , temp , _stDataFileMAP[i+64].iDataLen*2);
+				u.HexstrToBin(tempdata+post , temp , strlen((const char *)temp));
 			}
 			start=s;
 			start+=1;
@@ -3261,6 +3263,9 @@ MHC_CARDINTERFACE_API int __stdcall iR_DF03EE_ALLInfo(HANDLE hDev,
 		else if(_stDataFileMAP[i+64].cCoding==B_style)
 		{
 			u.BinToHexstr((unsigned char*)temp , tempdata+post , _stDataFileMAP[i+64].iDataLen);
+			char *p=strchr(temp,'F');
+			if(p)
+				*p=0x00;
 			strcat(szData,temp);
 		}
 		post+=_stDataFileMAP[i+64].iDataLen;

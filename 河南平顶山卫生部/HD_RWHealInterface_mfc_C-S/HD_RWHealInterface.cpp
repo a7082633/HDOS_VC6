@@ -45,10 +45,22 @@ int GetConfigFullPath(TCHAR *configFullPath)
 	strcat(configFullPath,"\\SSSE32.dll");
 	return 0;
 }
+int GetConfigFullPath2(TCHAR *configFullPath)
+{
+	unsigned long r=GetModuleFileName(GetCurrentModule(),configFullPath,MAX_PATH);
+	if(r==0)
+	{
+		return 122;
+	}
+	char *pc=strrchr(configFullPath,'\\');
+	*pc=0;
+	strcat(configFullPath,"\\config.ini");
+	return 0;
+}
 //加载SSSE32
-TCHAR configFullPath[MAX_PATH]; // MAX_PATH
-int ret=GetConfigFullPath(configFullPath);
-HMODULE hModule=::LoadLibrary(configFullPath);
+TCHAR dllFullPath[MAX_PATH]; // MAX_PATH
+int ret=GetConfigFullPath(dllFullPath);
+HMODULE hModule=::LoadLibrary(dllFullPath);
 typedef int(__stdcall *FXN)(char*);
 typedef int(__stdcall *FXN2)(long);
 typedef int(__stdcall *FXN3)(long,unsigned char *);
@@ -387,9 +399,11 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	ICC_Reader_Close(hReader);
 
 	//::MessageBox(NULL,"准备发送HTTP","提示",MB_OK);
+	TCHAR ConfigFullPath[MAX_PATH]; // MAX_PATH
+	int ret=GetConfigFullPath2(ConfigFullPath);
 	//发送http请求
 	char addr[300]={0};
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),".\\config.ini");
+	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),ConfigFullPath);
 	CInternetSession m_session("Webservice32");
 	CString HttpResponse;
 	try
@@ -398,7 +412,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		char requestUrl[500]={0};
 		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s",
 			addr,account,password,csno,macno,samno,doctype,para,userid);
-		::MessageBox(NULL,requestUrl,NULL,MB_OK);
+		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
 		CHttpFile *pFile;
 		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
 		DWORD Code;
@@ -1247,9 +1261,12 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 	HexToStr((unsigned char *)Response,10,samno);
 	ICC_Reader_PowerOff(hReader,0x11);
 	ICC_Reader_Close(hReader);
+	/////////////////
+	TCHAR ConfigFullPath[MAX_PATH]; // MAX_PATH
+	int ret=GetConfigFullPath2(ConfigFullPath);
 	//发送http请求
 	char addr[300]={0};
-	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),".\\config.ini");
+	DWORD ConfigLen=GetPrivateProfileString("INFO","Card_Address","DefaultName",addr,sizeof(addr),ConfigFullPath);
 	CInternetSession m_session("Webservice32");
 	CString HttpResponse;
 	try

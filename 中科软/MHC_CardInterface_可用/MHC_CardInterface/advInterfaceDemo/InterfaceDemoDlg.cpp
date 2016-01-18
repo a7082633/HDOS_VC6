@@ -2628,4 +2628,6 @@ void CInterfaceDemoDlg::OnBtnTestzkr()
 {
 	char iszData[500]="213002AA315002102150041234";
 	int re=HD_WDF03ED00(1,iszData);
+//	char iszData[5000]={0};
+//	int re=HD_RDF03ED00(1,iszData);
 }

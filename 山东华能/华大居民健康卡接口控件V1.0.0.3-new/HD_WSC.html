@@ -1,0 +1,1133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>华大居民健康卡接口B/S测试</title>
+<OBJECT id=HD_WSC_CardInterface codeBase=/HD_WSC_CardInterface.ocx classid="clsid:BB46EF01-A2B6-48DF-956E-EC9DED48C781" width="0" height="0"></OBJECT>
+<!--  
+------------------------------------------------------------------------------
+版权声明:
+    				华大集成居民健康卡接口B/S控件
+历史发布记录：
+2013.05.08 v1.0.0.0
+2013.05.14 v1.0.0.0
+2014.07.23 v1.0.0.0
+------------------------------------------------------------------------------                             
+					华大集成居民健康卡接口B/S控件使用说明
+
+B/S ActiveX控件名称：
+					HD_WSC_CardInterface.dll
+		     		clsid:BB46EF01-A2B6-48DF-956E-EC9DED48C781
+					版本：V1.0.0.0
+
+支持阅读器通讯接口：             
+            		 USB通讯接口。
+控件测试环境：
+					操作系统：XP Professional 版本2002、SP2、SP3 32位或者64位； Win7 旗舰版 32位或者64位
+					浏览器：IE8   IE9   IE10
+
+IE安全设置级别： 默认（中）
+-->
+<script language="javascript">
+<!--
+/////////////////////////////
+var slot = 1;
+function radio_onclick() 
+{
+	var radio = document.getElementsByName("slot");
+	for(var i=0;i<radio.length;i++)   
+	{   
+		if(radio[i].checked)   
+		{   
+			if(radio[i].value=="usercard")   
+			{   
+				slot = 1;   
+			}   
+			if(radio[i].value=="psamcard")   
+			{   
+				slot = 17;    
+			}
+		}
+	}
+}
+function command_submit() 
+{
+	var submitcommand = document.getElementById("command").value;
+}
+function command_EnterPress()
+{
+//	alert("command_EnterPress");
+	var event = window.event || arguments.callee.caller.arguments[0];
+	if(event.keyCode == 13)
+	{
+		sendAPDU_onclick();
+	}
+}
+function Buttonclear_onclick()
+{
+	document.all['dispinfo'].value = "";
+	//var rd = document.getElementById("HD_WSC_CardInterface");
+	//rd.DispSound(6);
+}
+function ClearForm() 
+{
+	document.getElementById("piccode").innerHTML = "<p>&nbsp;</p><p>照片</p>";
+}
+/////////////////////////////设备管理
+function openDeivce_onclick()
+{
+//	alert("openDeivce_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.openDeivce(100);//打开设备，返回值不于等于0表示失败
+	if(rs != 0)
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+		return;
+	}
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "设备打开成功!";
+}
+
+function closeDevice_onclick()
+{
+//	alert("closeDevice_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.closeDevice();//打开设备，返回值不于等于0表示失败
+	if(rs != 0)
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+		return;
+	}
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "关闭设备成功!";
+}
+
+function powerOn_onclick()
+{
+//	alert("powerOn_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+
+	rs = rd.powerOn(slot);//打开设备，返回值不于等于0表示失败
+	if(slot == 1)   
+	{   
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡复位:\r\n" + rs;   
+	}   
+	else if(slot == 17)   
+	{   
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\nPSAM卡复位:\r\n" + rs;    
+	}
+	else
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+	}
+}
+
+function deviceCSN_onclick()
+{
+//	alert("deviceCSN_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.readInfoDeviceCSN();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n设备CSN序列号:\r\n" + rs;
+}
+
+function samPublic_onclick()
+{
+//	alert("samPublic_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.readInfoSAMPublic();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\nSAM卡公共信息:\r\n" + rs;
+}
+
+function qBankCardNo_onclick()
+{
+//	alert("qBankCardNo_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	if(slot == 1)   
+	{   
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡复位:\r\n" + rs;   
+	}
+	rs = rd.readInfoqBankCardNo();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\nqBankCardNo信息:\r\n" + rs;
+}
+
+function samTerminal_onclick()
+{
+//	alert("samTerminal_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	rs = rd.readInfoSAMTerminal();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\nSAM卡终端信息:\r\n" + rs;
+}
+
+function verifyPIN_onclick()
+{
+//	alert("verifyPIN_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	var pin = document.getElementById("sPIN").value;
+	
+	while(pin.indexOf(" ")!=-1)
+	{
+ 		pin=pin.replace(" ","");
+	}
+	
+	if(pin == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入PIN值进行校验";
+		rd.Beep();
+		return;
+	}
+	rs = rd.verifyPIN(pin);
+	if(rs != 0)
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+		return;
+	}
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "PSAM卡验证PIN成功!";
+}
+
+function sendAPDU_onclick()
+{
+//	alert("sendAPDU_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var submitcommand = document.getElementById("command").value;
+	while(submitcommand.indexOf(" ")!=-1)
+	{
+ 		submitcommand=submitcommand.replace(" ","");
+	}
+	var intlen = submitcommand.length/2;
+	if(submitcommand == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入命令";
+		rd.Beep();
+		return;
+	}
+	rs = rd.sendAPDU(slot, submitcommand, intlen);
+	if(slot == 1)   
+	{   
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡执行命令:\r\n" + rs;   
+	}   
+	else if(slot == 17)   
+	{   
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\nPSAM卡执行命令:\r\n" + rs;    
+	}
+}
+/////////////////////////////读用户卡
+function readInfoDDF1EF05_onclick()
+{
+//	alert("readInfoDDF1EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDDF1EF05();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡发卡机构基本信息:\r\n" + rs;
+}
+
+function readInfoDDF1EF06_onclick()
+{
+//	alert("readInfoDDF1EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDDF1EF06();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡持卡人基本信息:\r\n" + rs;
+}
+
+function readInfoDDF1EF07_onclick()
+{
+//	alert("readInfoDDF1EF07_onclick");
+	ClearForm();
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDDF1EF07();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡照片信息:\r\n" + rd.zp;
+	document.getElementById("piccode").innerHTML = "<img style='width: 80px; height: 100px' src='data:;base64,"+ rd.zp + "' />";
+}
+
+function readInfoDDF1EF08_onclick()
+{
+//	alert("readInfoDDF1EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDDF1EF08();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡支付信息:\r\n" + rs;
+}
+
+function readInfoDF01EF05_onclick()
+{
+//	alert("readInfoDF01EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF01EF05();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡地址信息:\r\n" + rs;
+}
+
+function readInfoDF01EF06_onclick()
+{
+//	alert("readInfoDF01EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF01EF06();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡联系人信息:\r\n" + rs;
+}
+
+function readInfoDF01EF07_onclick()
+{
+//	alert("readInfoDF01EF07_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF01EF07();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡职业婚姻信息:\r\n" + rs;
+}
+
+function readInfoDF01EF08_onclick()
+{
+//	alert("readInfoDF01EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF01EF08();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡证件记录信息:\r\n" + rs;
+}
+
+function readInfoDF02EF05_onclick()
+{
+//	alert("readInfoDF02EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF02EF05();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡临床基本数据信息:\r\n" + rs;
+}
+
+function readInfoDF02EF06_onclick()
+{
+//	alert("readInfoDF02EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF02EF06();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡特殊数据信息:\r\n" + rs;
+}
+
+function readInfoDF02EF07_onclick()
+{
+//	alert("readInfoDF02EF07_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	var objno = document.getElementById("rDF02EF07No");
+	var no = objno.options[objno.selectedIndex].value;
+	
+	rs = rd.readInfoDF02EF07(no);
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡过敏基本数据信息:\r\n" + rs;
+}
+
+function readInfoDF02EF08_onclick()
+{
+//	alert("readInfoDF02EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	var objno = document.getElementById("rDF02EF08No");
+	var no = objno.options[objno.selectedIndex].value;
+	
+	rs = rd.readInfoDF02EF08(no);
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡免疫基本数据信息:\r\n" + rs;
+}
+
+function readInfoDF03EF05_onclick()
+{
+//	alert("readInfoDF03EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF03EF05();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡住院记录有效标志信息:\r\n" + rs;
+}
+
+function readInfoDF03EF06_onclick()
+{
+//	alert("readInfoDF03EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF03EF06();
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡门诊记录有效标志信息:\r\n" + rs;
+}
+
+function readInfoDF03EE_onclick()
+{
+//	alert("readInfoDF03EE_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	var objno = document.getElementById("rDF03EENo");
+	var no = objno.options[objno.selectedIndex].value;
+	var xml = document.getElementById("xml").value;
+	
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入用户卡读住院信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF03EE(no, xml);
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡住院信息:\r\n" + rs;
+}
+
+function readInfoDF03ED_onclick()
+{
+//	alert("readInfoDF03ED_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	var objno = document.getElementById("rDF03EDNo");
+	var no = objno.options[objno.selectedIndex].value;
+	var xml = document.getElementById("xml").value;
+	
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入用户卡读门诊信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	rs = rd.readInfoDF03ED(no, xml);
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n用户卡门诊信息:\r\n" + rs;
+}
+/////////////////////////////写用户卡
+function writeInfoDDF1EF05_onclick()
+{
+//	alert("writeInfoDDF1EF05_onclick");
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "您暂时没有这个功能的权限，写入发卡机构基本数据接口受限!";
+}
+
+function writeInfoDDF1EF06_onclick()
+{
+//	alert("writeInfoDDF1EF06_onclick");
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "您暂时没有这个功能的权限，写入持卡人基本信息数据接口受限!";
+}
+
+function writeInfoDDF1EF07_onclick()
+{
+//	alert("writeInfoDDF1EF07_onclick");
+	document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "您暂时没有这个功能的权限，写入照片信息数据接口受限!";
+}
+
+function writeInfoDDF1EF08_onclick()
+{
+//	alert("writeInfoDDF1EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入持卡人支付信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行持卡人支付信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDDF1EF08(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入持卡人支付信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF01EF05_onclick()
+{
+//	alert("writeInfoDF01EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入地址信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行地址信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+
+	  	rs = rd.writeInfoDF01EF05(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入地址信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF01EF06_onclick()
+{
+//	alert("writeInfoDF01EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入联系人信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行联系人信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF01EF06(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入联系人信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF01EF07_onclick()
+{
+//	alert("writeInfoDF01EF07_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入职业婚姻信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行职业婚姻信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF01EF07(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入职业婚姻信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF01EF08_onclick()
+{
+//	alert("writeInfoDF01EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入证件记录信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行证件记录信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF01EF08(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入证件记录信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF02EF05_onclick()
+{
+//	alert("writeInfoDF02EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入临床基本数据信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行临床基本数据信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF02EF05(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入临床基本数据信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF02EF06_onclick()
+{
+//	alert("writeInfoDF02EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入特殊信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行特殊信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+
+	  	rs = rd.writeInfoDF02EF06(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入特殊信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF02EF07_onclick()
+{
+//	alert("writeInfoDF02EF07_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入过敏基本数据信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行过敏基本数据信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF02EF07(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入过敏基本数据信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF02EF08_onclick()
+{
+//	alert("writeInfoDF02EF08_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+		
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入免疫基本数据信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行免疫基本数据信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF02EF08(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入免疫基本数据信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF03EF05_onclick()
+{
+//	alert("writeInfoDF03EF05_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入住院记录有效标志信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行住院记录有效标志信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF03EF05(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入住院记录有效标志信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF03EF06_onclick()
+{
+//	alert("writeInfoDF03EF06_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	
+	var xml = document.getElementById("xml").value;
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入门诊记录有效标志信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	
+	if(window.confirm("你确定要执行门诊记录有效标志信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF03EF06(xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入门诊记录有效标志信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF03EE_onclick()
+{
+//	alert("writeInfoDF03EE_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	var objno = document.getElementById("wDF03EENo");
+	var no = objno.options[objno.selectedIndex].value;
+	var xml = document.getElementById("xml").value;
+	
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入用户卡写住院信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	if(window.confirm("你确定要执行住院信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF03EE(no, xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入住院信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+
+function writeInfoDF03ED_onclick()
+{
+//	alert("writeInfoDF03ED_onclick");
+	var rd = document.getElementById("HD_WSC_CardInterface");
+	var rs; //主要用于返回值
+	var objno = document.getElementById("wDF03EDNo");
+	var no = objno.options[objno.selectedIndex].value;
+	var xml = document.getElementById("xml").value;
+	
+	while(xml.indexOf(" ")!=-1)
+	{
+ 		xml=xml.replace(" ","");
+	}
+	
+	if(xml == "") //
+	{
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "请输入用户卡写门诊信息传参XML格式数据!";
+		rd.Beep();
+		return;
+	}
+	if(window.confirm("你确定要执行门诊信息写入操作吗？"))
+	{
+		rs = rd.powerOn(1);//打开设备，返回值不于等于0表示失败
+	  	rs = rd.writeInfoDF03ED(no, xml);
+		if(rs != 0)
+		{
+			document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + rs;
+			return;
+		}
+		document.all['dispinfo'].value = document.all['dispinfo'].value + "\r\n" + "写入门诊信息成功!";
+	}
+	else
+	{
+	  	return;
+	}
+}
+//
+-->
+</script>
+</head>
+
+<body>
+<center>
+<h2>华大居民健康卡接口B/S测试</h2>
+<hr width="100%" size="1" noshade color="#ff0000">
+<table width="906" height="343" border="0">
+<tr valign="top">
+	  <td width="900" height="339">
+		<table width="901" border="0">
+  			<tr>
+				<td width="895">
+                    <table>
+                    	<tr>
+                          <td width="94" align="left"><strong>运行时信息</strong></td>
+                          <td width="961" align="right"><input name="button" type="button" id="clear" onclick="return Buttonclear_onclick()" value="清   空" /></td>
+                      </tr>
+                    </table>
+	  			</td>
+	  	  </tr>
+			  <tr>
+				<td>
+					<textarea name="dispinfo" cols="150" rows="15"></textarea>				
+                </td>
+			  </tr>
+	  <tr>
+				<td>
+                <fieldset>
+					  <legend>设备管理</legend>
+  						<table  align="left">
+							<tr>
+								<td width="90"><input name="openDeivce" id="openDeivce" type="button" value="打开设备" onClick="return openDeivce_onclick()" /></td>
+							  <td width="86"><input name="closeDevice" id="closeDevice" type="button" value="关闭设备" onClick="return closeDevice_onclick()" /></td>
+							  <td width="84" align="right">PIN值：</td>
+					      	  <td width="70"><input name="sPIN" type="text" id="sPIN" value="123456" size="10" maxlength=6></td>
+                              <td><input name="deviceCSN" id="deviceCSN" type="button" value="设备CSN序列号" onClick="return deviceCSN_onclick()" /></td>
+						  </tr>
+                            <tr>
+								<td colspan="2">
+                               	  <input type=radio name="slot" value="usercard" checked onClick="return radio_onclick()">
+                               	  用户卡
+        						  <input type=radio name="slot" value="psamcard" onClick="return radio_onclick()">
+                                  PSAM卡                                
+                                  </td>
+								<td><input name="powerOn" id="powerOn" type="button" value="设置复位" onClick="return powerOn_onclick()" /></td>
+								<td><input name="verifyPIN" id="verifyPIN" type="button" value="PSAM校验" onClick="return verifyPIN_onclick()" /></td>
+                                <td><input name="samPublic" id="samPublic" type="button" value="PSAM公共信息" onClick="return samPublic_onclick()" /></td>
+                                <td><input name="samTerminal" id="samTerminal" type="button" value="PSAM终端信息" onClick="return samTerminal_onclick()" /></td>
+							</tr>
+                            <tr>
+								<td colspan="3"><input type="text" id="command" size="38" onBlur="return command_submit()" onkeydown="command_EnterPress()"></td>
+								<td><input name="sendAPDU" id="sendAPDU" type="button" value="发送指令" onClick="return sendAPDU_onclick()" /></td>
+							</tr>
+					  </table>
+				  </fieldset>				</td>
+			  </tr>
+              <tr>
+              	<td colspan="7" align="left">传参XML格式数据<input type="text" id="xml" size="133" onBlur="return xml_submit()" onkeydown="xml_EnterPress"></td>
+              </tr>
+			  <tr>
+				<td>
+                <fieldset>
+					<legend>读用户卡</legend>
+<table height="104"  align="left">
+							<tr>
+								<td align="left"><input name="readInfoDDF1EF05" id="readInfoDDF1EF05" type="button" value="发卡机构基本信息" onClick="return readInfoDDF1EF05_onclick()" /></td>
+								<td align="left"><input name="readInfoDDF1EF06" id="readInfoDDF1EF06" type="button" value="持卡人基本信息" onClick="return readInfoDDF1EF06_onclick()" /></td>
+								<td align="left"><input name="readInfoDDF1EF08" id="readInfoDDF1EF08" type="button" value="持卡人支付信息" onclick="return readInfoDDF1EF08_onclick()" /></td>
+								<td align="left"><input name="readInfoDF01EF05" id="readInfoDF01EF05" type="button" value="地址信息" onclick="return readInfoDF01EF05_onclick()" /></td>
+								<td align="left"><input name="readInfoDF01EF06" id="readInfoDF01EF06" type="button" value="联系人信息" onclick="return readInfoDF01EF06_onclick()" /></td>
+                                <td align="left"><input name="readInfoDDF1EF07" id="readInfoDDF1EF07" type="button" value="照片数据" onclick="return readInfoDDF1EF07_onclick()" /></td>
+                                <td align="left">&nbsp;</td>
+                                <td rowspan="4" align="left">
+                                	<div align="center" style="height:100px; width: 80px; background-color:#CCCCCC;">
+                                      <span id="piccode" style="height:100px; width: 80px; text-align:center">
+                                      <p>&nbsp;</p>
+                                      <p>照片</p>
+                                      </span>                                    
+                                    </div>                                
+                               	</td>
+							</tr>
+							<tr>
+								<td align="left"><input name="readInfoDF01EF07" id="readInfoDF01EF07" type="button" value="职业婚姻信息" onClick="return readInfoDF01EF07_onclick()" /></td>
+								<td align="left"><input name="readInfoDF01EF08" id="readInfoDF01EF08" type="button" value="证件记录信息" onClick="return readInfoDF01EF08_onclick()" /></td>
+								<td align="left"><input name="readInfoDF02EF05" id="readInfoDF02EF05" type="button" value="临床基本数据" onClick="return readInfoDF02EF05_onclick()" /></td>
+								<td align="left"><input name="readInfoDF02EF06" id="readInfoDF02EF06" type="button" value="特殊信息数据" onClick="return readInfoDF02EF06_onclick()" /></td>
+								<td align="left">记录号
+                                <select id="rDF02EF07No" name="rDF02EF07No">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                </select>
+        						<input name="readInfoDF02EF07" id="readInfoDF02EF07" type="button" value="过敏基本数据" onClick="return readInfoDF02EF07_onclick()" /></td>
+                                <td align="left">
+                                记录号
+                                <select id="rDF02EF08No" name="rDF02EF08No">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                  <option value=4>04</option>
+                                  <option value=5>05</option>
+                                  <option value=6>06</option>
+                                  <option value=7>07</option>
+                                  <option value=8>08</option>
+                                  <option value=9>09</option>
+                                  <option value=10>10</option>
+                                </select>
+                                <input name="readInfoDF02EF08" id="readInfoDF02EF08" type="button" value="免疫基本数据" onClick="return readInfoDF02EF08_onclick()" /></td>
+                                <td align="left">&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="2" align="left">
+                                <input name="readInfoDF03EF05" id="readInfoDF03EF05" type="button" value="住院记录有效标志" onclick="return readInfoDF03EF05_onclick()" /></td>
+								<td colspan="2" align="left">
+                                <input name="readInfoDF03EF06" id="readInfoDF03EF06" type="button" value="门诊记录有效标志" onclick="return readInfoDF03EF06_onclick()" /></td>
+								<td align="left">记录号
+                                <select id="rDF03EENo" name="rDF03EENo">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                </select>
+                              <input name="readInfoDF03EE" id="readInfoDF03EE" type="button" value="住院信息" onclick="return readInfoDF03EE_onclick()" /></td>
+                              <td align="left">记录号
+                                <select id="rDF03EDNo" name="rDF03EDNo">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                  <option value=4>04</option>
+                                  <option value=5>05</option>
+                                </select>
+                                <input name="readInfoDF03ED" id="readInfoDF03ED" type="button" value="门诊信息" onclick="return readInfoDF03ED_onclick()" /></td>
+                                <td align="left">&nbsp;</td>
+                			</tr>
+                            <tr>
+                            	<td align="left" colspan="7">&nbsp;</td>
+                            </tr>
+				</table>
+				</fieldset>				
+                </td>
+			  </tr>
+			  <tr>
+                  <td>
+                  	<fieldset>
+					<legend>写用户卡</legend>
+                    <table  align="left">
+							<tr>
+								<td width="120" align="left"><input name="writeInfoDDF1EF05" id="writeInfoDDF1EF05" type="button" value="发卡机构基本信息" onClick="return writeInfoDDF1EF05_onclick()" /></td>
+							  <td width="107" align="left"><input name="writeInfoDDF1EF06" id="writeInfoDDF1EF06" type="button" value="持卡人基本信息" onClick="return writeInfoDDF1EF06_onclick()" /></td>
+							  <td width="107" align="left"><input name="writeInfoDDF1EF08" id="writeInfoDDF1EF08" type="button" value="持卡人支付信息" onclick="return writeInfoDDF1EF08_onclick()" /></td>
+						      <td width="94" align="left"><input name="writeInfoDF01EF05" id="writeInfoDF01EF05" type="button" value="地址信息" onclick="return writeInfoDF01EF05_onclick()" /></td>
+							  <td width="194" align="left"><input name="writeInfoDF01EF06" id="writeInfoDF01EF06" type="button" value="联系人信息" onclick="return writeInfoDF01EF06_onclick()" /></td>
+                              <td width="244" align="left"><input name="writeInfoDDF1EF07" id="writeInfoDDF1EF07" type="button" value="照片数据" onclick="return writeInfoDDF1EF07_onclick()" /></td>
+                              <td width="7" rowspan="3" align="left">                                </td>
+							</tr>
+							<tr>
+								<td align="left"><input name="writeInfoDF01EF07" id="writeInfoDF01EF07" type="button" value="职业婚姻信息" onClick="return writeInfoDF01EF07_onclick()" /></td>
+								<td align="left"><input name="writeInfoDF01EF08" id="writeInfoDF01EF08" type="button" value="证件记录信息" onClick="return writeInfoDF01EF08_onclick()" /></td>
+								<td align="left"><input name="writeInfoDF02EF05" id="writeInfoDF02EF05" type="button" value="临床基本数据" onClick="return writeInfoDF02EF05_onclick()" /></td>
+								<td align="left"><input name="writeInfoDF02EF06" id="writeInfoDF02EF06" type="button" value="特殊信息数据" onClick="return writeInfoDF02EF06_onclick()" /></td>
+								<td align="left">
+        						<input name="writeInfoDF02EF07" id="writeInfoDF02EF07" type="button" value="过敏基本数据" onClick="return writeInfoDF02EF07_onclick()" /></td>
+                                <td align="left">
+                                <input name="writeInfoDF02EF08" id="writeInfoDF02EF08" type="button" value="免疫基本数据" onClick="return writeInfoDF02EF08_onclick()" /></td>
+                            </tr>
+							<tr>
+								<td colspan="2" align="left">                                
+                                <input name="writeInfoDF03EF05" id="writeInfoDF03EF05" type="button" value="住院记录有效标志" onclick="return writeInfoDF03EF05_onclick()" /></td>
+								<td colspan="2" align="left">
+                                <input name="writeInfoDF03EF06" id="writeInfoDF03EF06" type="button" value="门诊记录有效标志" onclick="return writeInfoDF03EF06_onclick()" /></td>
+								<td align="left">记录号
+                                <select id="wDF03EENo" name="wDF03EENo">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                </select>
+                                <input name="writeInfoDF03EE" id="writeInfoDF03EE" type="button" value="住院信息" onclick="return writeInfoDF03EE_onclick()" /></td>
+                                <td align="left">记录号
+                                <select id="wDF03EDNo" name="wDF03EDNo">
+                                  <option value=1 selected>01</option>
+                                  <option value=2>02</option>
+                                  <option value=3>03</option>
+                                  <option value=4>04</option>
+                                  <option value=5>05</option>
+                                </select>
+                                <input name="writeInfoDF03ED" id="writeInfoDF03ED" type="button" value="门诊信息" onclick="return writeInfoDF03ED_onclick()" /></td>
+                      </tr>
+				</table>
+				</fieldset>	
+                </td>	    
+              </tr>
+              <tr>
+              	<td>
+                <font size="3">Copyright @ 2013-2014  广东华大集成技术有限责任公司  Tel:0755-83592828  Web:<a href="http://www.hd-os.com">http://www.hd-os.com</a></font>
+                </td>
+              </tr>
+			</table>	  
+            </td>
+	</tr>
+</table>
+</center>
+</body>
+<!--  
+------------------------------------------------------------------------------
+版权声明:
+    				华大集成居民健康卡接口B/S控件
+历史发布记录：
+2013.05.08 v1.0.0.0
+2013.05.14 v1.0.0.0
+2014.07.23 v1.0.0.0
+作者：汤甲臣 邮箱：tangjc@hd-os.com 电话：18318036015
+-->
+</html>
