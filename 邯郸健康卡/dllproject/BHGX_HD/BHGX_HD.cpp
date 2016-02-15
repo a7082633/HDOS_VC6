@@ -1803,9 +1803,9 @@ BHGX_HD_API int __stdcall iIOCtl( int cmd, void *data, int datasize )
 
 BHGX_HD_API int __stdcall ICCSet( unsigned int iCardSet, unsigned char *pCardType, unsigned char *pRet )
 {
-//	char Message[500]={0};
-//	sprintf(Message,"(ICCSet)¿¨×ù:%d\r\n",iCardSet);
-//	::MessageBox(NULL,Message,NULL,MB_OK);
+	char Message[500]={0};
+	sprintf(Message,"(ICCSet)¿¨×ù:%d\r\n",iCardSet);
+	::MessageBox(NULL,Message,NULL,MB_OK);
 	///////////////////////////
 	if(DevHandle <= 0)
 	{
@@ -1822,22 +1822,26 @@ BHGX_HD_API int __stdcall ICCSet( unsigned int iCardSet, unsigned char *pCardTyp
 		re = PICC_Reader_SetTypeA(DevHandle);
 		if(re != 0)
 		{
+			::MessageBox(NULL,"ÉèÖÃTypeA",NULL,MB_OK);
 			return -38;
 		}
 		re = PICC_Reader_Request(DevHandle);
 		if(re != 0)
 		{
+			::MessageBox(NULL,"ÇëÇó¿¨Æ¬",NULL,MB_OK);
 			return -38;
 		}
 		re = PICC_Reader_anticoll(DevHandle, uid);
 		if(re != 0)
 		{
+			::MessageBox(NULL,"·ÀÅö×²",NULL,MB_OK);
 			return -38;
 		}
 		
 		re = PICC_Reader_Select(DevHandle, 0x41);
 		if(re != 0)
 		{
+			::MessageBox(NULL,"Ñ¡¿¨",NULL,MB_OK);
 			return -38;
 		}
 
@@ -1848,31 +1852,32 @@ BHGX_HD_API int __stdcall ICCSet( unsigned int iCardSet, unsigned char *pCardTyp
 			re = PICC_Reader_Request(DevHandle);
 			if(re != 0)
 			{
+				::MessageBox(NULL,"M1ÇëÇó",NULL,MB_OK);
 				return -38;
 			}
 			re = PICC_Reader_anticoll(DevHandle, uid);
 			if(re != 0)
 			{
+				::MessageBox(NULL,"M1·ÀÅö×²",NULL,MB_OK);
 				return -38;
 			}
 			
 			re = PICC_Reader_Select(DevHandle, 0x41);
 			if(re != 0)
 			{
+				::MessageBox(NULL,"M1Ñ¡¿¨",NULL,MB_OK);
 				return -38;
 			}
-			g_iCardType=2;
 			//strcpy((char*)pCardType, "0");
 			*pCardType=0;
 			HexToStr(uid, 4, pRet);
-			//::MessageBox(NULL,"M1",NULL,MB_OK);
+			::MessageBox(NULL,"M1",NULL,MB_OK);
 			return 0;
 		}
-		g_iCardType=0;
 		//strcpy((char*)pCardType, "1");
 		*pCardType=1;
 		HexToStr(resp, re, (unsigned char*)pRet);
-		//::MessageBox(NULL,"CPU",NULL,MB_OK);
+		::MessageBox(NULL,"CPU",NULL,MB_OK);
 	}
 	else if(iCardSet == 1)
 	{

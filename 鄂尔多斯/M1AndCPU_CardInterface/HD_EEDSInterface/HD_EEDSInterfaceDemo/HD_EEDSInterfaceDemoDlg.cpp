@@ -83,6 +83,7 @@ BEGIN_MESSAGE_MAP(CHD_EEDSInterfaceDemoDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_READ, OnBtnRead)
+	ON_BN_CLICKED(IDC_BTN_READCARD, OnBtnReadcard)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -172,27 +173,41 @@ HCURSOR CHD_EEDSInterfaceDemoDlg::OnQueryDragIcon()
 
 void CHD_EEDSInterfaceDemoDlg::OnBtnRead() 
 {
-	this->SetDlgItemText(IDC_STATIC_STATE,"");
-	CString sPass;
-	this->GetDlgItemText(IDC_EDIT_M1PASS,sPass);
-	unsigned char GECHH[50]={0};
-	unsigned char XM[50]={0}; 
-	unsigned char SFZH[50]={0};
-	unsigned char CSRQ[50]={0};
-	unsigned char XB[50]={0};
-	unsigned char MZ[50]={0};
-	char pErr[50]={0};
-	int re=ReadInfo((unsigned char *)sPass.GetBuffer(0),GECHH,XM,SFZH,CSRQ,XB,MZ,pErr);
-	if(re)
+//	this->SetDlgItemText(IDC_STATIC_STATE,"");
+//	CString sPass;
+//	this->GetDlgItemText(IDC_EDIT_M1PASS,sPass);
+//	unsigned char GECHH[50]={0};
+//	unsigned char XM[50]={0}; 
+//	unsigned char SFZH[50]={0};
+//	unsigned char CSRQ[50]={0};
+//	unsigned char XB[50]={0};
+//	unsigned char MZ[50]={0};
+//	char pErr[50]={0};
+//	int re=ReadInfo((unsigned char *)sPass.GetBuffer(0),GECHH,XM,SFZH,CSRQ,XB,MZ,pErr);
+//	if(re)
+//	{
+//		this->SetDlgItemText(IDC_STATIC_STATE,pErr);
+//		return ;
+//	}else
+//		this->SetDlgItemText(IDC_STATIC_STATE,"读卡成功!");
+//	this->SetDlgItemText(IDC_STATIC_GZCHH,(const char *)GECHH);
+//	this->SetDlgItemText(IDC_STATIC_XM,(const char *)XM);
+//	this->SetDlgItemText(IDC_STATIC_SFZH,(const char *)SFZH);
+//	this->SetDlgItemText(IDC_STATIC_CSRQ,(const char *)CSRQ);
+//	this->SetDlgItemText(IDC_STATIC_XB,(const char *)XB);
+//	this->SetDlgItemText(IDC_STATIC_MZ,(const char *)MZ);
+}
+
+void CHD_EEDSInterfaceDemoDlg::OnBtnReadcard() 
+{
+	unsigned char OutXml[5000]={0};
+	char pErr[500]={0};
+	int ret=iReadCard(OutXml,pErr);
+	if(ret==0)
+	{
+		this->SetDlgItemText(IDC_EDIT_DATA,(const char *)OutXml);
+	}else
 	{
 		this->SetDlgItemText(IDC_STATIC_STATE,pErr);
-		return ;
-	}else
-		this->SetDlgItemText(IDC_STATIC_STATE,"读卡成功!");
-	this->SetDlgItemText(IDC_STATIC_GZCHH,(const char *)GECHH);
-	this->SetDlgItemText(IDC_STATIC_XM,(const char *)XM);
-	this->SetDlgItemText(IDC_STATIC_SFZH,(const char *)SFZH);
-	this->SetDlgItemText(IDC_STATIC_CSRQ,(const char *)CSRQ);
-	this->SetDlgItemText(IDC_STATIC_XB,(const char *)XB);
-	this->SetDlgItemText(IDC_STATIC_MZ,(const char *)MZ);
+	}
 }

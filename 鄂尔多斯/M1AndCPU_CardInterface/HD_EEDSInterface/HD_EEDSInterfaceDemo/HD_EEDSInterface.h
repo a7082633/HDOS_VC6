@@ -3,13 +3,7 @@
 
 #define EEDS_HD_API extern "C" __declspec(dllexport)
 
-EEDS_HD_API int __stdcall ReadInfo(unsigned char *pKey, 
-								   unsigned char *GECHH, 
-								   unsigned char *XM, 
-								   unsigned char *SFZH, 
-								   unsigned char *CSRQ, 
-								   unsigned char *XB, 
-								   unsigned char *MZ,
+EEDS_HD_API int __stdcall iReadCard(unsigned char *OutXml,
 								   char *pErr);
 
 

@@ -408,10 +408,11 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	CString HttpResponse;
 	try
 	{
+		CTime t = CTime::GetCurrentTime(); //获取系统日期
 		CString strData;
 		char requestUrl[500]={0};
-		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s",
-			addr,account,password,csno,macno,samno,doctype,para,userid);
+		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s&rand=%d-%d-%d %d:%d:%d",
+			addr,account,password,csno,macno,samno,doctype,para,userid,t.GetYear(),t.GetMonth(),t.GetDay(),t.GetHour(),t.GetMinute(),t.GetSecond());
 		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
 		CHttpFile *pFile;
 		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
@@ -438,7 +439,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	m_session.Close();
 	char rtstr[10]={0};
 	memcpy(rtstr,HttpResponse.GetBuffer(0),4);
-
+	//::MessageBox(NULL,rtstr,"提示",MB_OK);
 	if(0==strcmp(rtstr,"0000"))
 //	if(1)
 	{
@@ -474,7 +475,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 	{
 //		CString sstemp;
 		int ii=atoi(rtstr);
-//		::MessageBox(NULL,"rtstr","提示",MB_OK);
+		//::MessageBox(NULL,"rtstr","提示",MB_OK);
 //		sstemp.Format("%d",ii);
 //		::MessageBox(NULL,sstemp,"提示",MB_OK);
 		if(ii==0) return HTTP_EXCEPTION;
@@ -1271,10 +1272,14 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 	CString HttpResponse;
 	try
 	{
+		CTime t = CTime::GetCurrentTime(); //获取系统日期
 		CString strData;
 		char requestUrl[500]={0};
-		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=1&para=%s&userid=%s",
-			addr,account,password,csno,macno,samno,doctype,para,userid);
+//		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=1&para=%s&userid=%s",
+//			addr,account,password,csno,macno,samno,doctype,para,userid);
+		sprintf(requestUrl,"%s?account=%s&password=%s&csno=%s&macno=%s&samno=%s&doctype=%d&funtype=0&para=%s&userid=%s&rand=%d-%d-%d %d:%d:%d",
+			addr,account,password,csno,macno,samno,doctype,para,userid,t.GetYear(),t.GetMonth(),t.GetDay(),t.GetHour(),t.GetMinute(),t.GetSecond());
+		//::MessageBox(NULL,requestUrl,NULL,MB_OK);
 		CHttpFile *pFile;
 		pFile = (CHttpFile *) m_session.OpenURL(requestUrl);
 		DWORD Code;
@@ -1317,6 +1322,12 @@ MHC_CARDINTERFACE_API int __stdcall WriteCard(char *para,char *dataIn,
 	}
 	else
 	{
+//		CString sstemp;
+		int ii=atoi(rtstr);
+		//::MessageBox(NULL,"rtstr","提示",MB_OK);
+//		sstemp.Format("%d",ii);
+//		::MessageBox(NULL,sstemp,"提示",MB_OK);
+		if(ii==0) return HTTP_EXCEPTION;
 		return atoi(rtstr);
 	}
 	/////////////////////////////////////////////////////////////
