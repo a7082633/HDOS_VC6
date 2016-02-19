@@ -47,10 +47,11 @@ int __stdcall IC_GetData(char *dataOut,char *pErr)
 	char *p=strstr(VBoot,"186");
 	if(p==NULL) isID=false;
 	CString temp;
-	//处理磁条卡
+	//
+	//处理磁条卡186 3716 9959
 	//	unsigned char rlen=0;
 	//	char DataBuffer[400]={0};
-	//	i=Rcard(ReaderHandle,TimeOut,2,&rlen,DataBuffer);
+	//	i=Rcard(ReaderHandle,TimeOut,2,&rlen,DataBuffer);//
 	//	if(DataBuffer[0]!=NULL)
 	//	{
 	//		temp.Format("磁条卡:%s",DataBuffer);

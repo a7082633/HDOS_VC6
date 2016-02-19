@@ -494,6 +494,10 @@ BSTR CHD_SHHealthyACXCtrl::ReadCard()
 		}
 		Utils::BinToHexstr(DataStr,Data,16);
 		memcpy(sSFZH,DataStr,18);
+		if(sSFZH[17]>'a'||sSFZH[17]<'z'||sSFZH[17]>='A'||sSFZH[17]<='Z')
+		{
+			sSFZH[17]='X';
+		}
 		memcpy(sCSRQ,DataStr+18,8);
 		memcpy(sXB,DataStr+26,1);
 		//¶ÁÃñ×å

@@ -481,6 +481,81 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		if(ii==0) return HTTP_EXCEPTION;
 		return atoi(rtstr);
 	}
+	//是否已经读取标记
+	bool DDF1EF05=false;
+	bool DDF1EF06=false;
+	bool DDF1EF08=false;
+	bool DF01EF05=false;
+	bool DF01EF06=false;
+	bool DF01EF07=false;
+	bool DF01EF08=false;
+	bool DF02EF05=false;
+	//数据缓存
+	//DDF1EF05
+	char KLB[100]={0};
+	char GFBB[100]={0};
+	char FKJGMC[100]={0};
+	char FKJGDM[100]={0};
+	char FKJGZS[500]={0};
+	char FKSJ[100]={0};
+	char KH[100]={0};
+	char AQM[100]={0}; 
+	char XPXLH[100]={0}; 
+	char YYCSDM[100]={0};
+	//DDF1EF06
+	char XM[50]={0};             //姓名
+	char XB[50]={0};               //性别代码
+	char MZ[50]={0};               //民族代码
+	char CSRQ[50]={0};             //出生日期，YYYYMMDD格式
+	char SFZH[50]={0};            //居民身份证号
+	//DDF1EF08
+	char KYXQ[21]={0};			//卡有效期
+	char BRDH1[21]={0};         //本人电话1
+	char BRDH2[21]={0};           //本人电话2
+	char YLFYZFFS1[21]={0};		  //医疗费用支付方式1
+	char YLFYZFFS2[21]={0};		  //医疗费用支付方式2
+	char YLFYZFFS3[21]={0};	
+	//DF01EF05
+	char DZLB1[21]={0};		
+	char DZ1[120]={0};       
+	char DZLB2[21]={0};     
+	char DZ2[120]={0};	
+	//DF01EF06
+	char LXRXM1[40]={0};		
+	char LXRGX1[2]={0};       
+	char LXRDH1[30]={0};
+	char LXRXM2[40]={0};		
+	char LXRGX2[2]={0};       
+	char LXRDH2[30]={0}; 
+	char LXRXM3[40]={0};		
+	char LXRGX3[2]={0};       
+	char LXRDH3[30]={0}; 
+	//DF01EF07
+	char WHCD[10]={0};		
+	char HYZK[10]={0};       
+	char ZY[10]={0};	
+	//DF01EF08
+	char ZJLB[20]={0};		
+	char ZJHM[20]={0};       
+	char JKDAH[20]={0};
+	char XNHZH[20]={0};
+	//DF02EF05
+	char ABOXX[10]={0};		
+	char RHXX[10]={0};       
+	char XCBZ[10]={0};
+	char XZBBZ[10]={0};
+	char XNXGBBZ[10]={0};         //心脑血管病标志
+	char DXBBZ[10]={0};           //癫痫病标志
+	char NXWLBZ[10]={0};          //凝血紊乱标志
+	char TNBBZ[10]={0};           //糖尿病标志
+	char QGYBZ[10]={0};           //青光眼标志
+	char TXBZ[10]={0};          //透析标志
+	char QGYZBZ[10]={0};          //器官移植标志
+	char QGQSBZ[10]={0};        //器官缺失标志
+	char KZXYZBZ[10]={0};         //可装卸义肢标志
+	char XZQBQBZ[10]={0};        //心脏起搏器标志
+	char QTYXJSMC[50]={0};
+
 	const char * split = "|"; 
 	char * p; 
 	p = strtok (para,split);
@@ -496,21 +571,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 1:case 2:case 3:case 4:case 5:case 6:case 8:case 9:case 10:
 		case 101:
 			{
-				char KLB[100]={0};
-				char GFBB[100]={0};
-				char FKJGMC[100]={0};
-				char FKJGDM[100]={0};
-				char FKJGZS[500]={0};
-				char FKSJ[100]={0};
-				char KH[100]={0};
-				char AQM[100]={0}; 
-				char XPXLH[100]={0}; 
-				char YYCSDM[100]={0};
-				re=iR_DDF1EF05Info(hDev,KLB,GFBB, FKJGMC, FKJGDM, FKJGZS, FKSJ, KH, AQM, XPXLH, YYCSDM);
-				if(re)
+				if(false==DDF1EF05)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DDF1EF05Info(hDev,KLB,GFBB, FKJGMC, FKJGDM, FKJGZS, FKSJ, KH, AQM, XPXLH, YYCSDM);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DDF1EF05=true;
 				}
 				switch(flag)
 				{
@@ -540,16 +609,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 11:case 12:case 13:case 14:
 		case 15:
 			{
-				char XM[50]={0};             //姓名
-				char XB[50]={0};               //性别代码
-				char MZ[50]={0};               //民族代码
-				char CSRQ[50]={0};             //出生日期，YYYYMMDD格式
-				char SFZH[50]={0};            //居民身份证号
-				re=iR_DDF1EF06Info(hDev,XM,XB,MZ,CSRQ,SFZH);
-				if(re)
+				if(false==DDF1EF06)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DDF1EF06Info(hDev,XM,XB,MZ,CSRQ,SFZH);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DDF1EF06=true;
 				}
 				switch(flag)
 				{
@@ -569,17 +637,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 7:case 16:case 17:case 18:case 19:
 		case 20:
 			{
-				char KYXQ[21]={0};			//卡有效期
-				char BRDH1[21]={0};         //本人电话1
-				char BRDH2[21]={0};           //本人电话2
-				char YLFYZFFS1[21]={0};		  //医疗费用支付方式1
-				char YLFYZFFS2[21]={0};		  //医疗费用支付方式2
-				char YLFYZFFS3[21]={0};	
-				re=iR_DDF1EF08Info(hDev,KYXQ,BRDH1,BRDH2,YLFYZFFS1,YLFYZFFS2,YLFYZFFS3);
-				if(re)
+				if(false==DDF1EF08)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DDF1EF08Info(hDev,KYXQ,BRDH1,BRDH2,YLFYZFFS1,YLFYZFFS2,YLFYZFFS3);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DDF1EF08=true;
 				}
 				switch(flag)
 				{
@@ -601,15 +667,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 21:case 22:case 23:
 		case 24:
 			{
-				char DZLB1[21]={0};		
-				char DZ1[120]={0};       
-				char DZLB2[21]={0};     
-				char DZ2[120]={0};	
-				re=iR_DF01EF05Info(hDev,DZLB1,DZ1,DZLB2,DZ2);
-				if(re)
+				if(false==DF01EF05)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DF01EF05Info(hDev,DZLB1,DZ1,DZLB2,DZ2);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DF01EF05=true;
 				}
 				switch(flag)
 				{
@@ -627,20 +693,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 25:case 26:case 27:case 28:case 29:case 30:case 31:case 32:
 		case 33:
 			{
-				char LXRXM1[40]={0};		
-				char LXRGX1[2]={0};       
-				char LXRDH1[30]={0};
-				char LXRXM2[40]={0};		
-				char LXRGX2[2]={0};       
-				char LXRDH2[30]={0}; 
-				char LXRXM3[40]={0};		
-				char LXRGX3[2]={0};       
-				char LXRDH3[30]={0}; 
-				re=iR_DF01EF06Info(hDev,LXRXM1,LXRGX1,LXRDH1,LXRXM2,LXRGX2,LXRDH2,LXRXM3,LXRGX3,LXRDH3);
-				if(re)
+				if(false==DF01EF06)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DF01EF06Info(hDev,LXRXM1,LXRGX1,LXRDH1,LXRXM2,LXRGX2,LXRDH2,LXRXM3,LXRGX3,LXRDH3);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DF01EF06=true;
 				}
 				switch(flag)
 				{
@@ -667,15 +728,16 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 			}
 		case 34:case 35:
 		case 36:
-			{
-				char WHCD[10]={0};		
-				char HYZK[10]={0};       
-				char ZY[10]={0};			
-				re=iR_DF01EF07Info(hDev,WHCD,HYZK,ZY);
-				if(re)
+			{	
+				if(false==DF01EF07)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DF01EF07Info(hDev,WHCD,HYZK,ZY);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DF01EF07=true;
 				}
 				switch(flag)
 				{
@@ -691,15 +753,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 37:case 38:case 39:
 		case 40:
 			{
-				char ZJLB[20]={0};		
-				char ZJHM[20]={0};       
-				char JKDAH[20]={0};
-				char XNHZH[20]={0};
-				re=iR_DF01EF08Info(hDev,ZJLB,ZJHM,JKDAH,XNHZH);
-				if(re)
+				if(false==DF01EF08)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DF01EF08Info(hDev,ZJLB,ZJHM,JKDAH,XNHZH);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DF01EF08=true;
 				}
 				switch(flag)
 				{
@@ -717,26 +779,15 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 		case 41:case 42:case 43:case 44:case 45:case 46:case 47:case 48:case 49:case 50:case 51:case 52:case 53:case 54:
 		case 55:
 			{
-				char ABOXX[10]={0};		
-				char RHXX[10]={0};       
-				char XCBZ[10]={0};
-				char XZBBZ[10]={0};
-				char XNXGBBZ[10]={0};         //心脑血管病标志
-				char DXBBZ[10]={0};           //癫痫病标志
-				char NXWLBZ[10]={0};          //凝血紊乱标志
-				char TNBBZ[10]={0};           //糖尿病标志
-				char QGYBZ[10]={0};           //青光眼标志
-				char TXBZ[10]={0};          //透析标志
-				char QGYZBZ[10]={0};          //器官移植标志
-				char QGQSBZ[10]={0};        //器官缺失标志
-				char KZXYZBZ[10]={0};         //可装卸义肢标志
-				char XZQBQBZ[10]={0};        //心脏起搏器标志
-				char QTYXJSMC[50]={0};
-				re=iR_DF02EF05Info(hDev,ABOXX,RHXX,XCBZ,XZBBZ,XNXGBBZ,DXBBZ,NXWLBZ,TNBBZ,QGYBZ,TXBZ,QGYZBZ,QGQSBZ,KZXYZBZ,XZQBQBZ,QTYXJSMC);
-				if(re)
+				if(false==DF02EF05)
 				{
-					iDClosePort();
-					return re;
+					re=iR_DF02EF05Info(hDev,ABOXX,RHXX,XCBZ,XZBBZ,XNXGBBZ,DXBBZ,NXWLBZ,TNBBZ,QGYBZ,TXBZ,QGYZBZ,QGQSBZ,KZXYZBZ,XZQBQBZ,QTYXJSMC);
+					if(re)
+					{
+						iDClosePort();
+						return re;
+					}
+					DF02EF05=true;
 				}
 				switch(flag)
 				{
@@ -1129,7 +1180,7 @@ MHC_CARDINTERFACE_API int __stdcall ReadCard(char *para,char *dataOut,
 			return 120;
 		}//end switch
 		p = strtok(NULL,split);
-	}
+	}//end while
 	len=strlen(dataOut);
 	dataOut[len-1]='\0';
 	iDClosePort();

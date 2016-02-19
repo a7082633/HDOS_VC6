@@ -6,6 +6,36 @@
 --------------------Configuration: HealthCardReader - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB63C.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Release/HealthCardReader.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\HealthCardReaderDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPB63C.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB64C.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"Release/HealthCardReader.pdb" /machine:I386 /out:"Release/HealthCardReader.exe" 
+".\Release\DialogAddImmuneRecord.obj"
+".\Release\DialogWriteAddrInfo.obj"
+".\Release\DialogWriteAllergyRecord.obj"
+".\Release\DialogWriteClinicalInfo.obj"
+".\Release\DialogWriteJobMarryInfo.obj"
+".\Release\DialogWriteLicenceInfo.obj"
+".\Release\DialogWriteOwnerInfo.obj"
+".\Release\DialogWritePersonInfo.obj"
+".\Release\DialogWritePublishInfo.obj"
+".\Release\DialogWriteRelativeInfo.obj"
+".\Release\DialogWriteSpecialInfo.obj"
+".\Release\HealthCardReader.obj"
+".\Release\HealthCardReaderDlg.obj"
+".\Release\StdAfx.obj"
+".\Release\HealthCardReader.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSPB64C.tmp"
+<h3>Output Window</h3>
+Compiling...
+HealthCardReaderDlg.cpp
+Linking...
 
 
 

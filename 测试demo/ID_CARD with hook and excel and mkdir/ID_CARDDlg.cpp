@@ -490,7 +490,7 @@ void CID_CARDDlg::OnButtonTest()
 //	picPathstr=path+"\\"+cardNo+".bmp";
 //-----------------------
 //	CString path;
-//	path=sPhotoPath+"\\身份证照片";
+//	path=sPhotoPath+"\\身份证照片";  
 //	int i=_mkdir(path);
 	keybd_event('a',0x01,0,0); // 揿 Alt 
 	keybd_event('a',0x01,KEYEVENTF_KEYUP,0); // 键弹上 

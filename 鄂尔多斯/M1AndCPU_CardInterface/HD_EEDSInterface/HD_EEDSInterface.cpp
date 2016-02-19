@@ -444,8 +444,8 @@ EEDS_HD_API int __stdcall iReadCard(unsigned char *OutXml,char *pErr)
 		unsigned char Data[40]={0};
 		unsigned char DataStr[40]={0};
 		unsigned char key[10]={0};
-		memcpy(key,"\x43\x97\x04\x47\x20\x47",6);
-		//memcpy(key,"\xff\xff\xff\xff\xff\xff",6);
+		//memcpy(key,"\x43\x97\x04\x47\x20\x47",6);
+		memcpy(key,"\xff\xff\xff\xff\xff\xff",6);
 		//读农合卡号
 		ret=PICC_Reader_Authentication_Pass(ReaderHandle,0x60,1,key);
 		if(ret!=0)
@@ -508,6 +508,10 @@ EEDS_HD_API int __stdcall iReadCard(unsigned char *OutXml,char *pErr)
 		}
 		Utils::BinToHexstr(DataStr,Data,16);
 		memcpy(sSFZH,DataStr,18);
+		if(sSFZH[17]>'a'||sSFZH[17]<'z'||sSFZH[17]>='A'||sSFZH[17]<='Z')
+		{
+			sSFZH[17]='X';
+		}
 		memcpy(sCSRQ,DataStr+18,8);
 		memcpy(sXB,DataStr+26,1);
 		//读民族
