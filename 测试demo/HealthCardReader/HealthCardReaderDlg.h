@@ -95,6 +95,7 @@ protected:
 	afx_msg void OnBtnPsamPubapp();
 	afx_msg void OnBtnPsamOrcer();
 	afx_msg void OnBtnPsamCer();
+	afx_msg void OnButton1();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

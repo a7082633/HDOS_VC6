@@ -6,31 +6,6 @@
 --------------------Configuration: USB_Test - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP2E5.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/USB_Test.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\HDOS-TEST\USB_Test\USB_Test.cpp"
-"D:\HDOS-TEST\USB_Test\USB_TestDlg.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP2E5.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP2E6.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/USB_Test.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\HDOS-TEST\USB_Test\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP2E6.tmp" 
-Creating command line "link.exe /nologo /subsystem:windows /incremental:yes /pdb:"Debug/USB_Test.pdb" /debug /machine:I386 /out:"Debug/USB_Test.exe" /pdbtype:sept  ".\Debug\StdAfx.obj" ".\Debug\USB_Test.obj" ".\Debug\USB_TestDlg.obj" ".\Debug\USB_Test.res" "
-<h3>Output Window</h3>
-Compiling...
-StdAfx.cpp
-Compiling...
-USB_Test.cpp
-USB_TestDlg.cpp
-Generating Code...
-Linking...
-Creating command line "bscmake.exe /nologo /o"Debug/USB_Test.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\USB_Test.sbr" ".\Debug\USB_TestDlg.sbr""
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 

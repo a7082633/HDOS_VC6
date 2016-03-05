@@ -153,6 +153,7 @@ MHC_CARDINTERFACE_API int __stdcall PowerOn(HANDLE hDev,int slot, char * ATR)
 
 MHC_CARDINTERFACE_API int __stdcall iVerifyPIN(HANDLE hDev,char * PIN)
 {
+	::MessageBox(NULL,PIN,NULL,MB_OK);
 	int ret;
 	char Reset[260];
 	char apdu[100];

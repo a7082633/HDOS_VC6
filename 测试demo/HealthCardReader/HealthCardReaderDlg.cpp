@@ -146,6 +146,7 @@ BEGIN_MESSAGE_MAP(CHealthCardReaderDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_PSAM_PUBAPP, OnBtnPsamPubapp)
 	ON_BN_CLICKED(IDC_BTN_PSAM_ORCER, OnBtnPsamOrcer)
 	ON_BN_CLICKED(IDC_BTN_PSAM_CER, OnBtnPsamCer)
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -1267,4 +1268,12 @@ void CHealthCardReaderDlg::OnBtnPsamCer()
 	int hDev=0;
 	char info[500]={0};
 	int i=iReader_SAM_Certificate(hDev,info);
+}
+
+void CHealthCardReaderDlg::OnButton1() 
+{
+	HANDLE  hDev=NULL;
+	char szData[100]={0};
+	int r=iR_DF03EDInfo (hDev,1,szData,87,18,1);
+
 }

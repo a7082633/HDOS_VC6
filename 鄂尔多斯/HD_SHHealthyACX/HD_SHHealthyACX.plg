@@ -3,87 +3,14 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: HD_SHHealthyACX - Win32 Debug--------------------
+--------------------Configuration: HD_SHHealthyACX - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP44B2.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_AFXDLL" /D "_MBCS" /D "_USRDLL" /FR"Debug/" /Fp"Debug/HD_SHHealthyACX.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\ConvertUtil.cpp"
-"D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp"
-"D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp"
-"D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\Utils.cpp"
-]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSP44B2.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP44B3.tmp" with contents
-[
-/nologo /subsystem:windows /dll /incremental:yes /pdb:"Debug/HD_SHHealthyACX.pdb" /debug /machine:I386 /def:".\HD_SHHealthyACX.def" /out:"Debug/HD_SHHealthyACX.ocx" /implib:"Debug/HD_SHHealthyACX.lib" /pdbtype:sept 
-".\Debug\ConvertUtil.obj"
-".\Debug\HD_SHHealthyACX.obj"
-".\Debug\HD_SHHealthyACXCtl.obj"
-".\Debug\HD_SHHealthyACXPpg.obj"
-".\Debug\StdAfx.obj"
-".\Debug\StringUtil.obj"
-".\Debug\Utils.obj"
-".\Debug\HD_SHHealthyACX.res"
-]
-Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSP44B3.tmp"
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSP44C3.bat" with contents
-[
-@echo off
-regsvr32 /s /c ".\Debug\HD_SHHealthyACX.ocx"
-echo regsvr32 exec. time > ".\Debug\regsvr32.trg"
-]
-Creating command line "C:\Users\zxx\AppData\Local\Temp\RSP44C3.bat"
-Compiling...
-ConvertUtil.cpp
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\ConvertUtil.cpp(69) : warning C4101: 'll_cou' : unreferenced local variable
-HD_SHHealthyACXCtl.cpp
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(402) : error C2065: 'ICC_Reader_Open' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(408) : error C2065: 'PICC_Reader_Request' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(411) : error C2065: 'ICC_Reader_Close' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(416) : error C2065: 'PICC_Reader_anticoll' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(423) : error C2065: 'PICC_Reader_Select' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(436) : error C2065: 'PICC_Reader_Authentication_Pass' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(443) : error C2065: 'PICC_Reader_Read' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(450) : error C2653: 'Utils' : is not a class or namespace name
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(450) : error C2065: 'BinToHexstr' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(476) : error C2653: 'Utils' : is not a class or namespace name
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(479) : error C2065: 'Is_IntName' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(481) : error C2653: 'CConvertUtil' : is not a class or namespace name
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(481) : error C2065: 'uf_gbk_int_covers' : undeclared identifier
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(495) : error C2653: 'Utils' : is not a class or namespace name
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\HD_SHHealthyACXCtl.cpp(519) : error C2653: 'Utils' : is not a class or namespace name
-StringUtil.cpp
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(48) : warning C4786: '??0?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAE@IABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@ABV?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@1@@Z' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(61) : warning C4786: '??0?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAE@PBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@0ABV?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@1@@Z' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(103) : warning C4786: '?rbegin@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAE?AV?$reverse_iterator@PAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@AAV12@PAV12@H@2@XZ' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(105) : warning C4786: '?rbegin@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QBE?AV?$reverse_iterator@PBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@ABV12@PBV12@H@2@XZ' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(107) : warning C4786: '?rend@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QAE?AV?$reverse_iterator@PAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@AAV12@PAV12@H@2@XZ' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(108) : warning C4786: '?rend@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QBE?AV?$reverse_iterator@PBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V12@ABV12@PBV12@H@2@XZ' : identifier was truncated to '255' characters in the browser information
-        D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(24) : see reference to class template instantiation 'std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >' being compiled
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(30) : warning C4305: 'initializing' : truncation from 'const unsigned int' to 'long'
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(49) : warning C4786: 'std::reverse_iterator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > const *,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::basic_string<char,std::char_traits<char>,std::allocator<char> > const &,std::basic_string<char,std::char_traits<char>,std::allocator<char> > const *,int>' : identifier was truncated to '255' characters in the debug information
-D:\github_HDOS\HDOS_VC6\鄂尔多斯\HD_SHHealthyACX\StringUtil.cpp(49) : warning C4786: 'std::reverse_iterator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > *,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::basic_string<char,std::char_traits<char>,std::allocator<char> > &,std::basic_string<char,std::char_traits<char>,std::allocator<char> > *,int>' : identifier was truncated to '255' characters in the debug information
-Utils.cpp
-Generating Code...
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(39) : warning C4786: 'std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >' : identifier was truncated to '255' characters in the debug information
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(52) : warning C4786: 'std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >' : identifier was truncated to '255' characters in the debug information
-c:\program files (x86)\microsoft visual studio\vc98\include\vector(60) : warning C4786: 'std::vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >::~vector<std::basic_string<char,std::char_traits<char>,std::allocator<char> >,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char> > > >' : identifier was truncated to '255' characters in the debug information
-Error executing cl.exe.
-<h3>Output Window</h3>
-Creating command line "bscmake.exe /nologo /o"Debug/HD_SHHealthyACX.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\ConvertUtil.sbr" ".\Debug\HD_SHHealthyACX.sbr" ".\Debug\HD_SHHealthyACXCtl.sbr" ".\Debug\HD_SHHealthyACXPpg.sbr" ".\Debug\StringUtil.sbr" ".\Debug\Utils.sbr""
-<h3>Output Window</h3>
 
 
 
 <h3>Results</h3>
-HD_SHHealthyACX.ocx - 15 error(s), 13 warning(s)
+HD_SHHealthyACX.ocx - 0 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

@@ -40,6 +40,7 @@ BHGX_HD_API BOOL __stdcall bProbe(void)
 
 BHGX_HD_API int __stdcall iOpen(void)
 {
+	::MessageBox(NULL,"´ò¿ª¶Ë¿Ú",NULL,MB_OK);
 	HANDLE hDev=NULL;
 	DevHandle = ICC_Reader_Open("USB1");
 	int ret=iDOpenPort();

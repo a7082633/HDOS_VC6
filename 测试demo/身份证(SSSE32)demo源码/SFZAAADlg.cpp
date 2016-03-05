@@ -210,6 +210,8 @@ void CSFZAAADlg::OnBtnclen()
 	CRect lRect;
 	pStatic->GetClientRect(&lRect);
 	pStatic->GetDC()->FillSolidRect(lRect.left ,lRect.top ,lRect.Width(),lRect.Height(), RGB(240, 240, 240));
+	//这个是GDI清空图片控件的，if this program have problem ,it must be not mine program.
+	//TODO:Add 
 }
 
 

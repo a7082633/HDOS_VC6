@@ -3,39 +3,94 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: HealthCardReader - Win32 Release--------------------
+--------------------Configuration: HealthCardReader - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB63C.tmp" with contents
+Creating command line "rc.exe /l 0x804 /fo"Debug/HealthCardReader.res" /d "_DEBUG" /d "_AFXDLL" "D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\HealthCardReader.rc"" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPD4A0.tmp" with contents
 [
-/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Release/HealthCardReader.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/HealthCardReader.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogAddImmuneRecord.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteAddrInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteAllergyRecord.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteClinicalInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteJobMarryInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteLicenceInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteOwnerInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWritePersonInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWritePublishInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteRelativeInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\DialogWriteSpecialInfo.cpp"
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\HealthCardReader.cpp"
 "D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\HealthCardReaderDlg.cpp"
 ]
-Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPB63C.tmp" 
-Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPB64C.tmp" with contents
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPD4A0.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPD4A1.tmp" with contents
 [
-/nologo /subsystem:windows /incremental:no /pdb:"Release/HealthCardReader.pdb" /machine:I386 /out:"Release/HealthCardReader.exe" 
-".\Release\DialogAddImmuneRecord.obj"
-".\Release\DialogWriteAddrInfo.obj"
-".\Release\DialogWriteAllergyRecord.obj"
-".\Release\DialogWriteClinicalInfo.obj"
-".\Release\DialogWriteJobMarryInfo.obj"
-".\Release\DialogWriteLicenceInfo.obj"
-".\Release\DialogWriteOwnerInfo.obj"
-".\Release\DialogWritePersonInfo.obj"
-".\Release\DialogWritePublishInfo.obj"
-".\Release\DialogWriteRelativeInfo.obj"
-".\Release\DialogWriteSpecialInfo.obj"
-".\Release\HealthCardReader.obj"
-".\Release\HealthCardReaderDlg.obj"
-".\Release\StdAfx.obj"
-".\Release\HealthCardReader.res"
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/HealthCardReader.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\github_HDOS\HDOS_VC6\≤‚ ‘demo\HealthCardReader\StdAfx.cpp"
 ]
-Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSPB64C.tmp"
+Creating command line "cl.exe @C:\Users\zxx\AppData\Local\Temp\RSPD4A1.tmp" 
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPD4A2.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/HealthCardReader.pdb" /debug /machine:I386 /out:"Debug/HealthCardReader.exe" /pdbtype:sept 
+".\Debug\DialogAddImmuneRecord.obj"
+".\Debug\DialogWriteAddrInfo.obj"
+".\Debug\DialogWriteAllergyRecord.obj"
+".\Debug\DialogWriteClinicalInfo.obj"
+".\Debug\DialogWriteJobMarryInfo.obj"
+".\Debug\DialogWriteLicenceInfo.obj"
+".\Debug\DialogWriteOwnerInfo.obj"
+".\Debug\DialogWritePersonInfo.obj"
+".\Debug\DialogWritePublishInfo.obj"
+".\Debug\DialogWriteRelativeInfo.obj"
+".\Debug\DialogWriteSpecialInfo.obj"
+".\Debug\HealthCardReader.obj"
+".\Debug\HealthCardReaderDlg.obj"
+".\Debug\StdAfx.obj"
+".\Debug\HealthCardReader.res"
+]
+Creating command line "link.exe @C:\Users\zxx\AppData\Local\Temp\RSPD4A2.tmp"
 <h3>Output Window</h3>
+Compiling resources...
 Compiling...
+StdAfx.cpp
+Compiling...
+DialogAddImmuneRecord.cpp
+DialogWriteAddrInfo.cpp
+DialogWriteAllergyRecord.cpp
+DialogWriteClinicalInfo.cpp
+DialogWriteJobMarryInfo.cpp
+DialogWriteLicenceInfo.cpp
+DialogWriteOwnerInfo.cpp
+DialogWritePersonInfo.cpp
+DialogWritePublishInfo.cpp
+DialogWriteRelativeInfo.cpp
+DialogWriteSpecialInfo.cpp
+HealthCardReader.cpp
 HealthCardReaderDlg.cpp
+Generating Code...
 Linking...
+Creating temporary file "C:\Users\zxx\AppData\Local\Temp\RSPD935.tmp" with contents
+[
+/nologo /o"Debug/HealthCardReader.bsc" 
+".\Debug\StdAfx.sbr"
+".\Debug\DialogAddImmuneRecord.sbr"
+".\Debug\DialogWriteAddrInfo.sbr"
+".\Debug\DialogWriteAllergyRecord.sbr"
+".\Debug\DialogWriteClinicalInfo.sbr"
+".\Debug\DialogWriteJobMarryInfo.sbr"
+".\Debug\DialogWriteLicenceInfo.sbr"
+".\Debug\DialogWriteOwnerInfo.sbr"
+".\Debug\DialogWritePersonInfo.sbr"
+".\Debug\DialogWritePublishInfo.sbr"
+".\Debug\DialogWriteRelativeInfo.sbr"
+".\Debug\DialogWriteSpecialInfo.sbr"
+".\Debug\HealthCardReader.sbr"
+".\Debug\HealthCardReaderDlg.sbr"]
+Creating command line "bscmake.exe @C:\Users\zxx\AppData\Local\Temp\RSPD935.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 
